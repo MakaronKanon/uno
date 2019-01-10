@@ -14,8 +14,8 @@ import static Interfaces.GameConstants.*;
  */
 public class CardDeck{
 	
-	private final LinkedList<NumberCard> numberCards;
-	private final LinkedList<ActionCard> actionCards;
+	private final LinkedList<UNOCard> numberCards;
+	private final LinkedList<UNOCard> actionCards;
 	private final LinkedList<WildCard> wildCards;
 	
 	private LinkedList<UNOCard> UNOcards;
@@ -23,8 +23,8 @@ public class CardDeck{
 	public CardDeck(){
 		
 		//Initialize Cards
-		numberCards = new LinkedList<NumberCard>();
-		actionCards = new LinkedList<ActionCard>();
+		numberCards = new LinkedList<UNOCard>();
+		actionCards = new LinkedList<UNOCard>();
 		wildCards = new LinkedList<WildCard>();
 		
 		UNOcards = new LinkedList<UNOCard>();
@@ -42,7 +42,7 @@ public class CardDeck{
 			for(int num : UNO_NUMBERS){
 				int i=0;
 				do{
-					UNOcards.add(new NumberCard(color, Integer.toString(num)));
+					UNOcards.add(CardFactory.createNumberCard(color, Integer.toString(num)));
 					i++;
 				}while(num!=0 && i<2);
 			}
@@ -50,7 +50,7 @@ public class CardDeck{
 			//Create 24 ActionCards --> everything twice
 			for(String type : ActionTypes){
 				for(int i=0;i<2;i++)
-					UNOcards.add(new ActionCard(color, type));
+					UNOcards.add(CardFactory.createActionCard(color, type));
 			}					
 		}		
 		

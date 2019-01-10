@@ -5,6 +5,7 @@ import View.UNOCard;
 
 import static Interfaces.UNOConstants.NUMBERS;
 
+@Deprecated
 public class NumberCard extends UNOCard {
 
 	public NumberCard(){
