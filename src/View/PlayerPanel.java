@@ -25,7 +25,9 @@ import GameModel.Player;
 import Interfaces.GameConstants;
 import ServerController.MyButtonListener;
 
-public class PlayerPanel extends JPanel implements GameConstants {
+import static Interfaces.GameConstants.BUTTONLISTENER;
+
+public class PlayerPanel extends JPanel {
 
 	private Player player;
 	private String name;

@@ -1,16 +1,15 @@
 package GameModel;
 
-import java.awt.event.MouseEvent;
+import CardModel.CardDeck;
+import View.UNOCard;
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 
-import CardModel.CardDeck;
-import Interfaces.GameConstants;
-import View.PlayerPanel;
-import View.UNOCard;
+import static Interfaces.GameConstants.FIRSTHAND;
 
-public class Dealer implements GameConstants {
+public class Dealer {
 	
 	private CardDeck cardDeck;
 	private Stack<UNOCard> CardStack;	

@@ -7,10 +7,12 @@ import Interfaces.GameConstants;
 import ServerController.MyCardListener;
 import View.UNOCard;
 
+import static Interfaces.GameConstants.*;
+
 /**
  * This Class contains standard 108-Card stack
  */
-public class CardDeck implements GameConstants {
+public class CardDeck{
 	
 	private final LinkedList<NumberCard> numberCards;
 	private final LinkedList<ActionCard> actionCards;

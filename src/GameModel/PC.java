@@ -11,7 +11,9 @@ import CardModel.WildCard;
 import Interfaces.GameConstants;
 import View.UNOCard;
 
-public class PC extends Player implements GameConstants {
+import static Interfaces.UNOConstants.WILD;
+
+public class PC extends Player {
 
 	public PC() {
 		setName("PC");

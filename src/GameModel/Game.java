@@ -11,7 +11,12 @@ import CardModel.*;
 import Interfaces.GameConstants;
 import View.UNOCard;
 
-public class Game implements GameConstants {
+import static Interfaces.GameConstants.MANUAL;
+import static Interfaces.GameConstants.infoPanel;
+import static Interfaces.GameConstants.vsPC;
+import static Interfaces.UNOConstants.WILD;
+
+public class Game {
 
 	private Player[] players;
 	private boolean isOver;

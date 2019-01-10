@@ -15,7 +15,10 @@ import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
-public class Server implements GameConstants {
+import static Interfaces.GameConstants.*;
+import static Interfaces.UNOConstants.WILD;
+
+public class Server {
 	private Game game;
 	private Session session;
 	private Stack<UNOCard> playedCards;

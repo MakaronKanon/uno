@@ -4,9 +4,11 @@ import java.awt.Color;
 
 import View.UNOCard;
 
+import static Interfaces.UNOConstants.BLACK;
+import static Interfaces.UNOConstants.WILD;
+
 public class WildCard extends UNOCard {
 	
-	private int Function = 0;
 	private Color chosenColor;
 	
 	public WildCard() {

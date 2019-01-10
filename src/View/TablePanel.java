@@ -19,7 +19,10 @@ import CardModel.WildCard;
 import Interfaces.GameConstants;
 import Interfaces.UNOConstants;
 
-public class TablePanel extends JPanel implements GameConstants {
+import static Interfaces.GameConstants.infoPanel;
+import static Interfaces.UNOConstants.WILD;
+
+public class TablePanel extends JPanel {
 	
 	private UNOCard topCard;	
 	private JPanel table;

@@ -5,8 +5,11 @@ import javax.swing.JFrame;
 import Interfaces.GameConstants;
 import ServerController.Server;
 
+import static Interfaces.GameConstants.BUTTONLISTENER;
+import static Interfaces.GameConstants.CARDLISTENER;
 
-public class MainFrame extends JFrame implements GameConstants {
+
+public class MainFrame extends JFrame {
 	
 	private Session mainPanel;
 	private Server server;
