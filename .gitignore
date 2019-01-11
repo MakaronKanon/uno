@@ -8,6 +8,8 @@
 #.idea/misc.xml
 #.idea/modules.xml
 
+*.plantuml
+
 
 # User-specific stuff
 .idea/**/workspace.xml
