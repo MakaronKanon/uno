@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import Interfaces.GameConstants;
-import ServerController.MyCardListener;
+import ServerController.Server;
 import ServerController.UNOCardController;
 import View.UNOCard;
 
@@ -21,7 +21,7 @@ public class CardDeck{
 	
 	private LinkedList<UNOCard> UNOcards;
 	
-	public CardDeck(MyCardListener CARDLISTENER){
+	public CardDeck(Server server){
 		
 		//Initialize Cards
 		numberCards = new LinkedList<UNOCard>();
@@ -31,7 +31,7 @@ public class CardDeck{
 		UNOcards = new LinkedList<UNOCard>();
 		
 		addCards();
-		addCardListener(CARDLISTENER);
+		addCardListener(server);
 	}
 	
 	
@@ -64,9 +64,10 @@ public class CardDeck{
 	}
 	
 	//Cards have MouseListener
-	public void addCardListener(MyCardListener listener){
+	public void addCardListener(Server server){
 		for(UNOCard card: UNOcards) {
-			UNOCardController controller = new UNOCardController(listener);
+			UNOCardController controller = new UNOCardController();
+			controller.setServer(server);
 			controller.setUnoCard(card);
 			card.setUnoCardController(controller); // this is temporary in model
 //			card.addMouseListener(listener);

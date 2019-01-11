@@ -9,12 +9,13 @@ public class UNOCardController {
 
 
     // this is temporary during refactoring
-    private MyCardListener myCardListener;
+//    private MyCardListener myCardListener;
+    private Server server;
 
     private UNOCard unoCard;
 
-    public UNOCardController(MyCardListener myCardListener) {
-        this.myCardListener = myCardListener;
+    public void setServer(Server server) {
+        this.server = server;
     }
 
     public void setUnoCard(UNOCard unoCard) {
@@ -25,20 +26,25 @@ public class UNOCardController {
         Point p = unoCard.getLocation();
         p.y -=20;
         unoCard.setLocation(p);
-
-//        myCardListener.mouseEntered(e); // these are wrappers for now, e is also temporary
     }
 
     public void cardStopHovered(MouseEvent e) {
         Point p = unoCard.getLocation();
         p.y +=20;
         unoCard.setLocation(p);
-//        myCardListener.mouseExited(e);
-
     }
 
     public void cardClicked(MouseEvent e) {
-        myCardListener.mousePressed(e);
+
+        // todo remove almost all of this logic, especially this catching null.
+        try{
+            if(server.canPlay)
+                server.playThisCard(unoCard);
+
+        }catch(NullPointerException ex){
+            ex.printStackTrace();
+        }
+//        myCardListener.mousePressed(e);
     }
 
 }

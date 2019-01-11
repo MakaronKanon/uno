@@ -28,6 +28,8 @@ public class UNOCard extends JPanel implements CardInterface {
 
 	private UNOCardController unoCardController;
 
+	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
+
 	public UNOCard(Color cardColor, int cardType, String cardValue){
 		this.cardColor = cardColor;
 		this.type = cardType;
@@ -39,24 +41,31 @@ public class UNOCard extends JPanel implements CardInterface {
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e){
 				setBorder(focusedBorder);
-				unoCardController.cardHovered(e);
+				if (listenerEnabled)
+					unoCardController.cardHovered(e);
 			}
 
 			public void mouseExited(MouseEvent e){
 				setBorder(defaultBorder);
-				unoCardController.cardStopHovered(e);
+				if (listenerEnabled)
+					unoCardController.cardStopHovered(e);
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Unocard clicked");
-				unoCardController.cardClicked(e);
+				if (listenerEnabled)
+					unoCardController.cardClicked(e);
 			}
 		});
 	}
 
 	public void setUnoCardController(UNOCardController unoCardController) {
 		this.unoCardController = unoCardController;
+	}
+
+	public void disableMouseListener() {
+		listenerEnabled = false;
 	}
 	
 	protected void paintComponent(Graphics g){

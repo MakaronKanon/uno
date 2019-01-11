@@ -25,14 +25,11 @@ public class Server {
 	public boolean canPlay;
 	private int mode;
 
-	MyCardListener CARDLISTENER;
 
-	public Server(MyCardListener CARDLISTENER) {
-
-		this.CARDLISTENER = CARDLISTENER;
+	public Server() {
 
 		mode = requestMode();
-		game = new Game(mode, CARDLISTENER);
+		game = new Game(mode,this);
 		playedCards = new Stack<UNOCard>();
 
 		// First Card
@@ -64,7 +61,8 @@ public class Server {
 	
 	//coustom settings for the first card
 	private void modifyFirstCard(UNOCard firstCard) {
-		firstCard.removeMouseListener(CARDLISTENER);
+		firstCard.disableMouseListener();
+//		firstCard.removeMouseListener(CARDLISTENER);
 		if (firstCard.getType() == WILD) {
 			int random = new Random().nextInt() % 4;
 			try {
@@ -93,7 +91,8 @@ public class Server {
 			// Card validation
 			if (isValidMove(clickedCard)) {
 
-				clickedCard.removeMouseListener(CARDLISTENER);
+//				clickedCard.removeMouseListener(CARDLISTENER);
+				clickedCard.disableMouseListener();
 				playedCards.add(clickedCard);
 				game.removePlayedCard(clickedCard);
 
