@@ -22,12 +22,14 @@ public class Game {
 	private Dealer dealer;
 	private Stack<ModelUnoCard> cardStack;
 	
-	
+
+
+
 	public Game(GameMode mode, Server server){
 		
 		gamemode = mode;
 		
-		//Create players
+		//Create players //todo this needs to be move to view, can have factory methods for the different modes
 		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
 		String name2 = JOptionPane.showInputDialog("Player 2");
 		

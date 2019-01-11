@@ -26,5 +26,5 @@ public interface GameConstants extends UNOConstants {
 //	int[] GAMEMODES = {vsPC, MANUAL};
 
 	
-	InfoPanel infoPanel = new InfoPanel();
+	InfoPanel infoPanel = new InfoPanel(); // todo this is worse than the other constans here..
 }

@@ -11,9 +11,6 @@ public class MainFrame extends JFrame {
 	
 
 	public MainFrame(Session mainPanel){
-
-
-
 		add(mainPanel);
 	}
 }

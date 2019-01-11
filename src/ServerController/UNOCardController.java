@@ -36,6 +36,8 @@ public class UNOCardController {
 
     public void cardClicked(MouseEvent e) {
 
+        // Send playCard event to player/model
+
         // todo remove almost all of this logic, especially this catching null.
         try{
             if(server.canPlay)

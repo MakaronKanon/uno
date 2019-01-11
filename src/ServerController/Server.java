@@ -26,9 +26,9 @@ public class Server {
 	private GameMode mode;
 
 
-	public Server() {
+	public Server(GameMode gameMode) {
 
-		mode = requestMode();
+		this.mode = gameMode;
 
 		game = new Game(mode,this);
 		playedCards = new Stack<ModelUnoCard>();
@@ -45,23 +45,7 @@ public class Server {
 	}
 
 	//return if it's 2-Player's mode or PC-mode
-	private GameMode requestMode() {
 
-		Object[] options = { "vs PC", "Manual", "Cancel" };
-
-		int n = JOptionPane.showOptionDialog(null,
-				"Choose a Game Mode to play", "Game Mode",
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-				null, options, options[0]);
-
-		if (n == 2)
-			System.exit(1);
-
-		if (n == 0)
-			return vsPC;
-		else
-			return GameMode.twoPlayer;
-	}
 	
 	//coustom settings for the first card
 	private void modifyFirstCard(UNOCard firstCard) {

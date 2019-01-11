@@ -20,6 +20,7 @@ public class PC extends Player {
 		super.setCards();
 	}
 
+
 	
 	//PC plays a card
 	public boolean play(ModelUnoCard topCard) {
