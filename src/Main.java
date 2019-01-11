@@ -1,6 +1,6 @@
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
+import ServerController.Server;
 import View.MainFrame;
 
 public class Main {
@@ -11,7 +11,10 @@ public class Main {
 		//Create Frame and invoke it.
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				JFrame frame = new MainFrame();
+
+				Server server = new Server();
+
+				JFrame frame = new MainFrame(server.getSession());
 				frame.setVisible(true);
 				frame.setResizable(false);
 				frame.setLocation(200, 100);

@@ -2,38 +2,31 @@ package GameModel;
 
 import java.util.LinkedList;
 
+import CardModel.ModelUnoCard;
 import View.UNOCard;
 
 public class Player {
 	
-	private String name = null;
+	private String name;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
-	private LinkedList<UNOCard> myCards;
+	private LinkedList<ModelUnoCard> myCards = new LinkedList<>();
 	
 	private int playedCards = 0;
-	
-	public Player(){
-		myCards = new LinkedList<UNOCard>();
-	}
-	
+
 	public Player(String player){
-		setName(player);
-		myCards = new LinkedList<UNOCard>();
+		name = player;
 	}
-	
-	public void setName(String newName){
-		name = newName;
-	}
-	
+
 	public String getName(){
 		return this.name;
 	}
-	public void obtainCard(UNOCard card){
+	
+	public void obtainCard(ModelUnoCard card){
 		myCards.add(card);
 	}
 	
-	public LinkedList<UNOCard> getAllCards(){
+	public LinkedList<ModelUnoCard> getAllCards(){
 		return myCards;
 	}
 	
@@ -79,6 +72,6 @@ public class Player {
 	}
 	
 	public void setCards(){
-		myCards = new LinkedList<UNOCard>();
+		myCards = new LinkedList<ModelUnoCard>();
 	}
 }

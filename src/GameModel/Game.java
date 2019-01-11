@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import CardModel.*;
 import Interfaces.GameConstants;
 import ServerController.Server;
-import View.UNOCard;
 
 import static Interfaces.GameConstants.MANUAL;
 import static Interfaces.GameConstants.infoPanel;
@@ -25,7 +24,7 @@ public class Game {
 	
 	private PC pc;
 	private Dealer dealer;
-	private Stack<UNOCard> cardStack;
+	private Stack<ModelUnoCard> cardStack;
 	
 	
 	public Game(int mode, Server server){
@@ -57,11 +56,11 @@ public class Game {
 		return players;
 	}
 
-	public UNOCard getCard() {
+	public ModelUnoCard getCard() {
 		return dealer.getCard();
 	}
 	
-	public void removePlayedCard(UNOCard playedCard) {
+	public void removePlayedCard(ModelUnoCard playedCard) {
 
 		for (Player p : players) {
 			if (p.hasCard(playedCard)){
@@ -79,13 +78,13 @@ public class Game {
 	}
 	
 	//give player a card
-	public void drawCard(UNOCard topCard) {
+	public void drawCard(ModelUnoCard topCard) {
 
 		boolean canPlay = false;
 
 		for (Player p : players) {
 			if (p.isMyTurn()) {
-				UNOCard newCard = getCard();
+				ModelUnoCard newCard = getCard();
 				p.obtainCard(newCard);
 				canPlay = canPlay(topCard, newCard);
 				break;
@@ -159,7 +158,7 @@ public class Game {
 	}
 
 	//Check if this card can be played
-	private boolean canPlay(UNOCard topCard, UNOCard newCard) {
+	private boolean canPlay(ModelUnoCard topCard, ModelUnoCard newCard) {
 
 		// Color or value matches
 		if (topCard.getColor().equals(newCard.getColor())
@@ -209,7 +208,7 @@ public class Game {
 	}
 
 	//if it's PC's turn, play it for pc
-	public void playPC(UNOCard topCard) {		
+	public void playPC(ModelUnoCard topCard) {
 		
 		if (pc.isMyTurn()) {
 			boolean done = pc.play(topCard);

@@ -3,10 +3,8 @@ package CardModel;
 import java.awt.Color;
 import java.util.LinkedList;
 
-import Interfaces.GameConstants;
 import ServerController.Server;
 import ServerController.UNOCardController;
-import View.UNOCard;
 
 import static Interfaces.GameConstants.*;
 
@@ -15,20 +13,20 @@ import static Interfaces.GameConstants.*;
  */
 public class CardDeck{
 	
-	private final LinkedList<UNOCard> numberCards;
-	private final LinkedList<UNOCard> actionCards;
+	private final LinkedList<ModelUnoCard> numberCards;
+	private final LinkedList<ModelUnoCard> actionCards;
 	private final LinkedList<WildCard> wildCards;
 	
-	private LinkedList<UNOCard> UNOcards;
+	private LinkedList<ModelUnoCard> UNOcards;
 	
 	public CardDeck(Server server){
 		
 		//Initialize Cards
-		numberCards = new LinkedList<UNOCard>();
-		actionCards = new LinkedList<UNOCard>();
+		numberCards = new LinkedList<ModelUnoCard>();
+		actionCards = new LinkedList<ModelUnoCard>();
 		wildCards = new LinkedList<WildCard>();
 		
-		UNOcards = new LinkedList<UNOCard>();
+		UNOcards = new LinkedList<ModelUnoCard>();
 		
 		addCards();
 		addCardListener(server);
@@ -65,7 +63,7 @@ public class CardDeck{
 	
 	//Cards have MouseListener
 	public void addCardListener(Server server){
-		for(UNOCard card: UNOcards) {
+		for(ModelUnoCard card: UNOcards) {
 			UNOCardController controller = new UNOCardController();
 			controller.setServer(server);
 			controller.setUnoCard(card);
@@ -75,7 +73,7 @@ public class CardDeck{
 
 	}
 	
-	public LinkedList<UNOCard> getCards(){
+	public LinkedList<ModelUnoCard> getCards(){
 		return UNOcards;
 	}
 }

@@ -1,8 +1,8 @@
 package GameModel;
 
 import CardModel.CardDeck;
+import CardModel.ModelUnoCard;
 import ServerController.Server;
-import View.UNOCard;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -13,31 +13,31 @@ import static Interfaces.GameConstants.FIRSTHAND;
 public class Dealer {
 	
 	private CardDeck cardDeck;
-	private Stack<UNOCard> CardStack;	
+	private Stack<ModelUnoCard> CardStack;
 	
 	public Dealer(Server server){
 		this.cardDeck = new CardDeck(server);
 	}
 	
 	//Shuffle cards
-	public Stack<UNOCard> shuffle(){
+	public Stack<ModelUnoCard> shuffle(){
 		
-		LinkedList<UNOCard> DeckOfCards = cardDeck.getCards();
-		LinkedList<UNOCard> shuffledCards = new LinkedList<UNOCard>();
+		LinkedList<ModelUnoCard> DeckOfCards = cardDeck.getCards();
+		LinkedList<ModelUnoCard> shuffledCards = new LinkedList<ModelUnoCard>();
 		
 		while(!DeckOfCards.isEmpty()){
 			int totalCards = DeckOfCards.size();
 			
 			Random random = new Random();
 			int pos = (Math.abs(random.nextInt()))% totalCards;
-			
-			UNOCard randomCard = DeckOfCards.get(pos);
+
+			ModelUnoCard randomCard = DeckOfCards.get(pos);
 			DeckOfCards.remove(pos);
 			shuffledCards.add(randomCard);
 		}
 		
-		CardStack = new Stack<UNOCard>();
-		for(UNOCard card : shuffledCards){
+		CardStack = new Stack<ModelUnoCard>();
+		for(ModelUnoCard card : shuffledCards){
 			CardStack.add(card);
 		}
 		
@@ -54,7 +54,7 @@ public class Dealer {
 		}		
 	}
 	
-	public UNOCard getCard(){
+	public ModelUnoCard getCard(){
 		return CardStack.pop();
 	}
 }

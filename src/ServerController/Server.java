@@ -8,6 +8,7 @@ import java.util.Stack;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
+import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
@@ -21,7 +22,7 @@ import static Interfaces.UNOConstants.WILD;
 public class Server {
 	private Game game;
 	private Session session;
-	private Stack<UNOCard> playedCards;
+	private Stack<ModelUnoCard> playedCards;
 	public boolean canPlay;
 	private int mode;
 
@@ -29,11 +30,12 @@ public class Server {
 	public Server() {
 
 		mode = requestMode();
+
 		game = new Game(mode,this);
-		playedCards = new Stack<UNOCard>();
+		playedCards = new Stack<ModelUnoCard>();
 
 		// First Card
-		UNOCard firstCard = game.getCard();
+		ModelUnoCard firstCard = game.getCard();
 		modifyFirstCard(firstCard);
 
 		playedCards.add(firstCard);
@@ -80,7 +82,9 @@ public class Server {
 	
 	
 	//request to play a card
-	public void playThisCard(UNOCard clickedCard) {
+	public void playThisCard(UNOCard clickedCardUno) {
+
+		ModelUnoCard clickedCard = (ModelUnoCard) clickedCardUno; // todo this is temp
 
 		// Check player's turn
 		if (!isHisTurn(clickedCard)) {
@@ -214,7 +218,7 @@ public class Server {
 		session.refreshPanel();
 	}
 
-	public UNOCard peekTopCard() {
+	public ModelUnoCard peekTopCard() {
 		return playedCards.peek();
 	}
 

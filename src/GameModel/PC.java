@@ -7,24 +7,22 @@ import java.util.LinkedList;
 
 import javax.sound.midi.Receiver;
 
+import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import Interfaces.GameConstants;
-import View.UNOCard;
 
 import static Interfaces.UNOConstants.WILD;
 
 public class PC extends Player {
 
 	public PC() {
-		setName("PC");
+		super("PC");
 		super.setCards();
 	}
 
-	public PC(Player player) {
-	}
 	
 	//PC plays a card
-	public boolean play(UNOCard topCard) {
+	public boolean play(ModelUnoCard topCard) {
 
 		boolean done = false;
 
@@ -35,7 +33,7 @@ public class PC extends Player {
 			color = ((WildCard) topCard).getWildColor();			
 		}
 
-		for (UNOCard card : getAllCards()) {
+		for (ModelUnoCard card : getAllCards()) {
 
 			if (card.getColor().equals(color) || card.getValue().equals(value)) {
 				
@@ -56,7 +54,7 @@ public class PC extends Player {
 
 		// if no card was found, play wild card
 		if (!done) {
-			for (UNOCard card : getAllCards()) {
+			for (ModelUnoCard card : getAllCards()) {
 				if (card.getType() == WILD) {
 					MouseEvent doPress = new MouseEvent(card,
 							MouseEvent.MOUSE_PRESSED,

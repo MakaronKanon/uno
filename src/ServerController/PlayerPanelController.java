@@ -36,7 +36,7 @@ public class PlayerPanelController {
     }
 
     // In future we might want to convert model cards to unoviews. Or do that in the view.
-    public List<UNOCard> getPlayerCards() {
+    public List<? extends UNOCard> getPlayerCards() {
         return player.getAllCards();
     }
 
