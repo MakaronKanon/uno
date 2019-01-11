@@ -11,7 +11,7 @@ public class NumberCard extends UNOCard {
 
 	
 	public NumberCard(Color cardColor, String cardValue){
-		super(cardColor, UNOConstants.CardType.NUMBER, cardValue);
+
 	}
 
 }

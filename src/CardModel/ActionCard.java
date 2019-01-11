@@ -9,6 +9,6 @@ import static Interfaces.UNOConstants.CardType.ACTION;
 public class ActionCard extends UNOCard{
 
 	public ActionCard(Color cardColor, String cardValue){
-		super(cardColor,ACTION, cardValue);
+
 	}
 }

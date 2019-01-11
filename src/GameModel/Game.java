@@ -34,7 +34,7 @@ public class Game {
 		String name2 = JOptionPane.showInputDialog("Player 2");
 		
 		if(gamemode== GameMode.vsPC)
-			pc = new PC();
+			pc = new PC(server);
 		
 		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);		

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import CardModel.ModelUnoCard;
 import GameModel.Dealer;
 import GameModel.Game;
 import GameModel.Player;
@@ -24,7 +25,7 @@ public class Session extends JPanel {
 	
 	private Game game;
 	
-	public Session(Game newGame, UNOCard firstCard, Server server){
+	public Session(Game newGame, ModelUnoCard firstCard, Server server){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
@@ -47,12 +48,12 @@ public class Session extends JPanel {
 
 		PlayerPanelController playerPanelController = new PlayerPanelController(player1);
 		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2);
+		playerPanelController.setServer(server);
+		playerPanelController2.setServer(server);
 		player1panel = new PlayerPanel(playerPanelController);
 		player2panel = new PlayerPanel(playerPanelController2);
 		playerPanelController.setPlayerPanel(player1panel);
 		playerPanelController2.setPlayerPanel(player2panel);
-		playerPanelController.setServer(server);
-		playerPanelController2.setServer(server);
 	}
 	
 	public void refreshPanel(){
@@ -63,7 +64,8 @@ public class Session extends JPanel {
 		revalidate();
 	}
 	
-	public void updatePanel(UNOCard playedCard){
+	public void updatePanel(ModelUnoCard playedCard){
+
 		table.setPlayedCard(playedCard);
 		refreshPanel();
 	}	

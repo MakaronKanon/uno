@@ -14,7 +14,7 @@ public class UNOCardController {
 
     private UNOCard unoCard;
 
-    public void setServer(Server server) {
+    public UNOCardController(Server server) {
         this.server = server;
     }
 
@@ -37,15 +37,17 @@ public class UNOCardController {
     public void cardClicked(MouseEvent e) {
 
         // Send playCard event to player/model
-
-        // todo remove almost all of this logic, especially this catching null.
-        try{
-            if(server.canPlay)
-                server.playThisCard(unoCard);
-
-        }catch(NullPointerException ex){
-            ex.printStackTrace();
-        }
+        server.playThisCardIfPossible(unoCard.getModelUnoCard());
+//        if(server.canPlay)
+//            server.playThisCard(unoCard.getModelUnoCard());
+//        // todo remove almost all of this logic, especially this catching null.
+//        try{
+//            if(server.canPlay)
+//                server.playThisCard(unoCard);
+//
+//        }catch(NullPointerException ex){
+//            ex.printStackTrace();
+//        }
 //        myCardListener.mousePressed(e);
     }
 

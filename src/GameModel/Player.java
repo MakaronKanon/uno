@@ -34,11 +34,11 @@ public class Player {
 		return myCards.size();
 	}
 	
-	public boolean hasCard(UNOCard thisCard){
+	public boolean hasCard(ModelUnoCard thisCard){
 		return myCards.contains(thisCard);		
 	}
 	
-	public void removeCard(UNOCard thisCard){
+	public void removeCard(ModelUnoCard thisCard){
 		myCards.remove(thisCard);
 		playedCards++;
 	}

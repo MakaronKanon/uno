@@ -23,8 +23,14 @@ public class UNOCard extends JPanel {
 
 	private ModelUnoCard unoCardModel;
 
+	public ModelUnoCard getModelUnoCard() {
+		return unoCardModel;
+	}
+
 	public UNOCard(ModelUnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
+		this();
 		this.unoCardModel = unoCardModel;
+
 	}
 
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
@@ -34,7 +40,7 @@ public class UNOCard extends JPanel {
 
 	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
 
-	public UNOCard(Color cardColor, UNOConstants.CardType cardType, String cardValue){
+	public UNOCard(){
 
 		this.setPreferredSize(SIZE);
 		this.setBorder(defaultBorder);

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import Interfaces.GameConstants;
 import Interfaces.UNOConstants;
@@ -24,10 +25,10 @@ import static Interfaces.UNOConstants.CardType.WILD;
 
 public class TablePanel extends JPanel {
 	
-	private UNOCard topCard;
+	private ModelUnoCard topCard;
 	private JPanel table;
 	
-	public TablePanel(UNOCard firstCard){
+	public TablePanel(ModelUnoCard firstCard){
 		setOpaque(false);
 		setLayout(new GridBagLayout());
 		
@@ -48,7 +49,10 @@ public class TablePanel extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		table.add(topCard, c);
+
+		UNOCard unoCard = new UNOCard(topCard);
+		unoCard.disableMouseListener();
+		table.add(unoCard, c);
 	}
 	
 	private void setComponents() {
@@ -68,7 +72,7 @@ public class TablePanel extends JPanel {
 		add(infoPanel, c);	
 	}
 
-	public void setPlayedCard(UNOCard playedCard){
+	public void setPlayedCard(ModelUnoCard playedCard){
 		table.removeAll();
 		topCard = playedCard;
 		setTable();
@@ -76,7 +80,7 @@ public class TablePanel extends JPanel {
 		setBackgroundColor(playedCard);
 	}
 	
-	public void setBackgroundColor(UNOCard playedCard){
+	public void setBackgroundColor(ModelUnoCard playedCard){
 		Color background;
 		if(playedCard.getType()==WILD)
 			background = ((WildCard) playedCard).getWildColor();

@@ -46,10 +46,16 @@ public class Server {
 
 	//return if it's 2-Player's mode or PC-mode
 
+
+	public void playThisCardIfPossible(ModelUnoCard modelUnoCard) {
+		if (canPlay) {
+			playThisCard(modelUnoCard);
+		}
+	}
 	
 	//coustom settings for the first card
-	private void modifyFirstCard(UNOCard firstCard) {
-		firstCard.disableMouseListener();
+	private void modifyFirstCard(ModelUnoCard firstCard) {
+//		firstCard.disableMouseListener();
 //		firstCard.removeMouseListener(CARDLISTENER);
 		if (firstCard.getType() == WILD) {
 			int random = new Random().nextInt() % 4;
@@ -68,9 +74,9 @@ public class Server {
 	
 	
 	//request to play a card
-	public void playThisCard(UNOCard clickedCardUno) {
+	public void playThisCard(ModelUnoCard clickedCard) {
 
-		ModelUnoCard clickedCard = (ModelUnoCard) clickedCardUno; // todo this is temp
+//		ModelUnoCard clickedCard = (ModelUnoCard) clickedCardUno; // todo this is temp
 
 		// Check player's turn
 		if (!isHisTurn(clickedCard)) {
@@ -82,7 +88,7 @@ public class Server {
 			if (isValidMove(clickedCard)) {
 
 //				clickedCard.removeMouseListener(CARDLISTENER);
-				clickedCard.disableMouseListener();
+//				clickedCard.disableMouseListener();
 				playedCards.add(clickedCard);
 				game.removePlayedCard(clickedCard);
 
@@ -127,7 +133,7 @@ public class Server {
 	}
 	
 	//check player's turn
-	public boolean isHisTurn(UNOCard clickedCard) {
+	public boolean isHisTurn(ModelUnoCard clickedCard) {
 
 		for (Player p : game.getPlayers()) {
 			if (p.hasCard(clickedCard) && p.isMyTurn())
@@ -137,8 +143,8 @@ public class Server {
 	}
 
 	//check if it is a valid card
-	public boolean isValidMove(UNOCard playedCard) {
-		UNOCard topCard = peekTopCard();
+	public boolean isValidMove(ModelUnoCard playedCard) {
+		ModelUnoCard topCard = peekTopCard();
 
 		if (playedCard.getColor().equals(topCard.getColor())
 				|| playedCard.getValue().equals(topCard.getValue())) {
@@ -156,7 +162,7 @@ public class Server {
 	}
 
 	// ActionCards
-	private void performAction(UNOCard actionCard) {
+	private void performAction(ModelUnoCard actionCard) {
 
 		// Draw2PLUS
 		if (actionCard.getValue().equals(DRAW2PLUS))

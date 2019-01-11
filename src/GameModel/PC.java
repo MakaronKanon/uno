@@ -10,14 +10,18 @@ import javax.sound.midi.Receiver;
 import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import Interfaces.GameConstants;
+import ServerController.Server;
 
 import static Interfaces.UNOConstants.CardType.WILD;
 
 public class PC extends Player {
 
-	public PC() {
+	private Server server;
+
+	public PC(Server server) {
 		super("PC");
 		super.setCards();
+		this.server = server;
 	}
 
 
@@ -37,16 +41,17 @@ public class PC extends Player {
 		for (ModelUnoCard card : getAllCards()) {
 
 			if (card.getColor().equals(color) || card.getValue().equals(value)) {
-				
-				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
-						System.currentTimeMillis(),
-						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);				
-				card.dispatchEvent(doPress);
-				
-				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
-						System.currentTimeMillis(),
-						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-				card.dispatchEvent(doRelease);
+
+				server.playThisCardIfPossible(card);
+//				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
+//						System.currentTimeMillis(),
+//						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
+//				card.dispatchEvent(doPress);
+//
+//				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
+//						System.currentTimeMillis(),
+//						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
+//				card.dispatchEvent(doRelease);
 				
 				done = true;
 				break;
@@ -57,16 +62,17 @@ public class PC extends Player {
 		if (!done) {
 			for (ModelUnoCard card : getAllCards()) {
 				if (card.getType() == WILD) {
-					MouseEvent doPress = new MouseEvent(card,
-							MouseEvent.MOUSE_PRESSED,
-							System.currentTimeMillis(),
-							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-					card.dispatchEvent(doPress);
-					
-					MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
-							System.currentTimeMillis(),
-							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-					card.dispatchEvent(doRelease);
+					server.playThisCardIfPossible(card);
+//					MouseEvent doPress = new MouseEvent(card,
+//							MouseEvent.MOUSE_PRESSED,
+//							System.currentTimeMillis(),
+//							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
+//					card.dispatchEvent(doPress);
+//
+//					MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
+//							System.currentTimeMillis(),
+//							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
+//					card.dispatchEvent(doRelease);
 					
 					done = true;
 					break;

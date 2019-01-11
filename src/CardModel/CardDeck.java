@@ -63,13 +63,12 @@ public class CardDeck{
 	
 	//Cards have MouseListener
 	public void addCardListener(Server server){
-		for(ModelUnoCard card: UNOcards) {
-			UNOCardController controller = new UNOCardController();
-			controller.setServer(server);
-			controller.setUnoCard(card);
-			card.setUnoCardController(controller); // this is temporary in model
-//			card.addMouseListener(listener);
-		}
+//		for(ModelUnoCard card: UNOcards) {
+//			UNOCardController controller = new UNOCardController(server);
+//			controller.setUnoCard(card);
+//			card.setUnoCardController(controller); // this is temporary in model
+////			card.addMouseListener(listener);
+//		}
 
 	}
 	

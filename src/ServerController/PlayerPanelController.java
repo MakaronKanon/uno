@@ -1,9 +1,11 @@
 package ServerController;
 
+import CardModel.ModelUnoCard;
 import GameModel.Player;
 import View.PlayerPanel;
 import View.UNOCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerPanelController {
@@ -36,8 +38,17 @@ public class PlayerPanelController {
     }
 
     // In future we might want to convert model cards to unoviews. Or do that in the view.
-    public List<? extends UNOCard> getPlayerCards() {
-        return player.getAllCards();
+    public List<UNOCard> getPlayerCards() {
+        List<UNOCard> unoCards = new ArrayList<>();
+        for (ModelUnoCard card : player.getAllCards()) {
+            UNOCard unoCard = new UNOCard(card);
+            UNOCardController unoCardController = new UNOCardController(server);
+            unoCardController.setUnoCard(unoCard);
+            unoCard.setUnoCardController(unoCardController);
+            unoCards.add(unoCard);
+        }
+        return unoCards;
+//        return player.getAllCards();
     }
 
 
