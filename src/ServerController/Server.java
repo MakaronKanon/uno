@@ -25,10 +25,14 @@ public class Server {
 	public boolean canPlay;
 	private int mode;
 
-	public Server() {
+	MyCardListener CARDLISTENER;
+
+	public Server(MyButtonListener BUTTONLISTENER, MyCardListener CARDLISTENER) {
+
+		this.CARDLISTENER = CARDLISTENER;
 
 		mode = requestMode();
-		game = new Game(mode);
+		game = new Game(mode, CARDLISTENER);
 		playedCards = new Stack<UNOCard>();
 
 		// First Card
@@ -36,7 +40,7 @@ public class Server {
 		modifyFirstCard(firstCard);
 
 		playedCards.add(firstCard);
-		session = new Session(game, firstCard);
+		session = new Session(game, firstCard, BUTTONLISTENER);
 
 		game.whoseTurn();
 		canPlay = true;

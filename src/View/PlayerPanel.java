@@ -25,8 +25,6 @@ import GameModel.Player;
 import Interfaces.GameConstants;
 import ServerController.MyButtonListener;
 
-import static Interfaces.GameConstants.BUTTONLISTENER;
-
 public class PlayerPanel extends JPanel {
 
 	private Player player;
@@ -41,9 +39,13 @@ public class PlayerPanel extends JPanel {
 	private JLabel nameLbl;
 	private MyButtonHandler handler;
 
+	MyButtonListener BUTTONLISTENER;
+
 	// Constructor
-	public PlayerPanel(Player newPlayer) {
+	public PlayerPanel(Player newPlayer, MyButtonListener BUTTONLISTENER) {
 		setPlayer(newPlayer);
+
+		this.BUTTONLISTENER = BUTTONLISTENER;
 
 		myLayout = Box.createHorizontalBox();
 		cardHolder = new JLayeredPane();

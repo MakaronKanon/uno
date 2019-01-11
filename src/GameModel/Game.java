@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import CardModel.*;
 import Interfaces.GameConstants;
+import ServerController.MyCardListener;
 import View.UNOCard;
 
 import static Interfaces.GameConstants.MANUAL;
@@ -27,7 +28,7 @@ public class Game {
 	private Stack<UNOCard> cardStack;
 	
 	
-	public Game(int mode){
+	public Game(int mode, MyCardListener CARDLISTENER){
 		
 		GAMEMODE = mode;
 		
@@ -45,7 +46,7 @@ public class Game {
 		players = new Player[]{player1, player2};			
 		
 		//Create Dealer
-		dealer = new Dealer();
+		dealer = new Dealer(CARDLISTENER);
 		cardStack = dealer.shuffle();
 		dealer.spreadOut(players);
 		

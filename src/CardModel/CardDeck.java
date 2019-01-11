@@ -20,7 +20,7 @@ public class CardDeck{
 	
 	private LinkedList<UNOCard> UNOcards;
 	
-	public CardDeck(){
+	public CardDeck(MyCardListener CARDLISTENER){
 		
 		//Initialize Cards
 		numberCards = new LinkedList<UNOCard>();

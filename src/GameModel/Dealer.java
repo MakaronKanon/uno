@@ -1,6 +1,7 @@
 package GameModel;
 
 import CardModel.CardDeck;
+import ServerController.MyCardListener;
 import View.UNOCard;
 
 import java.util.LinkedList;
@@ -14,8 +15,8 @@ public class Dealer {
 	private CardDeck cardDeck;
 	private Stack<UNOCard> CardStack;	
 	
-	public Dealer(){
-		this.cardDeck = new CardDeck();
+	public Dealer(MyCardListener CARDLISTENER){
+		this.cardDeck = new CardDeck(CARDLISTENER);
 	}
 	
 	//Shuffle cards
