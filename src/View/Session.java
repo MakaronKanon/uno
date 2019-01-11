@@ -48,8 +48,8 @@ public class Session extends JPanel {
 
 		PlayerPanelController playerPanelController = new PlayerPanelController(player1);
 		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2);
-		player1panel = new PlayerPanel(player1, playerPanelController);
-		player2panel = new PlayerPanel(player2, playerPanelController2);
+		player1panel = new PlayerPanel(playerPanelController);
+		player2panel = new PlayerPanel(playerPanelController2);
 		playerPanelController.setPlayerPanel(player1panel);
 		playerPanelController2.setPlayerPanel(player2panel);
 		playerPanelController.setServer(server);

@@ -2,6 +2,9 @@ package ServerController;
 
 import GameModel.Player;
 import View.PlayerPanel;
+import View.UNOCard;
+
+import java.util.List;
 
 public class PlayerPanelController {
 
@@ -27,6 +30,17 @@ public class PlayerPanelController {
     public String getPlayerName() {
         return player.getName();
     }
+
+    public int getPlayerCardsCount() {
+        return player.getTotalCards();
+    }
+
+    // In future we might want to convert model cards to unoviews. Or do that in the view.
+    public List<UNOCard> getPlayerCards() {
+        return player.getAllCards();
+    }
+
+
 
     public void drawBtnClicked() {
         if (player.isMyTurn()) {

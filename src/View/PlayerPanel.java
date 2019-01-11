@@ -27,9 +27,6 @@ import ServerController.PlayerPanelController;
 
 public class PlayerPanel extends JPanel {
 
-	private Player player;
-	private String name;
-
 	private Box myLayout;
 	private JLayeredPane cardHolder;
 	private Box controlPanel;
@@ -42,9 +39,7 @@ public class PlayerPanel extends JPanel {
 
 
 	// Constructor
-	public PlayerPanel(Player newPlayer, PlayerPanelController playerPanelController) {
-		setPlayer(newPlayer);
-
+	public PlayerPanel(PlayerPanelController playerPanelController) {
 		this.playerPanelController = playerPanelController;
 
 		myLayout = Box.createHorizontalBox();
@@ -53,7 +48,7 @@ public class PlayerPanel extends JPanel {
 
 		// Set
 		setCards();
-		setControlPanel();
+		setControlPanel(playerPanelController.getPlayerName());
 
 		myLayout.add(cardHolder);
 		myLayout.add(Box.createHorizontalStrut(40));
@@ -61,35 +56,21 @@ public class PlayerPanel extends JPanel {
 		add(myLayout);
 
 
-
-		draw.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				anActionPerformed(e);
-				playerPanelController.drawBtnClicked();
-			}
-		});
-		
-		sayUNO.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				anActionPerformed(e);
-				playerPanelController.sayUnoBtnClicked();
-
-			}
-		});
+		draw.addActionListener(e -> playerPanelController.drawBtnClicked());
+		sayUNO.addActionListener(e -> playerPanelController.sayUnoBtnClicked());
 	}
 
+	// This class removes all cards, then re-adds the new version of them, so it gets updated.
 	public void setCards() {
 		cardHolder.removeAll();
 
 		// Origin point at the center
-		Point origin = getPoint(cardHolder.getWidth(), player.getTotalCards());
+		Point origin = getPoint(cardHolder.getWidth(), playerPanelController.getPlayerCardsCount());
 		int offset = calculateOffset(cardHolder.getWidth(),
-				player.getTotalCards());
+				playerPanelController.getPlayerCardsCount());
 
 		int i = 0;
-		for (UNOCard card : player.getAllCards()) {
+		for (UNOCard card : playerPanelController.getPlayerCards()) {
 			card.setBounds(origin.x, origin.y, card.CARDSIZE.width,
 					card.CARDSIZE.height);
 			cardHolder.add(card, i++);
@@ -99,23 +80,10 @@ public class PlayerPanel extends JPanel {
 		repaint();
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-		setPlayerName(player.getName());
-	}
-
-	public void setPlayerName(String playername) {
-		this.name = playername;
-	}
-
-	private void setControlPanel() {
+	private void setControlPanel(String playerName) {
 		draw = new JButton("Draw");
 		sayUNO = new JButton("Say UNO");
-		nameLbl = new JLabel(name);
+		nameLbl = new JLabel(playerName);
 
 		// style
 		draw.setBackground(new Color(79, 129, 189));
