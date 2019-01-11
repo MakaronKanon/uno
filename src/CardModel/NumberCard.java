@@ -8,8 +8,6 @@ import static Interfaces.UNOConstants.NUMBERS;
 @Deprecated
 public class NumberCard extends UNOCard {
 
-	public NumberCard(){
-	}
 	
 	public NumberCard(Color cardColor, String cardValue){
 		super(cardColor, NUMBERS, cardValue);		

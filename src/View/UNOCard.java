@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 
 import Interfaces.CardInterface;
 import Interfaces.UNOConstants;
+import ServerController.UNOCardController;
 
 public class UNOCard extends JPanel implements CardInterface {
 	
@@ -24,10 +25,9 @@ public class UNOCard extends JPanel implements CardInterface {
 	
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
 	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
-	
-	public UNOCard(){
-	}
-	
+
+	private UNOCardController unoCardController;
+
 	public UNOCard(Color cardColor, int cardType, String cardValue){
 		this.cardColor = cardColor;
 		this.type = cardType;
@@ -36,7 +36,27 @@ public class UNOCard extends JPanel implements CardInterface {
 		this.setPreferredSize(CARDSIZE);
 		this.setBorder(defaultBorder);
 		
-		this.addMouseListener(new MouseHandler());
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e){
+				setBorder(focusedBorder);
+				unoCardController.cardHovered(e);
+			}
+
+			public void mouseExited(MouseEvent e){
+				setBorder(defaultBorder);
+				unoCardController.cardStopHovered(e);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("Unocard clicked");
+				unoCardController.cardClicked(e);
+			}
+		});
+	}
+
+	public void setUnoCardController(UNOCardController unoCardController) {
+		this.unoCardController = unoCardController;
 	}
 	
 	protected void paintComponent(Graphics g){
@@ -79,20 +99,6 @@ public class UNOCard extends JPanel implements CardInterface {
 		g2.setColor(Color.white);
 		g2.setFont(defaultFont);
 		g2.drawString(value, 2*margin,5*margin);		
-	}	
-	
-	/**
-	 * My Mouse Listener 
-	 */
-	class MouseHandler extends MouseAdapter {
-		
-		public void mouseEntered(MouseEvent e){
-			setBorder(focusedBorder);
-		}
-		
-		public void mouseExited(MouseEvent e){
-			setBorder(defaultBorder);
-		}
 	}
 	
 	public void setCardSize(Dimension newSize){

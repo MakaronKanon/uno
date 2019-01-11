@@ -10,9 +10,7 @@ import static Interfaces.UNOConstants.WILD;
 public class WildCard extends UNOCard {
 	
 	private Color chosenColor;
-	
-	public WildCard() {
-	}
+
 	
 	public WildCard(String cardValue){
 		super(BLACK, WILD, cardValue);		
