@@ -3,7 +3,7 @@ package CardModel;
 import java.awt.Color;
 
 import static Interfaces.UNOConstants.BLACK;
-import static Interfaces.UNOConstants.WILD;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class WildCard extends ModelUnoCard {
 	

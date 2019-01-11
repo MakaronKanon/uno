@@ -11,7 +11,7 @@ import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import Interfaces.GameConstants;
 
-import static Interfaces.UNOConstants.WILD;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class PC extends Player {
 

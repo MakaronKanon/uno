@@ -1,44 +1,40 @@
 package GameModel;
 
-import java.awt.Color;
-import java.util.LinkedList;
-import java.util.Random;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
 import CardModel.*;
-import Interfaces.GameConstants;
 import ServerController.Server;
 
-import static Interfaces.GameConstants.MANUAL;
+import static Interfaces.GameConstants.*;
 import static Interfaces.GameConstants.infoPanel;
-import static Interfaces.GameConstants.vsPC;
-import static Interfaces.UNOConstants.WILD;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class Game {
 
 	private Player[] players;
 	private boolean isOver;
-	private int GAMEMODE;
+	private GameMode gamemode;
+
 	
 	private PC pc;
 	private Dealer dealer;
 	private Stack<ModelUnoCard> cardStack;
 	
 	
-	public Game(int mode, Server server){
+	public Game(GameMode mode, Server server){
 		
-		GAMEMODE = mode;
+		gamemode = mode;
 		
 		//Create players
-		String name = (GAMEMODE==MANUAL) ? JOptionPane.showInputDialog("Player 1") : "PC";	
+		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
 		String name2 = JOptionPane.showInputDialog("Player 2");
 		
-		if(GAMEMODE==vsPC)
+		if(gamemode== GameMode.vsPC)
 			pc = new PC();
 		
-		Player player1 = (GAMEMODE==vsPC) ? pc : new Player(name);
+		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);		
 		player2.toggleTurn();				//Initially, player2's turn		
 			

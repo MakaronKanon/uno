@@ -12,9 +12,10 @@ public interface UNOConstants {
 	public static Color BLACK = new Color(0,0,0);
 	
 	//Types
-	public static int NUMBERS = 1;
-	public static int ACTION = 2;
-	public static int WILD = 3;
+//	public static int NUMBERS = 1;
+//	public static int ACTION = 2;
+//	public static int WILD = 3;
+	enum CardType {NUMBER, ACTION, WILD} //todo not following open closed, do something with classes
 	
 	//ActionCard Characters
 	Character charREVERSE = (char) 8634;							//Decimal

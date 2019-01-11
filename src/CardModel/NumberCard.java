@@ -1,16 +1,17 @@
 package CardModel;
 import java.awt.Color;
 
+import Interfaces.UNOConstants;
 import View.UNOCard;
 
-import static Interfaces.UNOConstants.NUMBERS;
+import static javax.swing.text.html.parser.DTDConstants.NUMBERS;
 
 @Deprecated
 public class NumberCard extends UNOCard {
 
 	
 	public NumberCard(Color cardColor, String cardValue){
-		super(cardColor, NUMBERS, cardValue);		
+		super(cardColor, UNOConstants.CardType.NUMBER, cardValue);
 	}
 
 }

@@ -20,11 +20,11 @@ import Interfaces.GameConstants;
 import Interfaces.UNOConstants;
 
 import static Interfaces.GameConstants.infoPanel;
-import static Interfaces.UNOConstants.WILD;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class TablePanel extends JPanel {
 	
-	private UNOCard topCard;	
+	private UNOCard topCard;
 	private JPanel table;
 	
 	public TablePanel(UNOCard firstCard){

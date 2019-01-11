@@ -1,18 +1,18 @@
 package CardModel;
 
+import Interfaces.UNOConstants;
+
 import java.awt.*;
 
-import static Interfaces.UNOConstants.ACTION;
-import static Interfaces.UNOConstants.NUMBERS;
 
 public class CardFactory {
 
     public static ModelUnoCard createActionCard(Color cardColor, String cardValue) {
-        return new ModelUnoCard(cardColor, ACTION, cardValue);
+        return new ModelUnoCard(cardColor, UNOConstants.CardType.ACTION, cardValue);
     }
 
     public static ModelUnoCard createNumberCard(Color cardColor, String cardValue) {
-        return new ModelUnoCard(cardColor, NUMBERS, cardValue);
+        return new ModelUnoCard(cardColor, UNOConstants.CardType.NUMBER, cardValue);
     }
 
 }

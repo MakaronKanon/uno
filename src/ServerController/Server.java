@@ -5,26 +5,25 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
-import Interfaces.GameConstants;
 import View.Session;
 import View.UNOCard;
 
 import static Interfaces.GameConstants.*;
-import static Interfaces.UNOConstants.WILD;
+import static Interfaces.GameConstants.GameMode.vsPC;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class Server {
 	private Game game;
 	private Session session;
 	private Stack<ModelUnoCard> playedCards;
 	public boolean canPlay;
-	private int mode;
+	private GameMode mode;
 
 
 	public Server() {
@@ -46,7 +45,7 @@ public class Server {
 	}
 
 	//return if it's 2-Player's mode or PC-mode
-	private int requestMode() {
+	private GameMode requestMode() {
 
 		Object[] options = { "vs PC", "Manual", "Cancel" };
 
@@ -58,7 +57,10 @@ public class Server {
 		if (n == 2)
 			System.exit(1);
 
-		return GAMEMODES[n];
+		if (n == 0)
+			return vsPC;
+		else
+			return GameMode.twoPlayer;
 	}
 	
 	//coustom settings for the first card
@@ -124,7 +126,7 @@ public class Server {
 		
 		
 		
-		if(mode==vsPC && canPlay){
+		if(mode== vsPC && canPlay){
 			if(game.isPCsTurn()){
 				game.playPC(peekTopCard());
 			}
@@ -184,7 +186,7 @@ public class Server {
 	private void performWild(WildCard functionCard) {		
 
 		//System.out.println(game.whoseTurn());
-		if(mode==1 && game.isPCsTurn()){			
+		if(mode==vsPC && game.isPCsTurn()){
 			int random = new Random().nextInt() % 4;
 			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
 		}

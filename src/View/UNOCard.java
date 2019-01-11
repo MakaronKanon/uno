@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import CardModel.ModelUnoCard;
+import Interfaces.UNOConstants;
 import ServerController.UNOCardController;
 
 public class UNOCard extends JPanel {
@@ -28,8 +29,7 @@ public class UNOCard extends JPanel {
 
 
 //	private String value = null;
-	private int type = 0;
-	
+
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
 	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
 
@@ -37,8 +37,7 @@ public class UNOCard extends JPanel {
 
 	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
 
-	public UNOCard(Color cardColor, int cardType, String cardValue){
-		this.type = cardType;
+	public UNOCard(Color cardColor, UNOConstants.CardType cardType, String cardValue){
 //		this.value = cardValue;
 		
 		this.setPreferredSize(SIZE);
@@ -136,14 +135,17 @@ public class UNOCard extends JPanel {
 		return unoCardModel.getValue();
 	}
 
-
-	public void setType(int newType) {
-		this.type = newType;
+	public UNOConstants.CardType getType() {
+		return unoCardModel.getType();
 	}
 
-	public int getType() {
-		return type;
-	}
+//	public void setType(UNOConstants.CardType newType) {
+//		this.type = newType;
+//	}
+//
+//	public UNOConstants.CardType getType() {
+//		return type;
+//	}
 
 	public Dimension getSize() {
 		return SIZE;
