@@ -6,7 +6,7 @@ import java.awt.*;
 
 import static Interfaces.UNOConstants.CardType;
 
-public class ModelUnoCard { // todo temporarily extends UNOCard in transition
+public class ModelUnoCard {
 
     private Color color;
     private String value; // could be x, ?, 1, 2, 13 etc.

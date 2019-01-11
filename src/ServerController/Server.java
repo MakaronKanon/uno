@@ -34,8 +34,7 @@ public class Server {
 
 		// First Card
 		ModelUnoCard firstCard = game.getCard();
-		modifyFirstCard(firstCard);
-
+		
 		playedCards.add(firstCard);
 		session = new Session(game, firstCard, this);
 
@@ -49,20 +48,6 @@ public class Server {
 	public void playThisCardIfPossible(ModelUnoCard modelUnoCard) {
 		if (canPlay) {
 			playThisCard(modelUnoCard);
-		}
-	}
-	
-	//coustom settings for the first card
-	private void modifyFirstCard(ModelUnoCard firstCard) {
-//		firstCard.disableMouseListener();
-//		firstCard.removeMouseListener(CARDLISTENER);
-		if (firstCard.getType() == WILD) {
-			int random = new Random().nextInt() % 4;
-			try {
-				((WildCard) firstCard).useWildColor(UNO_COLORS[Math.abs(random)]);
-			} catch (Exception ex) {
-				System.out.println("something wrong with modifyFirstcard");
-			}
 		}
 	}
 	

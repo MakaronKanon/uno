@@ -29,7 +29,6 @@ public class CardDeck{
 		UNOcards = new LinkedList<ModelUnoCard>();
 		
 		addCards();
-		addCardListener(server);
 	}
 	
 	
@@ -59,17 +58,6 @@ public class CardDeck{
 			}
 		}
 		
-	}
-	
-	//Cards have MouseListener
-	public void addCardListener(Server server){
-//		for(ModelUnoCard card: UNOcards) {
-//			UNOCardController controller = new UNOCardController(server);
-//			controller.setUnoCard(card);
-//			card.setUnoCardController(controller); // this is temporary in model
-////			card.addMouseListener(listener);
-//		}
-
 	}
 	
 	public LinkedList<ModelUnoCard> getCards(){

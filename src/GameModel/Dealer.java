@@ -2,6 +2,7 @@ package GameModel;
 
 import CardModel.CardDeck;
 import CardModel.ModelUnoCard;
+import CardModel.WildCard;
 import ServerController.Server;
 
 import java.util.LinkedList;
@@ -9,6 +10,9 @@ import java.util.Random;
 import java.util.Stack;
 
 import static Interfaces.GameConstants.FIRSTHAND;
+import static Interfaces.GameConstants.UNO_COLORS;
+import static Interfaces.UNOConstants.CardType.NUMBER;
+import static Interfaces.UNOConstants.CardType.WILD;
 
 public class Dealer {
 	
@@ -32,15 +36,19 @@ public class Dealer {
 			int pos = (Math.abs(random.nextInt()))% totalCards;
 
 			ModelUnoCard randomCard = DeckOfCards.get(pos);
+			if (shuffledCards.size() == 0 && randomCard.getType() != NUMBER) {
+				continue; // Make sure first card is not a wild.
+			}
 			DeckOfCards.remove(pos);
 			shuffledCards.add(randomCard);
+
 		}
 		
 		CardStack = new Stack<ModelUnoCard>();
 		for(ModelUnoCard card : shuffledCards){
 			CardStack.add(card);
 		}
-		
+
 		return CardStack;
 	}
 	
