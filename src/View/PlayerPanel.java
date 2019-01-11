@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 
 import GameModel.Player;
 import Interfaces.GameConstants;
-import ServerController.MyButtonListener;
 import ServerController.PlayerPanelController;
 
 public class PlayerPanel extends JPanel {
@@ -41,14 +40,12 @@ public class PlayerPanel extends JPanel {
 
 	private PlayerPanelController playerPanelController;
 
-	MyButtonListener BUTTONLISTENER;
 
 	// Constructor
-	public PlayerPanel(Player newPlayer, MyButtonListener BUTTONLISTENER, PlayerPanelController playerPanelController) {
+	public PlayerPanel(Player newPlayer, PlayerPanelController playerPanelController) {
 		setPlayer(newPlayer);
 
 		this.playerPanelController = playerPanelController;
-		this.BUTTONLISTENER = BUTTONLISTENER;
 
 		myLayout = Box.createHorizontalBox();
 		cardHolder = new JLayeredPane();
@@ -156,18 +153,6 @@ public class PlayerPanel extends JPanel {
 		} else {
 			p.x = (width - calculateOffset(width, totalCards) * totalCards) / 2;
 			return p;
-		}
-	}
-
-	@Deprecated
-	private void anActionPerformed(ActionEvent e) {
-		if(player.isMyTurn()){
-
-			if(e.getSource()==draw)
-
-				BUTTONLISTENER.drawCard();
-			else if(e.getSource()==sayUNO)
-				BUTTONLISTENER.sayUNO();
 		}
 	}
 

@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import GameModel.Dealer;
 import GameModel.Game;
 import GameModel.Player;
-import ServerController.MyButtonListener;
 import ServerController.MyCardListener;
 import ServerController.PlayerPanelController;
 import ServerController.Server;
@@ -26,14 +25,14 @@ public class Session extends JPanel {
 	
 	private Game game;
 	
-	public Session(Game newGame, UNOCard firstCard, MyButtonListener BUTTONLISTENER, Server server){
+	public Session(Game newGame, UNOCard firstCard, Server server){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
 		
 		game = newGame;
 		
-		setPlayers(BUTTONLISTENER, server);
+		setPlayers(server);
 		table = new TablePanel(firstCard);
 		player1panel.setOpaque(false);
 		player2panel.setOpaque(false);
@@ -43,14 +42,14 @@ public class Session extends JPanel {
 		add(player2panel, BorderLayout.SOUTH);
 	}
 	
-	private void setPlayers(MyButtonListener BUTTONLISTENER, Server server) {
+	private void setPlayers(Server server) {
 		Player player1 = game.getPlayers()[0];
 		Player player2 = game.getPlayers()[1];
 
 		PlayerPanelController playerPanelController = new PlayerPanelController(player1);
 		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2);
-		player1panel = new PlayerPanel(player1, BUTTONLISTENER, playerPanelController);
-		player2panel = new PlayerPanel(player2, BUTTONLISTENER, playerPanelController2);
+		player1panel = new PlayerPanel(player1, playerPanelController);
+		player2panel = new PlayerPanel(player2, playerPanelController2);
 		playerPanelController.setPlayerPanel(player1panel);
 		playerPanelController2.setPlayerPanel(player2panel);
 		playerPanelController.setServer(server);

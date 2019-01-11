@@ -27,7 +27,7 @@ public class Server {
 
 	MyCardListener CARDLISTENER;
 
-	public Server(MyButtonListener BUTTONLISTENER, MyCardListener CARDLISTENER) {
+	public Server(MyCardListener CARDLISTENER) {
 
 		this.CARDLISTENER = CARDLISTENER;
 
@@ -40,7 +40,7 @@ public class Server {
 		modifyFirstCard(firstCard);
 
 		playedCards.add(firstCard);
-		session = new Session(game, firstCard, BUTTONLISTENER, this);
+		session = new Session(game, firstCard, this);
 
 		game.whoseTurn();
 		canPlay = true;
