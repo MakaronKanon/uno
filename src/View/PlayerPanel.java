@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import GameModel.Player;
 import Interfaces.GameConstants;
 import ServerController.MyButtonListener;
+import ServerController.PlayerPanelController;
 
 public class PlayerPanel extends JPanel {
 
@@ -37,14 +38,16 @@ public class PlayerPanel extends JPanel {
 	private JButton draw;
 	private JButton sayUNO;
 	private JLabel nameLbl;
-	private MyButtonHandler handler;
+
+	private PlayerPanelController playerPanelController;
 
 	MyButtonListener BUTTONLISTENER;
 
 	// Constructor
-	public PlayerPanel(Player newPlayer, MyButtonListener BUTTONLISTENER) {
+	public PlayerPanel(Player newPlayer, MyButtonListener BUTTONLISTENER, PlayerPanelController playerPanelController) {
 		setPlayer(newPlayer);
 
+		this.playerPanelController = playerPanelController;
 		this.BUTTONLISTENER = BUTTONLISTENER;
 
 		myLayout = Box.createHorizontalBox();
@@ -60,13 +63,24 @@ public class PlayerPanel extends JPanel {
 		myLayout.add(controlPanel);
 		add(myLayout);
 
-		// Register Listeners
-		handler = new MyButtonHandler();
-		draw.addActionListener(BUTTONLISTENER);
-		draw.addActionListener(handler);
+
+
+		draw.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				anActionPerformed(e);
+				playerPanelController.drawBtnClicked();
+			}
+		});
 		
-		sayUNO.addActionListener(BUTTONLISTENER);
-		sayUNO.addActionListener(handler);
+		sayUNO.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				anActionPerformed(e);
+				playerPanelController.sayUnoBtnClicked();
+
+			}
+		});
 	}
 
 	public void setCards() {
@@ -144,18 +158,17 @@ public class PlayerPanel extends JPanel {
 			return p;
 		}
 	}
-	
-	class MyButtonHandler implements ActionListener{
-		
-		public void actionPerformed(ActionEvent e) {
-			
-			if(player.isMyTurn()){
-				
-				if(e.getSource()==draw)
-					BUTTONLISTENER.drawCard();
-				else if(e.getSource()==sayUNO)
-					BUTTONLISTENER.sayUNO();
-			}
+
+	@Deprecated
+	private void anActionPerformed(ActionEvent e) {
+		if(player.isMyTurn()){
+
+			if(e.getSource()==draw)
+
+				BUTTONLISTENER.drawCard();
+			else if(e.getSource()==sayUNO)
+				BUTTONLISTENER.sayUNO();
 		}
 	}
+
 }

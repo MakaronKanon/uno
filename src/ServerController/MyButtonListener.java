@@ -2,7 +2,8 @@ package ServerController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MyButtonListener implements ActionListener {
+@Deprecated
+public class MyButtonListener {
 		
 	Server myServer;
 	
@@ -19,10 +20,5 @@ public class MyButtonListener implements ActionListener {
 		if(myServer.canPlay)
 			myServer.submitSaidUNO();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-	}
-
 	
 }

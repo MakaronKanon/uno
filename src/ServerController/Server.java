@@ -40,7 +40,7 @@ public class Server {
 		modifyFirstCard(firstCard);
 
 		playedCards.add(firstCard);
-		session = new Session(game, firstCard, BUTTONLISTENER);
+		session = new Session(game, firstCard, BUTTONLISTENER, this);
 
 		game.whoseTurn();
 		canPlay = true;

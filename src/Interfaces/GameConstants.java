@@ -25,9 +25,7 @@ public interface GameConstants extends UNOConstants {
 	int MANUAL = 2;
 	
 	int[] GAMEMODES = {vsPC, MANUAL};
-	
-//	MyCardListener CARDLISTENER = new MyCardListener();
-//	MyButtonListener BUTTONLISTENER = new MyButtonListener();
+
 	
 	InfoPanel infoPanel = new InfoPanel();
 }

@@ -16,39 +16,50 @@ import GameModel.Game;
 import GameModel.Player;
 import ServerController.MyButtonListener;
 import ServerController.MyCardListener;
+import ServerController.PlayerPanelController;
+import ServerController.Server;
 
 public class Session extends JPanel {
-	private PlayerPanel player1;
-	private PlayerPanel player2;
+	private PlayerPanel player1panel;
+	private PlayerPanel player2panel;
 	private TablePanel table;	
 	
 	private Game game;
 	
-	public Session(Game newGame, UNOCard firstCard, MyButtonListener BUTTONLISTENER){
+	public Session(Game newGame, UNOCard firstCard, MyButtonListener BUTTONLISTENER, Server server){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
 		
 		game = newGame;
 		
-		setPlayers(BUTTONLISTENER);
+		setPlayers(BUTTONLISTENER, server);
 		table = new TablePanel(firstCard);
-		player1.setOpaque(false);
-		player2.setOpaque(false);
+		player1panel.setOpaque(false);
+		player2panel.setOpaque(false);
 		
-		add(player1,BorderLayout.NORTH);
+		add(player1panel,BorderLayout.NORTH);
 		add(table, BorderLayout.CENTER);
-		add(player2, BorderLayout.SOUTH);		
+		add(player2panel, BorderLayout.SOUTH);
 	}
 	
-	private void setPlayers(MyButtonListener BUTTONLISTENER) {
-		player1 = new PlayerPanel(game.getPlayers()[0], BUTTONLISTENER);
-		player2 = new PlayerPanel(game.getPlayers()[1], BUTTONLISTENER);
+	private void setPlayers(MyButtonListener BUTTONLISTENER, Server server) {
+		Player player1 = game.getPlayers()[0];
+		Player player2 = game.getPlayers()[1];
+
+		PlayerPanelController playerPanelController = new PlayerPanelController(player1);
+		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2);
+		player1panel = new PlayerPanel(player1, BUTTONLISTENER, playerPanelController);
+		player2panel = new PlayerPanel(player2, BUTTONLISTENER, playerPanelController2);
+		playerPanelController.setPlayerPanel(player1panel);
+		playerPanelController2.setPlayerPanel(player2panel);
+		playerPanelController.setServer(server);
+		playerPanelController2.setServer(server);
 	}
 	
 	public void refreshPanel(){
-		player1.setCards();
-		player2.setCards();
+		player1panel.setCards();
+		player2panel.setCards();
 		
 		table.revalidate();		
 		revalidate();
