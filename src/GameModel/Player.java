@@ -3,7 +3,7 @@ package GameModel;
 import java.util.LinkedList;
 
 import CardModel.ModelUnoCard;
-import View.UNOCard;
+
 
 public class Player {
 	

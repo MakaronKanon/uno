@@ -1,7 +1,6 @@
 package CardModel;
 
 import Interfaces.UNOConstants;
-import View.UNOCard;
 
 import java.awt.*;
 
