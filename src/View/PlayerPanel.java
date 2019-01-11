@@ -71,8 +71,8 @@ public class PlayerPanel extends JPanel {
 
 		int i = 0;
 		for (UNOCard card : playerPanelController.getPlayerCards()) {
-			card.setBounds(origin.x, origin.y, card.CARDSIZE.width,
-					card.CARDSIZE.height);
+			card.setBounds(origin.x, origin.y, card.getSize().width,
+					card.getSize().height);
 			cardHolder.add(card, i++);
 			cardHolder.moveToFront(card);
 			origin.x += offset;

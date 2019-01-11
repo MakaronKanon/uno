@@ -13,14 +13,21 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import Interfaces.CardInterface;
-import Interfaces.UNOConstants;
+import CardModel.ModelUnoCard;
 import ServerController.UNOCardController;
 
-public class UNOCard extends JPanel implements CardInterface {
-	
-	private Color cardColor = null;
-	private String value = null;
+public class UNOCard extends JPanel {
+
+	private final static Dimension SIZE = new Dimension(100, 150);
+
+	private ModelUnoCard unoCardModel;
+
+	public UNOCard(ModelUnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
+		this.unoCardModel = unoCardModel;
+	}
+
+
+//	private String value = null;
 	private int type = 0;
 	
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
@@ -31,11 +38,10 @@ public class UNOCard extends JPanel implements CardInterface {
 	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
 
 	public UNOCard(Color cardColor, int cardType, String cardValue){
-		this.cardColor = cardColor;
 		this.type = cardType;
-		this.value = cardValue;
+//		this.value = cardValue;
 		
-		this.setPreferredSize(CARDSIZE);
+		this.setPreferredSize(SIZE);
 		this.setBorder(defaultBorder);
 		
 		this.addMouseListener(new MouseAdapter() {
@@ -69,11 +75,18 @@ public class UNOCard extends JPanel implements CardInterface {
 	}
 	
 	protected void paintComponent(Graphics g){
+
+		// info needed to paint
+		int cardWidth = SIZE.width;
+		int cardHeight = SIZE.height;
+		Color cardColor = getColor();
+		String value = getValue();
+
+
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
-		int cardWidth = CARDSIZE.width;
-		int cardHeight = CARDSIZE.height;
+
 		
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, cardWidth, cardHeight);
@@ -113,32 +126,26 @@ public class UNOCard extends JPanel implements CardInterface {
 	public void setCardSize(Dimension newSize){
 		this.setPreferredSize(newSize);
 	}
-	
-	public void setColor(Color newColor) {
-		this.cardColor = newColor;
-	}
 
 	public Color getColor() {
-		return cardColor;
+		return unoCardModel.getColor();
 	}
 
-	@Override
-	public void setValue(String newValue) {
-		this.value = newValue;		
-	}
 
-	@Override
 	public String getValue() {
-		return value;
+		return unoCardModel.getValue();
 	}
 
-	@Override
+
 	public void setType(int newType) {
 		this.type = newType;
 	}
 
-	@Override
 	public int getType() {
 		return type;
+	}
+
+	public Dimension getSize() {
+		return SIZE;
 	}
 }

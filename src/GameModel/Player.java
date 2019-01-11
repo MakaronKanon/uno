@@ -21,7 +21,7 @@ public class Player {
 	public String getName(){
 		return this.name;
 	}
-	
+
 	public void obtainCard(ModelUnoCard card){
 		myCards.add(card);
 	}
