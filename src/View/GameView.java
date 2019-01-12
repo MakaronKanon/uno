@@ -25,10 +25,6 @@ public class GameView extends JPanel {
 	private Game game;
 	private Controller controller;
 
-//	public void setServer(Server server) {
-//		setPlayers(server, controller);
-//	}
-
 	public GameView(Game newGame, ModelUnoCard firstCard, Controller controller){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
@@ -38,7 +34,6 @@ public class GameView extends JPanel {
 
 		this.controller = controller;
 		setPlayers(game, controller);
-//		setPlayers(server);
 
 	}
 	
@@ -48,8 +43,6 @@ public class GameView extends JPanel {
 
 		PlayerPanelController playerPanelController = new PlayerPanelController(player1, controller, game);
 		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2, controller, game);
-//		playerPanelController.setServer(server);
-//		playerPanelController2.setServer(server);
 		player1panel = new PlayerPanel(playerPanelController);
 		player2panel = new PlayerPanel(playerPanelController2);
 		playerPanelController.setPlayerPanel(player1panel);
@@ -79,9 +72,5 @@ public class GameView extends JPanel {
 		table.setPlayedCard(playedCard);
 		refreshPanel();
 	}	
-	
-//	@Override
-//	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//	}
+
 }

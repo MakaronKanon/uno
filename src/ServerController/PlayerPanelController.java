@@ -57,7 +57,6 @@ public class PlayerPanelController {
             unoCards.add(unoCard);
         }
         return unoCards;
-//        return player.getAllCards();
     }
 
 
@@ -74,17 +73,6 @@ public class PlayerPanelController {
 
     public void sayUnoBtnClicked() {
         game.playerSayUno(player);
-//        if (server.canPlay) {
-//            player.sayUno();
-//        }
-
-
-//        if (player.isMyTurn()) {
-//            if (server.canPlay){
-//                server.submitSaidUNO();
-//            }
-//            System.out.println("SayUno button clicked");
-//        }
 
     }
 }

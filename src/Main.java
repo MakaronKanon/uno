@@ -2,12 +2,9 @@ import javax.swing.*;
 
 import GameModel.Facade;
 import GameModel.Game;
-import GameModel.Player;
 import Interfaces.GameConstants;
 import ServerController.Controller;
-import ServerController.Server;
 import View.GameView;
-import View.InfoPanel;
 import View.MainFrame;
 
 import java.awt.*;
@@ -31,14 +28,10 @@ public class Main {
 
 				Facade facade = new Facade();
 				Game game = new Game(gameMode);
-				Controller controller =
-                        new Controller(infoPanel, facade, game);
+				Controller controller = new Controller(infoPanel, facade, game);
 				GameView gameView = new GameView(game, game.getTopCard(), controller);
 				controller.setGameView(gameView);
-//				Server server = new Server(gameMode, gameView);
-//				server.setGame(game);
-//				game.setServer(server);
-//				gameView.setServer(server);
+
 				game.addGameListener(controller);
 
 
