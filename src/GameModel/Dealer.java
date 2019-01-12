@@ -19,8 +19,8 @@ public class Dealer {
 	private CardDeck cardDeck;
 	private Stack<ModelUnoCard> CardStack;
 	
-	public Dealer(Server server){
-		this.cardDeck = new CardDeck(server);
+	public Dealer(){
+		this.cardDeck = new CardDeck();
 	}
 	
 	//Shuffle cards

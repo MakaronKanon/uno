@@ -19,7 +19,7 @@ public class CardDeck{
 	
 	private LinkedList<ModelUnoCard> UNOcards;
 	
-	public CardDeck(Server server){
+	public CardDeck(){
 		
 		//Initialize Cards
 		numberCards = new LinkedList<ModelUnoCard>();

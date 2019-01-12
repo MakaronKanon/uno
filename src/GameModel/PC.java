@@ -18,10 +18,14 @@ public class PC extends Player {
 
 	private Server server;
 
-	public PC(Server server) {
+	public void setServer(Server server) {
+		this.server = server;
+	}
+
+	public PC() {
 		super("PC");
 		super.setCards();
-		this.server = server;
+//		this.server = server;
 	}
 
 
@@ -43,16 +47,6 @@ public class PC extends Player {
 			if (card.getColor().equals(color) || card.getValue().equals(value)) {
 
 				server.playThisCardIfPossible(card);
-//				MouseEvent doPress = new MouseEvent(card, MouseEvent.MOUSE_PRESSED,
-//						System.currentTimeMillis(),
-//						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-//				card.dispatchEvent(doPress);
-//
-//				MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
-//						System.currentTimeMillis(),
-//						(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-//				card.dispatchEvent(doRelease);
-				
 				done = true;
 				break;
 			}
@@ -63,25 +57,17 @@ public class PC extends Player {
 			for (ModelUnoCard card : getAllCards()) {
 				if (card.getType() == WILD) {
 					server.playThisCardIfPossible(card);
-//					MouseEvent doPress = new MouseEvent(card,
-//							MouseEvent.MOUSE_PRESSED,
-//							System.currentTimeMillis(),
-//							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-//					card.dispatchEvent(doPress);
-//
-//					MouseEvent doRelease = new MouseEvent(card, MouseEvent.MOUSE_RELEASED,
-//							System.currentTimeMillis(),
-//							(int) MouseEvent.MOUSE_EVENT_MASK, 5, 5, 1, true);
-//					card.dispatchEvent(doRelease);
+//					playCard(card);
 					
 					done = true;
 					break;
 				}
 			}
 		}
-		
+
 		if(getTotalCards()==1 || getTotalCards()==2)
-			saysUNO();
+			sayUno(); //todo bug, pc does not say uno because its not his turn
+
 		
 		return done;
 	}

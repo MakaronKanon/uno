@@ -1,8 +1,12 @@
 import javax.swing.*;
 
+import GameModel.Game;
 import Interfaces.GameConstants;
 import ServerController.Server;
+import View.GameView;
 import View.MainFrame;
+
+import java.awt.*;
 
 import static Interfaces.GameConstants.GameMode.vsPC;
 
@@ -19,9 +23,17 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 
-				Server server = new Server(gameMode);
+				Game game = new Game(gameMode);
 
-				JFrame frame = new MainFrame(server.getSession());
+				GameView gameView = new GameView(game, game.getTopCard());
+				Server server = new Server(gameMode, gameView);
+				server.setGame(game);
+				game.setServer(server);
+				gameView.setServer(server);
+
+
+				JFrame frame = new MainFrame(server.getGameView());
+				frame.setBackground(Color.PINK);
 				frame.setVisible(true);
 				frame.setResizable(false);
 				frame.setLocation(200, 100);

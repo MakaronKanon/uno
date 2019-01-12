@@ -1,5 +1,6 @@
 package ServerController;
 
+import GameModel.Player;
 import View.UNOCard;
 
 import java.awt.*;
@@ -12,10 +13,13 @@ public class UNOCardController {
 //    private MyCardListener myCardListener;
     private Server server;
 
+    private Player player;
+
     private UNOCard unoCard;
 
-    public UNOCardController(Server server) {
+    public UNOCardController(Server server, Player player) {
         this.server = server;
+        this.player = player;
     }
 
     public void setUnoCard(UNOCard unoCard) {
@@ -36,19 +40,11 @@ public class UNOCardController {
 
     public void cardClicked(MouseEvent e) {
 
+//        unoCard.getModelUnoCard();
         // Send playCard event to player/model
-        server.playThisCardIfPossible(unoCard.getModelUnoCard());
-//        if(server.canPlay)
-//            server.playThisCard(unoCard.getModelUnoCard());
-//        // todo remove almost all of this logic, especially this catching null.
-//        try{
-//            if(server.canPlay)
-//                server.playThisCard(unoCard);
-//
-//        }catch(NullPointerException ex){
-//            ex.printStackTrace();
-//        }
-//        myCardListener.mousePressed(e);
+        player.playCard(unoCard.getModelUnoCard());
+        server.playThisCardIfPossible(unoCard.getModelUnoCard()); // todo catch if cant play card and display error
+
     }
 
 }

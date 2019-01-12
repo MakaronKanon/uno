@@ -62,10 +62,18 @@ public class Player {
 	public boolean getSaidUNO(){
 		return saidUNO;
 	}
-	
-	public void saysUNO(){
-		saidUNO = true;
+
+	public void sayUno() {
+		if (isMyTurn) {
+			//todo punish if said uno while having more than two cards (give them +2)
+			System.out.println(name + " said uno");
+			saidUNO = true;
+		} // todo throw if tried to say uno but not your turn so ui can show the user
 	}
+
+//	public void saysUNO(){
+//		saidUNO = true;
+//	}
 	
 	public void setSaidUNOFalse(){
 		saidUNO = false;
@@ -73,5 +81,16 @@ public class Player {
 	
 	public void setCards(){
 		myCards = new LinkedList<ModelUnoCard>();
+	}
+
+	public void playCard(ModelUnoCard modelUnoCard) {
+		if (!isMyTurn) {
+			// throw not my turn exception : maybe tho this is not the player's responsibility
+			return;
+		}
+		if (!hasCard(modelUnoCard)) {
+			// throw down have card exception
+			return;
+		}
 	}
 }

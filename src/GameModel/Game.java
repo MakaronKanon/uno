@@ -1,5 +1,6 @@
 package GameModel;
 
+import java.awt.*;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
@@ -21,11 +22,22 @@ public class Game {
 	private PC pc;
 	private Dealer dealer;
 	private Stack<ModelUnoCard> cardStack;
-	
+	private Stack<ModelUnoCard> playedCards = new Stack<>();
 
 
+	public Stack<ModelUnoCard> playedCards() {
+		return playedCards;
+	}
 
-	public Game(GameMode mode, Server server){
+	public ModelUnoCard getTopCard() {
+		return playedCards.peek();
+	}
+
+	public void setServer(Server server) {
+		pc.setServer(server);
+	}
+
+	public Game(GameMode mode){
 		
 		gamemode = mode;
 		
@@ -34,7 +46,7 @@ public class Game {
 		String name2 = JOptionPane.showInputDialog("Player 2");
 		
 		if(gamemode== GameMode.vsPC)
-			pc = new PC(server);
+			pc = new PC();
 		
 		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);		
@@ -43,8 +55,14 @@ public class Game {
 		players = new Player[]{player1, player2};			
 		
 		//Create Dealer
-		dealer = new Dealer(server);
+		dealer = new Dealer();
 		cardStack = dealer.shuffle();
+
+		// First Card
+		ModelUnoCard firstCard = getCard();
+		playedCards().add(firstCard);
+
+
 		dealer.spreadOut(players);
 		
 		isOver = false;
@@ -76,8 +94,8 @@ public class Game {
 	}
 	
 	//give player a card
-	public void drawCard(ModelUnoCard topCard) {
-
+	public void drawCard() {
+		ModelUnoCard topCard = getTopCard();
 		boolean canPlay = false;
 
 		for (Player p : players) {
@@ -174,29 +192,17 @@ public class Game {
 		return false;
 	}
 
-	//Check whether the player said or forgot to say UNO
-	public void checkUNO() {
-		for (Player p : players) {
-			if (p.isMyTurn()) {
-				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
-					infoPanel.setError(p.getName() + " Forgot to say UNO");
-					p.obtainCard(getCard());
-					p.obtainCard(getCard());
-				}
-			}
-		}		
+	public void setSaidUNO() {
+//		for (Player p : players) {
+//			if (p.isMyTurn()) {
+//				if (p.getTotalCards() == 2) {
+//					p.saysUNO();
+//					infoPanel.setError(p.getName() + " said UNO");
+//				}
+//			}
+//		}
 	}
 
-	public void setSaidUNO() {
-		for (Player p : players) {
-			if (p.isMyTurn()) {
-				if (p.getTotalCards() == 2) {
-					p.saysUNO();
-					infoPanel.setError(p.getName() + " said UNO");
-				}
-			}
-		}
-	}
 	
 	public boolean isPCsTurn(){
 		if(pc.isMyTurn()){
@@ -206,13 +212,32 @@ public class Game {
 	}
 
 	//if it's PC's turn, play it for pc
-	public void playPC(ModelUnoCard topCard) {
-		
+	public void playPC() {
+		ModelUnoCard topCard = getTopCard();
 		if (pc.isMyTurn()) {
 			boolean done = pc.play(topCard);
 			
 			if(!done)
-				drawCard(topCard);
+				drawCard();
 		}
+	}
+
+	//check if it is a valid card
+	public boolean isValidMove(ModelUnoCard playedCard) {
+		ModelUnoCard topCard = getTopCard();
+
+		if (playedCard.getColor().equals(topCard.getColor())
+				|| playedCard.getValue().equals(topCard.getValue())) {
+			return true;
+		}
+
+		else if (playedCard.getType() == WILD) {
+			return true;
+		} else if (topCard.getType() == WILD) {
+			Color color = ((WildCard) topCard).getWildColor();
+			if (color.equals(playedCard.getColor()))
+				return true;
+		}
+		return false;
 	}
 }

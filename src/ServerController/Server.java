@@ -3,7 +3,6 @@ package ServerController;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
@@ -11,7 +10,7 @@ import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import GameModel.Game;
 import GameModel.Player;
-import View.Session;
+import View.GameView;
 
 import static Interfaces.GameConstants.*;
 import static Interfaces.GameConstants.GameMode.vsPC;
@@ -19,48 +18,51 @@ import static Interfaces.UNOConstants.CardType.WILD;
 
 public class Server {
 	private Game game;
-	private Session session;
-	private Stack<ModelUnoCard> playedCards;
-	public boolean canPlay;
+	private GameView gameView;
 	private GameMode mode;
 
+	public boolean canPlay() {
+		return !game.isOver();
+	}
 
-	public Server(GameMode gameMode) {
+	public void setGame(Game game) {
+		this.game = game;
+		game.whoseTurn();
+
+	}
+
+	public Server(GameMode gameMode, GameView gameView) {
 
 		this.mode = gameMode;
 
-		game = new Game(mode,this);
-		playedCards = new Stack<ModelUnoCard>();
 
-		// First Card
-		ModelUnoCard firstCard = game.getCard();
-		
-		playedCards.add(firstCard);
-		session = new Session(game, firstCard, this);
 
-		game.whoseTurn();
-		canPlay = true;
+
+//		playedCards.add(firstCard);
+//		gameView = new GameView(game, firstCard, this);
+		this.gameView = gameView;
+
+//		canPlay = true;
 	}
 
 	//return if it's 2-Player's mode or PC-mode
 
 
 	public void playThisCardIfPossible(ModelUnoCard modelUnoCard) {
-		if (canPlay) {
+		if (canPlay()) {
 			playThisCard(modelUnoCard);
 		}
 	}
 	
 	//return Main Panel
-	public Session getSession() {
-		return this.session;
+	public GameView getGameView() {
+		return this.gameView;
 	}
 	
 	
 	//request to play a card
-	public void playThisCard(ModelUnoCard clickedCard) {
+	private void playThisCard(ModelUnoCard clickedCard) {
 
-//		ModelUnoCard clickedCard = (ModelUnoCard) clickedCardUno; // todo this is temp
 
 		// Check player's turn
 		if (!isHisTurn(clickedCard)) {
@@ -69,11 +71,12 @@ public class Server {
 		} else {
 
 			// Card validation
-			if (isValidMove(clickedCard)) {
+			if (game.isValidMove(clickedCard)) {
 
 //				clickedCard.removeMouseListener(CARDLISTENER);
 //				clickedCard.disableMouseListener();
-				playedCards.add(clickedCard);
+				game.playedCards().add(clickedCard);
+
 				game.removePlayedCard(clickedCard);
 
 				// function cards ??
@@ -89,7 +92,7 @@ public class Server {
 				}
 
 				game.switchTurn();
-				session.updatePanel(clickedCard);
+				gameView.updatePanel(clickedCard);
 				checkResults();
 			} else {
 				infoPanel.setError("invalid move");
@@ -100,9 +103,9 @@ public class Server {
 		
 		
 		
-		if(mode== vsPC && canPlay){
+		if(mode== vsPC && canPlay()){
 			if(game.isPCsTurn()){
-				game.playPC(peekTopCard());
+				game.playPC();
 			}
 		}
 	}
@@ -111,8 +114,14 @@ public class Server {
 	private void checkResults() {
 
 		if (game.isOver()) {
-			canPlay = false;
+//			canPlay = false;
 			infoPanel.updateText("GAME OVER");
+		}
+	}
+
+	public void playerSayUno(Player player) {
+		if (canPlay()) {
+			player.sayUno();
 		}
 	}
 	
@@ -126,24 +135,7 @@ public class Server {
 		return false;
 	}
 
-	//check if it is a valid card
-	public boolean isValidMove(ModelUnoCard playedCard) {
-		ModelUnoCard topCard = peekTopCard();
 
-		if (playedCard.getColor().equals(topCard.getColor())
-				|| playedCard.getValue().equals(topCard.getValue())) {
-			return true;
-		}
-
-		else if (playedCard.getType() == WILD) {
-			return true;
-		} else if (topCard.getType() == WILD) {
-			Color color = ((WildCard) topCard).getWildColor();
-			if (color.equals(playedCard.getColor()))
-				return true;
-		}
-		return false;
-	}
 
 	// ActionCards
 	private void performAction(ModelUnoCard actionCard) {
@@ -184,21 +176,13 @@ public class Server {
 	}
 	
 	public void requestCard() {
-		game.drawCard(peekTopCard());
+		game.drawCard();
 		
-		if(mode==vsPC && canPlay){
+		if(mode==vsPC && canPlay()){
 			if(game.isPCsTurn())
-				game.playPC(peekTopCard());
+				game.playPC();
 		}
 		
-		session.refreshPanel();
-	}
-
-	public ModelUnoCard peekTopCard() {
-		return playedCards.peek();
-	}
-
-	public void submitSaidUNO() {
-		game.setSaidUNO();
+		gameView.refreshPanel();
 	}
 }
