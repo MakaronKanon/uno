@@ -1,6 +1,7 @@
 package ServerController;
 
 import CardModel.ModelUnoCard;
+import GameModel.Game;
 import GameModel.Player;
 import View.PlayerPanel;
 import View.UNOCard;
@@ -11,23 +12,29 @@ import java.util.List;
 public class PlayerPanelController {
 
     private PlayerPanel playerPanel;
+    private Controller controller;
 
     private Player player;
+    private Game game;
 
     // Unsure if we want this, have it while refactoring. Should atleast rename it.
-    private Server server;
+//    private Server server;
 
-    public PlayerPanelController(Player player) {
+    public PlayerPanelController(Player player, Controller controller, Game game) {
         this.player = player;
+        this.controller = controller;
+        this.game = game;
+
+
     }
 
     public void setPlayerPanel(PlayerPanel playerPanel) {
         this.playerPanel = playerPanel;
     }
 
-    public void setServer(Server server) {
-        this.server = server;
-    }
+//    public void setServer(Server server) {
+//        this.server = server;
+//    }
 
     public String getPlayerName() {
         return player.getName();
@@ -44,7 +51,7 @@ public class PlayerPanelController {
         List<UNOCard> unoCards = new ArrayList<>();
         for (ModelUnoCard card : player.getAllCards()) {
             UNOCard unoCard = new UNOCard(card);
-            UNOCardController unoCardController = new UNOCardController(server, player);
+            UNOCardController unoCardController = new UNOCardController(game, player, controller);
             unoCardController.setUnoCard(unoCard);
             unoCard.setUnoCardController(unoCardController);
             unoCards.add(unoCard);
@@ -57,8 +64,8 @@ public class PlayerPanelController {
 
     public void drawBtnClicked() {
         if (player.isMyTurn()) {
-            if (server.canPlay()) {
-                server.requestCard();
+            if (game.canPlay()) {
+                game.requestCard();
             }
             System.out.println("Draw button clicked");
         }
@@ -66,7 +73,7 @@ public class PlayerPanelController {
     }
 
     public void sayUnoBtnClicked() {
-        server.playerSayUno(player);
+        game.playerSayUno(player);
 //        if (server.canPlay) {
 //            player.sayUno();
 //        }

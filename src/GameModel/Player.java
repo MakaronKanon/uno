@@ -50,6 +50,22 @@ public class Player {
 	public void toggleTurn(){
 		isMyTurn = (isMyTurn) ? false : true;
 	}
+
+	/**
+	 * Method called when it's this player's turn.
+	 */
+	public void yourTurnStarted() {
+		isMyTurn = true;
+		System.out.println("A players turn started");
+	}
+
+	/**
+	 * Method called when this player's turn ended.
+	 */
+	public void yourTurnEnded() {
+		isMyTurn = false;
+		System.out.println("A players turn ended");
+	}
 	
 	public boolean isMyTurn(){
 		return isMyTurn;

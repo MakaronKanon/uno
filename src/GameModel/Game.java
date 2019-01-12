@@ -1,14 +1,18 @@
 package GameModel;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
 import CardModel.*;
-import ServerController.Server;
+//import ServerController.Server;
 
 import static Interfaces.GameConstants.*;
+import static Interfaces.GameConstants.GameMode.vsPC;
 import static Interfaces.GameConstants.infoPanel;
 import static Interfaces.UNOConstants.CardType.WILD;
 
@@ -18,11 +22,13 @@ public class Game {
 	private boolean isOver;
 	private GameMode gamemode;
 
+	private TurnManager turnManager = new TurnManager();
 	
 	private PC pc;
 	private Dealer dealer;
 	private Stack<ModelUnoCard> cardStack;
 	private Stack<ModelUnoCard> playedCards = new Stack<>();
+
 
 
 	public Stack<ModelUnoCard> playedCards() {
@@ -33,27 +39,31 @@ public class Game {
 		return playedCards.peek();
 	}
 
-	public void setServer(Server server) {
-		pc.setServer(server);
-	}
+//	public void setServer(Server server) {
+//		pc.setServer(server);
+//	}
+
 
 	public Game(GameMode mode){
 		
 		gamemode = mode;
+
 		
 		//Create players //todo this needs to be move to view, can have factory methods for the different modes
 		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
 		String name2 = JOptionPane.showInputDialog("Player 2");
 		
 		if(gamemode== GameMode.vsPC)
-			pc = new PC();
+			pc = new PC(this);
 		
 		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
 		Player player2 = new Player(name2);		
 		player2.toggleTurn();				//Initially, player2's turn		
 			
-		players = new Player[]{player1, player2};			
-		
+		players = new Player[]{player1, player2};
+		turnManager.addPlayer(player2); // want player2 to start, so add it first.
+		turnManager.addPlayer(player1);
+
 		//Create Dealer
 		dealer = new Dealer();
 		cardStack = dealer.shuffle();
@@ -66,6 +76,9 @@ public class Game {
 		dealer.spreadOut(players);
 		
 		isOver = false;
+		// Start the turn.
+		turnManager.startTurn();
+
 	}
 
 	public Player[] getPlayers() {
@@ -240,4 +253,155 @@ public class Game {
 		}
 		return false;
 	}
+
+
+	// all below is copy pasted from server
+	public void performWild(WildCard functionCard) {
+
+		//System.out.println(game.whoseTurn());
+		if(gamemode==vsPC && isPCsTurn()){
+			int random = new Random().nextInt() % 4;
+			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
+		}
+
+		if (functionCard.getValue().equals(W_DRAW4PLUS))
+			drawPlus(4);
+	}
+
+	public boolean canPlay() {
+		return !isOver();
+	}
+
+	public void playerSayUno(Player player) {
+		if (canPlay()) {
+			player.sayUno();
+		}
+	}
+
+	// ActionCards
+	public void performAction(ModelUnoCard actionCard) {
+
+		// Draw2PLUS
+		if (actionCard.getValue().equals(DRAW2PLUS))
+			drawPlus(2);
+		else if (actionCard.getValue().equals(REVERSE))
+			switchTurn();
+		else if (actionCard.getValue().equals(SKIP))
+			switchTurn();
+	}
+
+	//check player's turn
+	public boolean isHisTurn(ModelUnoCard clickedCard) {
+
+		for (Player p : getPlayers()) {
+			if (p.hasCard(clickedCard) && p.isMyTurn())
+				return true;
+		}
+		return false;
+	}
+
+	private List<GameListener> gameListeners = new ArrayList<GameListener>();
+	public void addGameListener(GameListener listener) {
+		gameListeners.add(listener);
+	}
+
+
+
+
+	//return if it's 2-Player's mode or PC-mode
+
+
+	public void playThisCardIfPossible(ModelUnoCard modelUnoCard) throws GameIsOverException, NotYourTurnException
+			, InvalidMoveException {
+		if (canPlay()) {
+			playThisCard(modelUnoCard);
+		} else {
+			throw new GameIsOverException();
+		}
+	}
+
+
+	//request to play a card
+	private void playThisCard(ModelUnoCard clickedCard) throws NotYourTurnException, InvalidMoveException {
+
+
+		// Check player's turn
+		if (!isHisTurn(clickedCard)) {
+			throw new NotYourTurnException();
+		} else {
+
+			// Card validation
+			if (isValidMove(clickedCard)) {
+
+//				clickedCard.removeMouseListener(CARDLISTENER);
+//				clickedCard.disableMouseListener();
+				playedCards().add(clickedCard);
+
+				removePlayedCard(clickedCard);
+
+				// function cards ??
+				switch (clickedCard.getType()) {
+					case ACTION:
+						performAction(clickedCard);
+						break;
+					case WILD:
+						performWild((WildCard) clickedCard);
+						break;
+					default:
+						break;
+				}
+
+				switchTurn();
+
+				for (GameListener listener : gameListeners) {
+					listener.cardPlayed(clickedCard);
+				}
+
+//				gameView.updatePanel(clickedCard);
+				checkResults();
+			} else {
+				throw new InvalidMoveException();
+
+			}
+
+
+			if(gamemode== vsPC && canPlay()){
+				if(isPCsTurn()){
+					playPC();
+				}
+			}
+		}
+
+
+
+
+	}
+
+	//Check if the game is over
+	private void checkResults() {
+
+		if (isOver()) {
+//			canPlay = false;
+			for (GameListener gameListener : gameListeners) {
+				gameListener.gameOverCallback();
+			}
+		}
+	}
+
+	public void requestCard() {
+		drawCard();
+
+		if(gamemode==vsPC && canPlay()){
+			if(isPCsTurn())
+				playPC();
+		}
+
+		for (GameListener gameListener : gameListeners) {
+			gameListener.cardDrawn();
+		}
+
+	}
+
+
+
 }

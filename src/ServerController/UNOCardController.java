@@ -1,5 +1,7 @@
 package ServerController;
 
+import GameModel.Game;
+import GameModel.GameIsOverException;
 import GameModel.Player;
 import View.UNOCard;
 
@@ -11,15 +13,20 @@ public class UNOCardController {
 
     // this is temporary during refactoring
 //    private MyCardListener myCardListener;
-    private Server server;
+//    private Server server;
+
+    private Game game;
 
     private Player player;
+    private Controller controller;
 
     private UNOCard unoCard;
 
-    public UNOCardController(Server server, Player player) {
-        this.server = server;
+    public UNOCardController(Game game, Player player, Controller controller) {
+//        this.server = server;
+        this.game = game;
         this.player = player;
+        this.controller = controller;
     }
 
     public void setUnoCard(UNOCard unoCard) {
@@ -40,10 +47,17 @@ public class UNOCardController {
 
     public void cardClicked(MouseEvent e) {
 
+        controller.playCard(player, unoCard.getModelUnoCard());
+
 //        unoCard.getModelUnoCard();
-        // Send playCard event to player/model
-        player.playCard(unoCard.getModelUnoCard());
-        server.playThisCardIfPossible(unoCard.getModelUnoCard()); // todo catch if cant play card and display error
+//        // Send playCard event to player/model
+//        player.playCard(unoCard.getModelUnoCard());
+//        try {
+//            server.playThisCardIfPossible(unoCard.getModelUnoCard()); // todo catch if cant play card and display error
+//        } catch (GameIsOverException e1) {
+//            e1.printStackTrace();
+//
+//        }
 
     }
 

@@ -10,20 +10,24 @@ import javax.sound.midi.Receiver;
 import CardModel.ModelUnoCard;
 import CardModel.WildCard;
 import Interfaces.GameConstants;
-import ServerController.Server;
 
 import static Interfaces.UNOConstants.CardType.WILD;
 
 public class PC extends Player {
 
-	private Server server;
+//	private Server server;
 
-	public void setServer(Server server) {
-		this.server = server;
-	}
 
-	public PC() {
+
+//	public void setServer(Server server) {
+//		this.server = server;
+//	}
+
+    private Game game;
+
+	public PC(Game game) {
 		super("PC");
+		this.game = game;
 		super.setCards();
 //		this.server = server;
 	}
@@ -46,8 +50,16 @@ public class PC extends Player {
 
 			if (card.getColor().equals(color) || card.getValue().equals(value)) {
 
-				server.playThisCardIfPossible(card);
-				done = true;
+                try {
+                    game.playThisCardIfPossible(card);
+                } catch (GameIsOverException e) {
+                    e.printStackTrace();
+                } catch (NotYourTurnException e) {
+                    e.printStackTrace();
+                } catch (InvalidMoveException e) {
+                    e.printStackTrace();
+                }
+                done = true;
 				break;
 			}
 		}
@@ -56,7 +68,15 @@ public class PC extends Player {
 		if (!done) {
 			for (ModelUnoCard card : getAllCards()) {
 				if (card.getType() == WILD) {
-					server.playThisCardIfPossible(card);
+                    try {
+                        game.playThisCardIfPossible(card);
+                    } catch (GameIsOverException e) {
+                        e.printStackTrace();
+                    } catch (NotYourTurnException e) {
+                        e.printStackTrace();
+                    } catch (InvalidMoveException e) {
+                        e.printStackTrace();
+                    }
 //					playCard(card);
 					
 					done = true;
@@ -71,4 +91,16 @@ public class PC extends Player {
 		
 		return done;
 	}
+
+    @Override
+    public void yourTurnStarted() {
+	    super.yourTurnStarted();
+        System.out.println("PC turn started");
+    }
+
+    @Override
+    public void yourTurnEnded() {
+	    super.yourTurnEnded();
+        System.out.println("Pc turn ended");
+    }
 }

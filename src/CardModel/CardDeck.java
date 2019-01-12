@@ -3,7 +3,6 @@ package CardModel;
 import java.awt.Color;
 import java.util.LinkedList;
 
-import ServerController.Server;
 import ServerController.UNOCardController;
 
 import static Interfaces.GameConstants.*;

@@ -3,7 +3,6 @@ package GameModel;
 import CardModel.CardDeck;
 import CardModel.ModelUnoCard;
 import CardModel.WildCard;
-import ServerController.Server;
 
 import java.util.LinkedList;
 import java.util.Random;

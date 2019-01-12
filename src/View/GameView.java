@@ -14,8 +14,8 @@ import CardModel.ModelUnoCard;
 import GameModel.Dealer;
 import GameModel.Game;
 import GameModel.Player;
+import ServerController.Controller;
 import ServerController.PlayerPanelController;
-import ServerController.Server;
 
 public class GameView extends JPanel {
 	private PlayerPanel player1panel;
@@ -23,30 +23,33 @@ public class GameView extends JPanel {
 	private TablePanel table;	
 	
 	private Game game;
+	private Controller controller;
 
-	public void setServer(Server server) {
-		setPlayers(server);
-	}
+//	public void setServer(Server server) {
+//		setPlayers(server, controller);
+//	}
 
-	public GameView(Game newGame, ModelUnoCard firstCard){
+	public GameView(Game newGame, ModelUnoCard firstCard, Controller controller){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
 		
 		game = newGame;
-		
+
+		this.controller = controller;
+		setPlayers(game, controller);
 //		setPlayers(server);
 
 	}
 	
-	private void setPlayers(Server server) {
+	private void setPlayers(Game game, Controller controller) {
 		Player player1 = game.getPlayers()[0];
 		Player player2 = game.getPlayers()[1];
 
-		PlayerPanelController playerPanelController = new PlayerPanelController(player1);
-		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2);
-		playerPanelController.setServer(server);
-		playerPanelController2.setServer(server);
+		PlayerPanelController playerPanelController = new PlayerPanelController(player1, controller, game);
+		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2, controller, game);
+//		playerPanelController.setServer(server);
+//		playerPanelController2.setServer(server);
 		player1panel = new PlayerPanel(playerPanelController);
 		player2panel = new PlayerPanel(playerPanelController2);
 		playerPanelController.setPlayerPanel(player1panel);
