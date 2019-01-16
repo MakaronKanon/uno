@@ -10,15 +10,12 @@ import java.awt.event.MouseEvent;
 public class UNOCardController {
 
 
-    private Game game;
-
     private Player player;
     private Controller controller;
 
     private CardView cardView;
 
-    public UNOCardController(Game game, Player player, Controller controller) {
-        this.game = game;
+    public UNOCardController(Player player, Controller controller) {
         this.player = player;
         this.controller = controller;
     }

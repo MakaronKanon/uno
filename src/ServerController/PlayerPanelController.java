@@ -1,6 +1,7 @@
 package ServerController;
 
 import CardModel.UnoCard;
+import GameModel.Facade;
 import GameModel.Game;
 import GameModel.Player;
 import View.CardView;
@@ -9,32 +10,25 @@ import View.PlayerPanel;
 import java.util.ArrayList;
 import java.util.List;
 
+//todo: I made a decision that, sub-controllers should have direct reference to facade
+// so we can reduce coupling between controllers.
 public class PlayerPanelController {
 
     private PlayerPanel playerPanel;
     private Controller controller;
 
     private Player player;
-    private Game game;
+    private Facade facade;
 
-    // Unsure if we want this, have it while refactoring. Should atleast rename it.
-//    private Server server;
-
-    public PlayerPanelController(Player player, Controller controller, Game game) {
+    public PlayerPanelController(Player player, Controller controller, Facade facade) {
         this.player = player;
         this.controller = controller;
-        this.game = game;
-
-
+        this.facade = facade;
     }
 
     public void setPlayerPanel(PlayerPanel playerPanel) {
         this.playerPanel = playerPanel;
     }
-
-//    public void setServer(Server server) {
-//        this.server = server;
-//    }
 
     public String getPlayerName() {
         return player.getName();
@@ -51,7 +45,7 @@ public class PlayerPanelController {
         List<CardView> cardViews = new ArrayList<>();
         for (UnoCard card : player.getAllCards()) {
             CardView cardView = new CardView(card);
-            UNOCardController unoCardController = new UNOCardController(game, player, controller);
+            UNOCardController unoCardController = new UNOCardController(player, controller);
             unoCardController.setCardView(cardView);
             cardView.setUnoCardController(unoCardController);
             cardViews.add(cardView);
@@ -59,20 +53,15 @@ public class PlayerPanelController {
         return cardViews;
     }
 
-
-
     public void drawBtnClicked() {
-        if (player.isMyTurn()) {
-            if (game.canPlay()) {
-                game.requestCard();
-            }
-            System.out.println("Draw button clicked");
-        }
-
+        // I made a decision that controller shouldn't have logic
+        // for checking if it's its turn. Instead just delegate to facade and
+        // todo: maybe catch exception.
+        facade.drawCard(player);
     }
 
     public void sayUnoBtnClicked() {
-        game.playerSayUno(player);
+        facade.sayUno(player);
 
     }
 }

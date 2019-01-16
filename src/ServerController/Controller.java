@@ -21,13 +21,9 @@ public class Controller implements GameListener {
     private Facade facade;
     private GameView gameView;
 
-
-    private Game game; // Game should probably be removed by facade
-
-    public Controller(InfoPanel infoPanel, Facade facade, Game game) {
+    public Controller(InfoPanel infoPanel, Facade facade) {
         this.infoPanel = infoPanel;
         this.facade = facade;
-        this.game = game;
     }
 
     public void setGameView(GameView gameView) {
@@ -56,7 +52,8 @@ public class Controller implements GameListener {
         }
 
         try {
-            game.playThisCardIfPossible(unoCard);
+            facade.playCard(player, unoCard);
+//            game.playThisCardIfPossible(unoCard);
         } catch (GameIsOverException e) {
 //            e.printStackTrace();
             infoPanel.setError("Game is over!");

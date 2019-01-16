@@ -26,10 +26,10 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 
-				Facade facade = new Facade();
 				Game game = new Game(gameMode);
-				Controller controller = new Controller(infoPanel, facade, game);
-				GameView gameView = new GameView(game, game.getTopCard(), controller);
+				Facade facade = new Facade(game);
+				Controller controller = new Controller(infoPanel, facade);
+				GameView gameView = new GameView(game, game.getTopCard(), controller, facade);
 				controller.setGameView(gameView);
 
 				game.addGameListener(controller);
