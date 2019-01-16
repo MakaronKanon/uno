@@ -1,15 +1,9 @@
 package GameModel;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 
-import javax.sound.midi.Receiver;
-
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 import CardModel.WildCard;
-import Interfaces.GameConstants;
 
 import static Interfaces.UNOConstants.CardType.WILD;
 
@@ -35,7 +29,7 @@ public class PC extends Player {
 
 	
 	//PC plays a card
-	public boolean play(ModelUnoCard topCard) {
+	public boolean play(UnoCard topCard) {
 
 		boolean done = false;
 
@@ -46,7 +40,7 @@ public class PC extends Player {
 			color = ((WildCard) topCard).getWildColor();			
 		}
 
-		for (ModelUnoCard card : getAllCards()) {
+		for (UnoCard card : getAllCards()) {
 
 			if (card.getColor().equals(color) || card.getValue().equals(value)) {
 
@@ -66,7 +60,7 @@ public class PC extends Player {
 
 		// if no card was found, play wild card
 		if (!done) {
-			for (ModelUnoCard card : getAllCards()) {
+			for (UnoCard card : getAllCards()) {
 				if (card.getType() == WILD) {
                     try {
                         game.playThisCardIfPossible(card);

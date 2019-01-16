@@ -3,8 +3,6 @@ package CardModel;
 import java.awt.Color;
 import java.util.LinkedList;
 
-import ServerController.UNOCardController;
-
 import static Interfaces.GameConstants.*;
 
 /**
@@ -12,20 +10,20 @@ import static Interfaces.GameConstants.*;
  */
 public class CardDeck{
 	
-	private final LinkedList<ModelUnoCard> numberCards;
-	private final LinkedList<ModelUnoCard> actionCards;
+	private final LinkedList<UnoCard> numberCards;
+	private final LinkedList<UnoCard> actionCards;
 	private final LinkedList<WildCard> wildCards;
 	
-	private LinkedList<ModelUnoCard> UNOcards;
+	private LinkedList<UnoCard> UNOcards;
 	
 	public CardDeck(){
 		
 		//Initialize Cards
-		numberCards = new LinkedList<ModelUnoCard>();
-		actionCards = new LinkedList<ModelUnoCard>();
+		numberCards = new LinkedList<UnoCard>();
+		actionCards = new LinkedList<UnoCard>();
 		wildCards = new LinkedList<WildCard>();
 		
-		UNOcards = new LinkedList<ModelUnoCard>();
+		UNOcards = new LinkedList<UnoCard>();
 		
 		addCards();
 	}
@@ -59,7 +57,7 @@ public class CardDeck{
 		
 	}
 	
-	public LinkedList<ModelUnoCard> getCards(){
+	public LinkedList<UnoCard> getCards(){
 		return UNOcards;
 	}
 }

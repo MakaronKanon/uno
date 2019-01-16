@@ -2,7 +2,7 @@ package GameModel;
 
 import java.util.LinkedList;
 
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 
 
 public class Player {
@@ -10,7 +10,7 @@ public class Player {
 	private String name;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
-	private LinkedList<ModelUnoCard> myCards = new LinkedList<>();
+	private LinkedList<UnoCard> myCards = new LinkedList<>();
 	
 	private int playedCards = 0;
 
@@ -22,11 +22,11 @@ public class Player {
 		return this.name;
 	}
 
-	public void obtainCard(ModelUnoCard card){
+	public void obtainCard(UnoCard card){
 		myCards.add(card);
 	}
 	
-	public LinkedList<ModelUnoCard> getAllCards(){
+	public LinkedList<UnoCard> getAllCards(){
 		return myCards;
 	}
 	
@@ -34,11 +34,11 @@ public class Player {
 		return myCards.size();
 	}
 	
-	public boolean hasCard(ModelUnoCard thisCard){
+	public boolean hasCard(UnoCard thisCard){
 		return myCards.contains(thisCard);		
 	}
 	
-	public void removeCard(ModelUnoCard thisCard){
+	public void removeCard(UnoCard thisCard){
 		myCards.remove(thisCard);
 		playedCards++;
 	}
@@ -96,15 +96,15 @@ public class Player {
 	}
 	
 	public void setCards(){
-		myCards = new LinkedList<ModelUnoCard>();
+		myCards = new LinkedList<UnoCard>();
 	}
 
-	public void playCard(ModelUnoCard modelUnoCard) {
+	public void playCard(UnoCard unoCard) {
 		if (!isMyTurn) {
 			// throw not my turn exception : maybe tho this is not the player's responsibility
 			return;
 		}
-		if (!hasCard(modelUnoCard)) {
+		if (!hasCard(unoCard)) {
 			// throw down have card exception
 			return;
 		}

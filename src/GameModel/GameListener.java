@@ -1,11 +1,11 @@
 package GameModel;
 
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 
 public interface GameListener {
     void gameOverCallback();
 
-    void cardPlayed(ModelUnoCard unoCard);
+    void cardPlayed(UnoCard unoCard);
 
     void cardDrawn();
 }

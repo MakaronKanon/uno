@@ -3,15 +3,10 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-import CardModel.ModelUnoCard;
-import GameModel.Dealer;
+import CardModel.UnoCard;
 import GameModel.Game;
 import GameModel.Player;
 import ServerController.Controller;
@@ -25,7 +20,7 @@ public class GameView extends JPanel {
 	private Game game;
 	private Controller controller;
 
-	public GameView(Game newGame, ModelUnoCard firstCard, Controller controller){
+	public GameView(Game newGame, UnoCard firstCard, Controller controller){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
@@ -67,7 +62,7 @@ public class GameView extends JPanel {
 		revalidate();
 	}
 	
-	public void updatePanel(ModelUnoCard playedCard){
+	public void updatePanel(UnoCard playedCard){
 
 		table.setPlayedCard(playedCard);
 		refreshPanel();

@@ -26,16 +26,16 @@ public class Game {
 	
 	private PC pc;
 	private Dealer dealer;
-	private Stack<ModelUnoCard> cardStack;
-	private Stack<ModelUnoCard> playedCards = new Stack<>();
+	private Stack<UnoCard> cardStack;
+	private Stack<UnoCard> playedCards = new Stack<>();
 
 
 
-	public Stack<ModelUnoCard> playedCards() {
+	public Stack<UnoCard> playedCards() {
 		return playedCards;
 	}
 
-	public ModelUnoCard getTopCard() {
+	public UnoCard getTopCard() {
 		return playedCards.peek();
 	}
 
@@ -69,7 +69,7 @@ public class Game {
 		cardStack = dealer.shuffle();
 
 		// First Card
-		ModelUnoCard firstCard = getCard();
+		UnoCard firstCard = getCard();
 		playedCards().add(firstCard);
 
 
@@ -85,11 +85,11 @@ public class Game {
 		return players;
 	}
 
-	public ModelUnoCard getCard() {
+	public UnoCard getCard() {
 		return dealer.getCard();
 	}
 	
-	public void removePlayedCard(ModelUnoCard playedCard) {
+	public void removePlayedCard(UnoCard playedCard) {
 
 		for (Player p : players) {
 			if (p.hasCard(playedCard)){
@@ -108,12 +108,12 @@ public class Game {
 	
 	//give player a card
 	public void drawCard() {
-		ModelUnoCard topCard = getTopCard();
+		UnoCard topCard = getTopCard();
 		boolean canPlay = false;
 
 		for (Player p : players) {
 			if (p.isMyTurn()) {
-				ModelUnoCard newCard = getCard();
+				UnoCard newCard = getCard();
 				p.obtainCard(newCard);
 				canPlay = canPlay(topCard, newCard);
 				break;
@@ -187,7 +187,7 @@ public class Game {
 	}
 
 	//Check if this card can be played
-	private boolean canPlay(ModelUnoCard topCard, ModelUnoCard newCard) {
+	private boolean canPlay(UnoCard topCard, UnoCard newCard) {
 
 		// Color or value matches
 		if (topCard.getColor().equals(newCard.getColor())
@@ -226,7 +226,7 @@ public class Game {
 
 	//if it's PC's turn, play it for pc
 	public void playPC() {
-		ModelUnoCard topCard = getTopCard();
+		UnoCard topCard = getTopCard();
 		if (pc.isMyTurn()) {
 			boolean done = pc.play(topCard);
 			
@@ -236,8 +236,8 @@ public class Game {
 	}
 
 	//check if it is a valid card
-	public boolean isValidMove(ModelUnoCard playedCard) {
-		ModelUnoCard topCard = getTopCard();
+	public boolean isValidMove(UnoCard playedCard) {
+		UnoCard topCard = getTopCard();
 
 		if (playedCard.getColor().equals(topCard.getColor())
 				|| playedCard.getValue().equals(topCard.getValue())) {
@@ -279,7 +279,7 @@ public class Game {
 	}
 
 	// ActionCards
-	public void performAction(ModelUnoCard actionCard) {
+	public void performAction(UnoCard actionCard) {
 
 		// Draw2PLUS
 		if (actionCard.getValue().equals(DRAW2PLUS))
@@ -291,7 +291,7 @@ public class Game {
 	}
 
 	//check player's turn
-	public boolean isHisTurn(ModelUnoCard clickedCard) {
+	public boolean isHisTurn(UnoCard clickedCard) {
 
 		for (Player p : getPlayers()) {
 			if (p.hasCard(clickedCard) && p.isMyTurn())
@@ -311,10 +311,10 @@ public class Game {
 	//return if it's 2-Player's mode or PC-mode
 
 
-	public void playThisCardIfPossible(ModelUnoCard modelUnoCard) throws GameIsOverException, NotYourTurnException
+	public void playThisCardIfPossible(UnoCard unoCard) throws GameIsOverException, NotYourTurnException
 			, InvalidMoveException {
 		if (canPlay()) {
-			playThisCard(modelUnoCard);
+			playThisCard(unoCard);
 		} else {
 			throw new GameIsOverException();
 		}
@@ -322,7 +322,7 @@ public class Game {
 
 
 	//request to play a card
-	private void playThisCard(ModelUnoCard clickedCard) throws NotYourTurnException, InvalidMoveException {
+	private void playThisCard(UnoCard clickedCard) throws NotYourTurnException, InvalidMoveException {
 
 
 		// Check player's turn

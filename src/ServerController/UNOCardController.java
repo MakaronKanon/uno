@@ -2,7 +2,7 @@ package ServerController;
 
 import GameModel.Game;
 import GameModel.Player;
-import View.UNOCard;
+import View.CardView;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -15,7 +15,7 @@ public class UNOCardController {
     private Player player;
     private Controller controller;
 
-    private UNOCard unoCard;
+    private CardView cardView;
 
     public UNOCardController(Game game, Player player, Controller controller) {
         this.game = game;
@@ -23,25 +23,25 @@ public class UNOCardController {
         this.controller = controller;
     }
 
-    public void setUnoCard(UNOCard unoCard) {
-        this.unoCard = unoCard;
+    public void setCardView(CardView cardView) {
+        this.cardView = cardView;
     }
 
     public void cardHovered(MouseEvent e) {
-        Point p = unoCard.getLocation();
+        Point p = cardView.getLocation();
         p.y -=20;
-        unoCard.setLocation(p);
+        cardView.setLocation(p);
     }
 
     public void cardStopHovered(MouseEvent e) {
-        Point p = unoCard.getLocation();
+        Point p = cardView.getLocation();
         p.y +=20;
-        unoCard.setLocation(p);
+        cardView.setLocation(p);
     }
 
     public void cardClicked(MouseEvent e) {
 
-        controller.playCard(player, unoCard.getModelUnoCard());
+        controller.playCard(player, cardView.getModelUnoCard());
     }
 
 }

@@ -1,34 +1,24 @@
 package View;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 import CardModel.WildCard;
-import Interfaces.GameConstants;
-import Interfaces.UNOConstants;
 
 import static Interfaces.GameConstants.infoPanel;
 import static Interfaces.UNOConstants.CardType.WILD;
 
 public class TablePanel extends JPanel {
 	
-	private ModelUnoCard topCard;
+	private UnoCard topCard;
 	private JPanel table;
 	
-	public TablePanel(ModelUnoCard firstCard){
+	public TablePanel(UnoCard firstCard){
 		setOpaque(false);
 		setLayout(new GridBagLayout());
 		
@@ -50,9 +40,9 @@ public class TablePanel extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 
-		UNOCard unoCard = new UNOCard(topCard);
-		unoCard.disableMouseListener();
-		table.add(unoCard, c);
+		CardView cardView = new CardView(topCard);
+		cardView.disableMouseListener();
+		table.add(cardView, c);
 	}
 	
 	private void setComponents() {
@@ -72,7 +62,7 @@ public class TablePanel extends JPanel {
 		add(infoPanel, c);	
 	}
 
-	public void setPlayedCard(ModelUnoCard playedCard){
+	public void setPlayedCard(UnoCard playedCard){
 		table.removeAll();
 		topCard = playedCard;
 		setTable();
@@ -80,7 +70,7 @@ public class TablePanel extends JPanel {
 		setBackgroundColor(playedCard);
 	}
 	
-	public void setBackgroundColor(ModelUnoCard playedCard){
+	public void setBackgroundColor(UnoCard playedCard){
 		Color background;
 		if(playedCard.getType()==WILD)
 			background = ((WildCard) playedCard).getWildColor();

@@ -1,6 +1,6 @@
 package ServerController;
 
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 import CardModel.WildCard;
 import GameModel.*;
 import Interfaces.UNOConstants;
@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 import static Interfaces.GameConstants.UNO_COLORS;
-import static Interfaces.GameConstants.infoPanel;
 
 /**
  * This is the main controller, it listens from Game for events, then delegates to a specific controller.
@@ -35,12 +34,12 @@ public class Controller implements GameListener {
         this.gameView = gameView;
     }
 
-    public void playCard(Player player, ModelUnoCard modelUnoCard) {
+    public void playCard(Player player, UnoCard unoCard) {
 
-        if (modelUnoCard.getType() == UNOConstants.CardType.WILD) {
+        if (unoCard.getType() == UNOConstants.CardType.WILD) {
             // Need to select color.
 
-            WildCard wildCard = (WildCard) modelUnoCard;
+            WildCard wildCard = (WildCard) unoCard;
 
             ArrayList<String> colors = new ArrayList<String>();
             colors.add("RED");
@@ -57,7 +56,7 @@ public class Controller implements GameListener {
         }
 
         try {
-            game.playThisCardIfPossible(modelUnoCard);
+            game.playThisCardIfPossible(unoCard);
         } catch (GameIsOverException e) {
 //            e.printStackTrace();
             infoPanel.setError("Game is over!");
@@ -68,7 +67,7 @@ public class Controller implements GameListener {
             infoPanel.setError("invalid move");
             infoPanel.repaint();
         }
-//        facade.playCard(player, modelUnoCard);
+//        facade.playCard(player, unoCard);
     }
 
     public void drawCard(Player player) {
@@ -82,7 +81,7 @@ public class Controller implements GameListener {
     }
 
     @Override
-    public void cardPlayed(ModelUnoCard unoCard) {
+    public void cardPlayed(UnoCard unoCard) {
         gameView.updatePanel(unoCard);
         //				gameView.updatePanel(clickedCard);
 

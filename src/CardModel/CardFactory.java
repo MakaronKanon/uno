@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class CardFactory {
 
-    public static ModelUnoCard createActionCard(Color cardColor, String cardValue) {
-        return new ModelUnoCard(cardColor, UNOConstants.CardType.ACTION, cardValue);
+    public static UnoCard createActionCard(Color cardColor, String cardValue) {
+        return new UnoCard(cardColor, UNOConstants.CardType.ACTION, cardValue);
     }
 
-    public static ModelUnoCard createNumberCard(Color cardColor, String cardValue) {
-        return new ModelUnoCard(cardColor, UNOConstants.CardType.NUMBER, cardValue);
+    public static UnoCard createNumberCard(Color cardColor, String cardValue) {
+        return new UnoCard(cardColor, UNOConstants.CardType.NUMBER, cardValue);
     }
 
 }

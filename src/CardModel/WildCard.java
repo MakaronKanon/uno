@@ -5,7 +5,7 @@ import java.awt.Color;
 import static Interfaces.UNOConstants.BLACK;
 import static Interfaces.UNOConstants.CardType.WILD;
 
-public class WildCard extends ModelUnoCard {
+public class WildCard extends UnoCard {
 	
 	private Color chosenColor;
 

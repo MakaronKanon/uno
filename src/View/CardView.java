@@ -13,24 +13,23 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import CardModel.ModelUnoCard;
+import CardModel.UnoCard;
 import Interfaces.UNOConstants;
 import ServerController.UNOCardController;
 
-public class UNOCard extends JPanel {
+public class CardView extends JPanel {
 
 	private final static Dimension SIZE = new Dimension(100, 150);
 
-	private ModelUnoCard unoCardModel;
+	private UnoCard unoCardModel;
 
-	public ModelUnoCard getModelUnoCard() {
+	public UnoCard getModelUnoCard() {
 		return unoCardModel;
 	}
 
-	public UNOCard(ModelUnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
+	public CardView(UnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
 		this();
 		this.unoCardModel = unoCardModel;
-
 	}
 
 	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
@@ -40,7 +39,7 @@ public class UNOCard extends JPanel {
 
 	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
 
-	public UNOCard(){
+	public CardView(){
 
 		this.setPreferredSize(SIZE);
 		this.setBorder(defaultBorder);
