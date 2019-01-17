@@ -3,6 +3,7 @@ package CardModel;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static Interfaces.GameConstants.*;
 
@@ -10,6 +11,7 @@ import static Interfaces.GameConstants.*;
  * This class represents a CardDeck, a collection of UnoCards
  * todo: If this is a collection what do we gain if it implements collection or something like that?
  * todo: should atleast use iterator-pattern, maybe we can make this generic class not only for UnoCards.
+ * todo: might make more sense to have Stack.
  */
 public class CardDeck{
 
@@ -86,11 +88,48 @@ public class CardDeck{
     // but placing it here we can hide the list. Just have shuffle method in dealer that delegates
     // here (to better follow Law Of Demeter, as well as logical that dealer should have that method)
     public void shuffle() {
-
+	    int cardSize = cards.size();
+	    for (int i = 0; i < cardSize; i++) {
+	        swapCards(i, new Random().nextInt(cardSize));
+        }
     }
 
-	//todo: use iterator instead.
-	public List<UnoCard> getCards(){
-		return cards;
-	}
+    private void swapCards(int oldIndex, int newIndex) {
+        UnoCard tempCard = cards.get(oldIndex);
+        cards.set(oldIndex, cards.get(newIndex));
+        cards.set(newIndex, tempCard);
+    }
+
+    /**
+     * CARE: Alters state and returns value.
+     * @return the topCard, then it deletes it from the list
+     */
+    public UnoCard popTopCard() {
+        UnoCard topCard = cards.get(0);
+        cards.remove(0);
+	    return topCard;
+    }
+
+    /**
+     * @return the topCard.
+     */
+    public UnoCard seeTopCard() {
+	    return cards.get(0);
+    }
+
+
+    /**
+     * @return true if there are at least 1 card in deck.
+     */
+    public boolean hasCards() {
+        return cards.size() > 0;
+    }
+
+    /**
+     *
+     * @return how many cards there are still in the deck.
+     */
+    public int cardsLeftCount() {
+        return cards.size();
+    }
 }

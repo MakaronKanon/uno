@@ -10,7 +10,7 @@ import View.InfoPanel;
 public interface GameConstants extends UNOConstants {
 	
 	int TOTAL_CARDS = 108;
-	int FIRSTHAND = 8;
+//	int FIRSTHAND = 8;
 	
 	Color[] UNO_COLORS = {RED, BLUE, GREEN, YELLOW};
 	Color WILD_CARDCOLOR = BLACK;

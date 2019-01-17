@@ -26,7 +26,7 @@ public class Game {
 	
 	private PC pc;
 	private Dealer dealer;
-	private Stack<UnoCard> cardStack;
+//	private Stack<UnoCard> cardStack;
 	private Stack<UnoCard> playedCards = new Stack<>();
 
 
@@ -66,7 +66,7 @@ public class Game {
 
 		//Create Dealer
 		dealer = new Dealer();
-		cardStack = dealer.shuffle();
+//		cardStack = dealer.shuffle();
 
 		// First Card
 		UnoCard firstCard = getCard();
@@ -157,7 +157,7 @@ public class Game {
 	//return if the game is over
 	public boolean isOver() {
 		
-		if(cardStack.isEmpty()){
+		if(!dealer.hasCards()){
 			isOver= true;
 			return isOver;
 		}
@@ -173,7 +173,8 @@ public class Game {
 	}
 
 	public int remainingCards() {
-		return cardStack.size();
+	    return dealer.cardsLeftCount();
+//		return cardStack.size();
 	}
 
 	public int[] playedCardsSize() {
