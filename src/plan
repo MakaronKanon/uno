@@ -3,3 +3,8 @@ and Open Closed design.
 
 It feels like we need to do instanceof. Maybe that should be the first step, replace enum with checks to
 instance of. And then take it from there.
+
+
+
+
+Switcha till egen version av Color.

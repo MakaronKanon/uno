@@ -4,6 +4,7 @@ import CardModel.CardDeck;
 import CardModel.UnoCard;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -12,17 +13,13 @@ import static Interfaces.UNOConstants.CardType.NUMBER;
 
 public class Dealer {
 	
-	private CardDeck cardDeck;
+	private CardDeck cardDeck = CardDeck.createDefaultUnoDeck();
 	private Stack<UnoCard> CardStack;
-	
-	public Dealer(){
-		this.cardDeck = new CardDeck();
-	}
-	
+
 	//Shuffle cards
 	public Stack<UnoCard> shuffle(){
 		
-		LinkedList<UnoCard> DeckOfCards = cardDeck.getCards();
+		List<UnoCard> DeckOfCards = cardDeck.getCards();
 		LinkedList<UnoCard> shuffledCards = new LinkedList<UnoCard>();
 		
 		while(!DeckOfCards.isEmpty()){
