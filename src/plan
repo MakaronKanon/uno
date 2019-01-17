@@ -2,4 +2,4 @@ UnoCard and WildCard and FunctionCard, how should they be designed for modular
 and Open Closed design.
 
 It feels like we need to do instanceof. Maybe that should be the first step, replace enum with checks to
-instance of. And then take it from there. 
+instance of. And then take it from there.

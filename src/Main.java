@@ -29,7 +29,7 @@ public class Main {
 				Game game = new Game(gameMode);
 				Facade facade = new Facade(game);
 				Controller controller = new Controller(infoPanel, facade);
-				GameView gameView = new GameView(game, game.getTopCard(), controller, facade);
+				GameView gameView = new GameView(game.getTopCard(), controller, facade);
 				controller.setGameView(gameView);
 
 				game.addGameListener(controller);
