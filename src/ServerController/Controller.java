@@ -32,7 +32,7 @@ public class Controller implements GameListener {
 
     public void playCard(Player player, UnoCard unoCard) {
 
-        if (unoCard.getType() == UNOConstants.CardType.WILD) {
+        if (unoCard instanceof WildCard) {
             // Need to select color.
 
             WildCard wildCard = (WildCard) unoCard;

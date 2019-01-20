@@ -133,10 +133,6 @@ public class CardView extends JPanel {
 		return unoCardModel.getValue();
 	}
 
-	public UNOConstants.CardType getType() {
-		return unoCardModel.getType();
-	}
-
 	public Dimension getSize() {
 		return SIZE;
 	}

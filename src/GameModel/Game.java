@@ -14,7 +14,6 @@ import CardModel.*;
 import static Interfaces.GameConstants.*;
 import static Interfaces.GameConstants.GameMode.vsPC;
 import static Interfaces.GameConstants.infoPanel;
-import static Interfaces.UNOConstants.CardType.WILD;
 
 public class Game {
 
@@ -195,11 +194,11 @@ public class Game {
 				|| topCard.getValue().equals(newCard.getValue()))
 			return true;
 		// if chosen wild card color matches
-		else if (topCard.getType() == WILD)
+		else if (topCard instanceof WildCard)
 			return ((WildCard) topCard).getWildColor().equals(newCard.getColor());
 
 		// suppose the new card is a wild card
-		else if (newCard.getType() == WILD)
+		else if (newCard instanceof WildCard)
 			return true;
 
 		// else
@@ -245,9 +244,9 @@ public class Game {
 			return true;
 		}
 
-		else if (playedCard.getType() == WILD) {
+		else if (playedCard instanceof WildCard) {
 			return true;
-		} else if (topCard.getType() == WILD) {
+		} else if (topCard instanceof WildCard) {
 			Color color = ((WildCard) topCard).getWildColor();
 			if (color.equals(playedCard.getColor()))
 				return true;
@@ -340,17 +339,15 @@ public class Game {
 
 				removePlayedCard(clickedCard);
 
+
+
 				// function cards ??
-				switch (clickedCard.getType()) {
-					case ACTION:
-						performAction(clickedCard);
-						break;
-					case WILD:
-						performWild((WildCard) clickedCard);
-						break;
-					default:
-						break;
-				}
+                if (clickedCard.getType() == CardType.ACTION) {
+                    performAction(clickedCard);
+
+                } else if (clickedCard instanceof  WildCard) {
+                    performWild((WildCard) clickedCard);
+                }
 
 				switchTurn();
 

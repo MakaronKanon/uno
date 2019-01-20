@@ -5,8 +5,6 @@ import java.awt.Color;
 import CardModel.UnoCard;
 import CardModel.WildCard;
 
-import static Interfaces.UNOConstants.CardType.WILD;
-
 public class PC extends Player {
 
 //	private Server server;
@@ -36,7 +34,7 @@ public class PC extends Player {
 		Color color = topCard.getColor();
 		String value = topCard.getValue();
 		
-		if(topCard.getType()==WILD){
+		if(topCard instanceof WildCard){
 			color = ((WildCard) topCard).getWildColor();			
 		}
 
@@ -61,7 +59,7 @@ public class PC extends Player {
 		// if no card was found, play wild card
 		if (!done) {
 			for (UnoCard card : getAllCards()) {
-				if (card.getType() == WILD) {
+				if (card instanceof WildCard) {
                     try {
                         game.playThisCardIfPossible(card);
                     } catch (GameIsOverException e) {

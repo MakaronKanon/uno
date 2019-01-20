@@ -11,7 +11,6 @@ import CardModel.UnoCard;
 import CardModel.WildCard;
 
 import static Interfaces.GameConstants.infoPanel;
-import static Interfaces.UNOConstants.CardType.WILD;
 
 public class TablePanel extends JPanel {
 	
@@ -72,7 +71,7 @@ public class TablePanel extends JPanel {
 	
 	public void setBackgroundColor(UnoCard playedCard){
 		Color background;
-		if(playedCard.getType()==WILD)
+		if(playedCard instanceof WildCard)
 			background = ((WildCard) playedCard).getWildColor();
 		else
 			background = playedCard.getColor();
