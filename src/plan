@@ -26,3 +26,5 @@ Then we can have UnoCard, WildCard
 
 
 Dela upp view logiken från Game så controller uppdatera rätt according to callbacks/events.
+* When someone forgets to say uno.
+* When it's new turn (or first turn)

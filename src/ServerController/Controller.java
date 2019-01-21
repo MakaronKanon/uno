@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static Interfaces.GameConstants.UNO_COLORS;
+import static Interfaces.GameConstants.infoPanel;
 
 /**
  * This is the main controller, it listens from Game for events, then delegates to a specific controller.
@@ -75,13 +76,27 @@ public class Controller implements GameListener {
     @Override
     public void cardPlayed(UnoCard unoCard) {
         gameView.updatePanel(unoCard);
-        //				gameView.updatePanel(clickedCard);
-
     }
 
     @Override
     public void cardDrawn() {
         gameView.refreshPanel();
-
     }
+
+    @Override
+    public void newTurn(String newPlayerName) {
+        infoPanel.updateText(newPlayerName + "'s Turn");
+
+        int remainingCards = facade.getRemainingCardsCount();
+        int[] playedCards = facade.getPlayedCards();
+        infoPanel.setDetail(playedCards, remainingCards);
+        infoPanel.repaint();
+    }
+
+    @Override
+    public void forgotToSayUno(String name) {
+        infoPanel.setError(name + " Forgot to say UNO");
+    }
+
+
 }

@@ -8,4 +8,8 @@ public interface GameListener {
     void cardPlayed(UnoCard unoCard);
 
     void cardDrawn();
+
+    void newTurn(String newPlayerName);
+
+    void forgotToSayUno(String name);
 }

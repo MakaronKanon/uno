@@ -91,4 +91,14 @@ public class Facade {
     public UnoCard getLastPlayedCard() {
         return game.getTopCard();
     }
+
+    //todo: this is just copied from game, might want to rethink design
+    public int getRemainingCardsCount() {
+        return game.remainingCards();
+    }
+
+    //todo: this is just copied from game, might want to rethink design
+    public int[] getPlayedCards() {
+        return game.playedCardsSize();
+    }
 }

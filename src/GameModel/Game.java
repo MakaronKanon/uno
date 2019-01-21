@@ -13,11 +13,9 @@ import CardModel.SpecialCards.Draw2xCard;
 import CardModel.SpecialCards.Draw4xCard;
 import CardModel.SpecialCards.ReverseActionCard;
 import CardModel.SpecialCards.SkipActionCard;
-//import ServerController.Server;
 
 import static Interfaces.GameConstants.*;
 import static Interfaces.GameConstants.GameMode.vsPC;
-import static Interfaces.GameConstants.infoPanel;
 
 public class Game {
 
@@ -99,7 +97,9 @@ public class Game {
 				p.removeCard(playedCard);
 				
 				if (p.getTotalCards() == 1 && !p.getSaidUNO()) {
-					infoPanel.setError(p.getName() + " Forgot to say UNO");
+				    for (GameListener listener : gameListeners) {
+				        listener.forgotToSayUno(p.getName());
+                    }
 					p.obtainCard(getCard());
 					p.obtainCard(getCard());
 				}else if(p.getTotalCards()>2){
@@ -143,18 +143,25 @@ public class Game {
 			}
 		}
 	}
+
+	// Returns current player
+	private Player currentPlayer() {
+        Player currentPlayer = null;
+        for (Player p : players) {
+            if (p.isMyTurn()){
+                currentPlayer = p;
+                break;
+            }
+        }
+        return currentPlayer;
+    }
 	
 	//response whose turn it is
 	public void whoseTurn() {
-
-		for (Player p : players) {
-			if (p.isMyTurn()){
-				infoPanel.updateText(p.getName() + "'s Turn");
-				System.out.println(p.getName() + "'s Turn");
-			}
-		}
-		infoPanel.setDetail(playedCardsSize(), remainingCards());
-		infoPanel.repaint();
+	    Player currentPlayer = currentPlayer();
+        for (GameListener gameListener : gameListeners) {
+            gameListener.newTurn(currentPlayer.getName());
+        }
 	}
 	
 	//return if the game is over
