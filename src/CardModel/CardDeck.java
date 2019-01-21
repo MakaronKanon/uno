@@ -50,10 +50,9 @@ public class CardDeck{
 
     // Adds wildCards to the list passed as argument. Four of each type.
     private static void addWilds(List<UnoCard> cards) {
-        for(String type : WildTypes){
-            for(int i=0;i<4;i++){
-                cards.add(new WildCard(type));
-            }
+	    for (int i = 0; i < 4; i++) {
+	        cards.add(CardFactory.createDraw4xCard());
+	        cards.add(CardFactory.createWildCard());
         }
     }
 
@@ -70,10 +69,10 @@ public class CardDeck{
     }
 
     private static void addActionCardsWithColor(Color color, List<UnoCard> cards) {
-        //Create 24 ActionCards --> everything twice
-        for(String type : ActionTypes){
-            for(int i=0;i<2;i++)
-                cards.add(CardFactory.createActionCard(color, type));
+        for(int i=0;i<2;i++) {
+            cards.add(CardFactory.createDraw2xCard(color));
+            cards.add(CardFactory.createReverseActionCard(color));
+            cards.add(CardFactory.createSkipActionCard(color));
         }
     }
 

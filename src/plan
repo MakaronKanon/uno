@@ -11,3 +11,13 @@ Switcha till egen version av Color.
 
 Dokumentation till allt
 Tester till allt
+
+
+
+
+ActionCard has different strings for types. Could be replaced by enum, but it would still
+not really make for Open Closed. Better would be that each actionCard is it's own class.
+
+We could still have one class for all cards that should draw (just different amounts).
+
+Then we can have UnoCard, WildCard

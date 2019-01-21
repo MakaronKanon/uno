@@ -5,6 +5,7 @@ import java.awt.Color;
 import static Interfaces.UNOConstants.BLACK;
 import static Interfaces.UNOConstants.CardType.WILD;
 
+// This is the colorPicker card.
 public class WildCard extends UnoCard {
 	
 	private Color chosenColor;

@@ -278,7 +278,7 @@ public class Game {
 		}
 	}
 
-	// ActionCards
+	// SpecialCards
 	public void performAction(UnoCard actionCard) {
 
 		// Draw2PLUS

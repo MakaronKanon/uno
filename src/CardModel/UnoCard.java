@@ -27,7 +27,7 @@ public class UnoCard {
         return value;
     }
 
-    public CardType getType() {
+    public  CardType getType() {
         return type;
     }
 }
