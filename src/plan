@@ -21,3 +21,8 @@ not really make for Open Closed. Better would be that each actionCard is it's ow
 We could still have one class for all cards that should draw (just different amounts).
 
 Then we can have UnoCard, WildCard
+
+
+
+
+Dela upp view logiken från Game så controller uppdatera rätt according to callbacks/events.

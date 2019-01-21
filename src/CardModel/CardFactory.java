@@ -11,11 +11,11 @@ import java.awt.*;
 public class CardFactory {
 
     public static UnoCard createDraw2xCard(Color cardColor) {
-        return new Draw2xCard(cardColor, "2+");
+        return new Draw2xCard(cardColor);
     }
 
     public static UnoCard createDraw4xCard() {
-        return new Draw4xCard("4+");
+        return new Draw4xCard();
     }
 
     public static UnoCard createReverseActionCard(Color cardColor) {
@@ -33,10 +33,6 @@ public class CardFactory {
     public static UnoCard createWildCard() {
         return new WildCard("W");
     }
-
-//    public static UnoCard createActionCard(Color cardColor, String cardValue) {
-//        return new UnoCard(cardColor, UNOConstants.CardType.ACTION, cardValue);
-//    }
 
     public static UnoCard createNumberCard(Color cardColor, String cardValue) {
         return new UnoCard(cardColor, cardValue);

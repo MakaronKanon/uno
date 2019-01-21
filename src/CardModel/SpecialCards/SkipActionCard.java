@@ -2,7 +2,6 @@ package CardModel.SpecialCards;
 
 import CardModel.ActionCard;
 import CardModel.UnoCard;
-import Interfaces.UNOConstants;
 
 import java.awt.*;
 

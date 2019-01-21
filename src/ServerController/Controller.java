@@ -3,12 +3,12 @@ package ServerController;
 import CardModel.UnoCard;
 import CardModel.WildCard;
 import GameModel.*;
-import Interfaces.UNOConstants;
 import View.GameView;
 import View.InfoPanel;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static Interfaces.GameConstants.UNO_COLORS;
 
@@ -37,18 +37,13 @@ public class Controller implements GameListener {
 
             WildCard wildCard = (WildCard) unoCard;
 
-            ArrayList<String> colors = new ArrayList<String>();
-            colors.add("RED");
-            colors.add("BLUE");
-            colors.add("GREEN");
-            colors.add("YELLOW");
+            String[] colors = {"RED", "BLUE", "GREEN", "YELLOW"};
 
             String chosenColor = (String) JOptionPane.showInputDialog(null,
                     "Choose a color", "Wild Card Color",
-                    JOptionPane.DEFAULT_OPTION, null, colors.toArray(), null);
+                    JOptionPane.DEFAULT_OPTION, null, colors, null);
 
-            wildCard.useWildColor(UNO_COLORS[colors.indexOf(chosenColor)]);
-
+            wildCard.useWildColor(UNO_COLORS[Arrays.asList(colors).indexOf(chosenColor)]);
         }
 
         try {

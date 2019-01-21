@@ -7,24 +7,13 @@ import CardModel.WildCard;
 
 public class PC extends Player {
 
-//	private Server server;
-
-
-
-//	public void setServer(Server server) {
-//		this.server = server;
-//	}
-
     private Game game;
 
 	public PC(Game game) {
 		super("PC");
 		this.game = game;
 		super.setCards();
-//		this.server = server;
 	}
-
-
 	
 	//PC plays a card
 	public boolean play(UnoCard topCard) {

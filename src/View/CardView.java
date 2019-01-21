@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import CardModel.UnoCard;
-import Interfaces.UNOConstants;
 import ServerController.UNOCardController;
 
 public class CardView extends JPanel {
