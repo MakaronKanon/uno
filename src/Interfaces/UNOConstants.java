@@ -10,11 +10,7 @@ public interface UNOConstants {
 	public static Color YELLOW = new Color(255,204,0);
 	
 	public static Color BLACK = new Color(0,0,0);
-	
-	//Types
-//	public static int NUMBERS = 1;
-//	public static int ACTION = 2;
-//	public static int WILD = 3;
+
 	enum CardType {NUMBER, ACTION, WILD} //todo not following open closed, do something with classes
 	
 	//ActionCard Characters

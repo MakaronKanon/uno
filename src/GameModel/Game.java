@@ -9,6 +9,10 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import CardModel.*;
+import CardModel.SpecialCards.Draw2xCard;
+import CardModel.SpecialCards.Draw4xCard;
+import CardModel.SpecialCards.ReverseActionCard;
+import CardModel.SpecialCards.SkipActionCard;
 //import ServerController.Server;
 
 import static Interfaces.GameConstants.*;
@@ -264,7 +268,7 @@ public class Game {
 			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
 		}
 
-		if (functionCard.getValue().equals(W_DRAW4PLUS))
+		if (functionCard instanceof Draw4xCard)
 			drawPlus(4);
 	}
 
@@ -282,11 +286,11 @@ public class Game {
 	public void performAction(UnoCard actionCard) {
 
 		// Draw2PLUS
-		if (actionCard.getValue().equals(DRAW2PLUS))
+		if (actionCard instanceof Draw2xCard)
 			drawPlus(2);
-		else if (actionCard.getValue().equals(REVERSE))
+		else if (actionCard instanceof ReverseActionCard)
 			switchTurn();
-		else if (actionCard.getValue().equals(SKIP))
+		else if (actionCard instanceof  SkipActionCard)
 			switchTurn();
 	}
 
@@ -342,10 +346,12 @@ public class Game {
 
 
 				// function cards ??
-                if (clickedCard.getType() == CardType.ACTION) {
+                if (clickedCard instanceof ActionCard) {
                     performAction(clickedCard);
 
-                } else if (clickedCard instanceof  WildCard) {
+                }
+                
+                if (clickedCard instanceof  WildCard) {
                     performWild((WildCard) clickedCard);
                 }
 

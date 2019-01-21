@@ -15,16 +15,9 @@ public interface GameConstants extends UNOConstants {
 	Color[] UNO_COLORS = {RED, BLUE, GREEN, YELLOW};
 	Color WILD_CARDCOLOR = BLACK;
 	
-	int[] UNO_NUMBERS =  {0,1,2,3,4,5,6,7,8,9};	
-	String[] ActionTypes = {REVERSE,SKIP,DRAW2PLUS};	
-	String[] WildTypes = {W_COLORPICKER, W_DRAW4PLUS};
+	int[] UNO_NUMBERS =  {0,1,2,3,4,5,6,7,8,9};
 
 	enum GameMode {vsPC, twoPlayer}
-//	int vsPC = 1;
-//	int MANUAL = 2;
-//
-//	int[] GAMEMODES = {vsPC, MANUAL};
-
 	
 	InfoPanel infoPanel = new InfoPanel(); // todo this is worse than the other constans here..
 }
