@@ -25,7 +25,7 @@ public class Game {
 
 	private TurnManager turnManager = new TurnManager();
 	
-	private PC pc;
+	private PC pc; // Should not have access to PC.
 	private Dealer dealer;
 //	private Stack<UnoCard> cardStack;
 	private Stack<UnoCard> playedCards = new Stack<>();
@@ -45,6 +45,8 @@ public class Game {
 //	}
 
 
+    // this uses a bad way to setup pc
+    // instead Pc should be just a player, this constructor should take two parameters for players.
 	public Game(GameMode mode){
 		
 		gamemode = mode;
@@ -227,24 +229,20 @@ public class Game {
 //		}
 	}
 
-	
-	public boolean isPCsTurn(){
-		if(pc.isMyTurn()){
-			return true;
-		}
-		return false;
-	}
 
-	//if it's PC's turn, play it for pc
-	public void playPC() {
-		UnoCard topCard = getTopCard();
-		if (pc.isMyTurn()) {
-			boolean done = pc.play(topCard);
-			
-			if(!done)
-				drawCard();
-		}
-	}
+//	// A way to check if it's pc turn
+//	public boolean isPCsTurn(){ // todo: projectbot
+//		if(pc.isMyTurn()){
+//			return true;
+//		}
+//		return false;
+//	}
+
+//	//if it's PC's turn, play it for pc
+//    // the logic that plays for pc
+//	public void playPC() { // todo projectbot
+//
+//	}
 
 	//check if it is a valid card
 	public boolean isValidMove(UnoCard playedCard) {
@@ -266,18 +264,19 @@ public class Game {
 	}
 
 
-	// all below is copy pasted from server
-	public void performWild(WildCard functionCard) {
+//	// all below is copy pasted from server
+//	public void performWild(WildCard functionCard) {
+//
+//		//System.out.println(game.whoseTurn());
+//        // The pc need to select a wildCard, should select before. UnSelected wildCard should not be able to be used.
+//        // as a UnoCard. Should have two different.
+////		if(gamemode==vsPC && pc.isMyTurn()){ // todo projectbot
+////			int random = new Random().nextInt() % 4;
+////			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
+////		}
 
-		//System.out.println(game.whoseTurn());
-		if(gamemode==vsPC && isPCsTurn()){
-			int random = new Random().nextInt() % 4;
-			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
-		}
 
-		if (functionCard instanceof Draw4xCard)
-			drawPlus(4);
-	}
+//	}
 
 	public boolean canPlay() {
 		return !isOver();
@@ -299,9 +298,11 @@ public class Game {
 			switchTurn();
 		else if (actionCard instanceof  SkipActionCard)
 			switchTurn();
+        else if (actionCard instanceof Draw4xCard)
+            drawPlus(4);
 	}
 
-	//check player's turn
+	//check player's turn, bad way of checking whose turn it is
 	public boolean isHisTurn(UnoCard clickedCard) {
 
 		for (Player p : getPlayers()) {
@@ -358,9 +359,9 @@ public class Game {
 
                 }
 
-                if (clickedCard instanceof  WildCard) {
-                    performWild((WildCard) clickedCard);
-                }
+//                if (clickedCard instanceof  WildCard) {
+//                    performWild((WildCard) clickedCard);
+//                }
 
 				switchTurn();
 
@@ -375,10 +376,12 @@ public class Game {
 
 			}
 
+//
 
-			if(gamemode== vsPC && canPlay()){
-				if(isPCsTurn()){
-					playPC();
+			// This is so the pc should play when it it's turn
+			if(gamemode== vsPC && canPlay()){ //todo projectbot
+				if(pc.isMyTurn()){
+					pc.playRound();
 				}
 			}
 		}
@@ -402,17 +405,14 @@ public class Game {
 	public void requestCard() {
 		drawCard();
 
-		if(gamemode==vsPC && canPlay()){
-			if(isPCsTurn())
-				playPC();
+		// This is so that the PC should play when it it's turn
+		if(gamemode==vsPC && canPlay()){ // todo: projectbot
+			if(pc.isMyTurn())
+				pc.playRound();
 		}
 
 		for (GameListener gameListener : gameListeners) {
 			gameListener.cardDrawn();
 		}
-
 	}
-
-
-
 }

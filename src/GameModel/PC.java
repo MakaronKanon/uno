@@ -1,9 +1,12 @@
 package GameModel;
 
 import java.awt.Color;
+import java.util.Random;
 
 import CardModel.UnoCard;
 import CardModel.WildCard;
+
+import static Interfaces.GameConstants.UNO_COLORS;
 
 public class PC extends Player {
 
@@ -14,6 +17,16 @@ public class PC extends Player {
 		this.game = game;
 		super.setCards();
 	}
+
+	void playRound() {
+        UnoCard topCard = game.getTopCard();
+        if (isMyTurn()) {
+            boolean done = play(topCard);
+
+            if(!done)
+                game.drawCard();
+        }
+    }
 	
 	//PC plays a card
 	public boolean play(UnoCard topCard) {
@@ -49,6 +62,11 @@ public class PC extends Player {
 		if (!done) {
 			for (UnoCard card : getAllCards()) {
 				if (card instanceof WildCard) {
+				    WildCard wildCard = (WildCard)card;
+
+                    int random = new Random().nextInt() % 4;
+                    wildCard.useWildColor(UNO_COLORS[Math.abs(random)]);
+
                     try {
                         game.playThisCardIfPossible(card);
                     } catch (GameIsOverException e) {

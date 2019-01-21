@@ -28,3 +28,8 @@ Then we can have UnoCard, WildCard
 Dela upp view logiken från Game så controller uppdatera rätt according to callbacks/events.
 * When someone forgets to say uno.
 * When it's new turn (or first turn)
+
+
+UnSelected wildCard should not be able to be used.
+        // as a UnoCard. Should have two different.
+        Maybe when we use selectColor it should return a card than can be used.

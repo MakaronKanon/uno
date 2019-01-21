@@ -91,6 +91,12 @@ public class CardDeck{
 	    for (int i = 0; i < cardSize; i++) {
 	        swapCards(i, new Random().nextInt(cardSize));
         }
+
+        // Make sure the topCard never is special.
+        while (seeTopCard() instanceof WildCard || seeTopCard() instanceof ActionCard) {
+            swapCards(0, new Random().nextInt(cardSize));
+        }
+
     }
 
     private void swapCards(int oldIndex, int newIndex) {
