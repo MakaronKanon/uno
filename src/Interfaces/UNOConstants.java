@@ -11,18 +11,18 @@ public interface UNOConstants {
 	
 	public static Color BLACK = new Color(0,0,0);
 
-	enum CardType {NUMBER, ACTION, WILD} //todo not following open closed, do something with classes
+//	enum CardType {NUMBER, ACTION, WILD} //todo not following open closed, do something with classes
 	
 	//ActionCard Characters
-	Character charREVERSE = (char) 8634;							//Decimal
-	Character charSKIP    = (char) Integer.parseInt("2718",16); 	//Unicode
-	
-	//ActionCard Functions
-	String REVERSE = charREVERSE.toString();
-	String SKIP	= charSKIP.toString();
-	String DRAW2PLUS = "2+";
-	
-	//Wild card functions
-	String W_COLORPICKER = "W";
-	String W_DRAW4PLUS = "4+";	
+//	Character charREVERSE = (char) 8634;							//Decimal
+//	Character charSKIP    = (char) Integer.parseInt("2718",16); 	//Unicode
+//
+//	//ActionCard Functions
+//	String REVERSE = charREVERSE.toString();
+//	String SKIP	= charSKIP.toString();
+//	String DRAW2PLUS = "2+";
+//
+//	//Wild card functions
+//	String W_COLORPICKER = "W";
+//	String W_DRAW4PLUS = "4+";
 }

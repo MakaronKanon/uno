@@ -350,7 +350,7 @@ public class Game {
                     performAction(clickedCard);
 
                 }
-                
+
                 if (clickedCard instanceof  WildCard) {
                     performWild((WildCard) clickedCard);
                 }

@@ -58,10 +58,10 @@ public class CardDeck{
 
     private static void addNormalCardsWithColor(Color color, List<UnoCard> cards) {
         //Create 76 NumberCards --> doubles except 0s.
-        for(int num : UNO_NUMBERS){
-            for (int i = 0; i < 2; i++) {
-                cards.add(CardFactory.createNumberCard(color, Integer.toString(num)));
-                if (num == 0) {
+        for(int i = 0; i < 10; i++){
+            for (int j = 0; j < 2; j++) {
+                cards.add(CardFactory.createNumberCard(color, Integer.toString(i)));
+                if (i == 0) {
                     break; // Only add one with num 0
                 }
             }

@@ -3,7 +3,6 @@ package CardModel;
 import java.awt.Color;
 
 import static Interfaces.UNOConstants.BLACK;
-import static Interfaces.UNOConstants.CardType.WILD;
 
 // This is the colorPicker card.
 public class WildCard extends UnoCard {
@@ -12,7 +11,7 @@ public class WildCard extends UnoCard {
 
 	
 	public WildCard(String cardValue){
-		super(BLACK, WILD, cardValue);		
+		super(BLACK, cardValue);
 	}
 	
 	public void useWildColor(Color wildColor){
