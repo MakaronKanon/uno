@@ -102,7 +102,10 @@ public class PC extends Player {
     @Override
     public void yourTurnStarted() {
 	    super.yourTurnStarted();
-        System.out.println("PC turn started");
+        System.out.println("!!!! PC turn started");
+        playRound();
+
+//        playRound();
     }
 
     @Override

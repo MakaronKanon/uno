@@ -392,7 +392,7 @@ public class Game {
 //                    performWild((WildCard) clickedCard);
 //                }
 
-				switchTurn();
+
 
 				for (GameListener listener : gameListeners) {
 					listener.cardPlayed(clickedCard);
@@ -400,6 +400,10 @@ public class Game {
 
 //				gameView.updatePanel(clickedCard);
 				checkResults();
+				if (!isOver()) {
+				    switchTurn();
+                }
+//                switchTurn();
 			} else {
 				throw new InvalidMoveException();
 
@@ -408,11 +412,12 @@ public class Game {
 //
 
 			// This is so the pc should play when it it's turn
-			if(gamemode== vsPC && canPlay()){ //todo projectbot
-				if(pc.isMyTurn()){
-					pc.playRound();
-				}
-			}
+//			if(gamemode== vsPC && canPlay()){ //todo projectbot
+//				if(pc.isMyTurn()){
+//                    System.out.println("!!! Pc start round");
+//					pc.playRound();
+//				}
+//			}
 		}
 
 
