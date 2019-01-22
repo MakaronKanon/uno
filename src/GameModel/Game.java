@@ -25,7 +25,6 @@ public class Game {
 
 	private TurnManager turnManager = new TurnManager();
 	
-	private PC pc; // Should not have access to PC.
 	private Dealer dealer;
 //	private Stack<UnoCard> cardStack;
 	private Stack<UnoCard> playedCards = new Stack<>();
@@ -50,6 +49,7 @@ public class Game {
 	public Game(GameMode mode){
 		
 		gamemode = mode;
+        PC pc = null; // Should not have access to PC.
 
 		
 		//Create players //todo this needs to be move to view, can have factory methods for the different modes
@@ -324,8 +324,10 @@ public class Game {
 		if (actionCard instanceof Draw2xCard)
 			drawPlus(2);
 		else if (actionCard instanceof ReverseActionCard)
+//		    turnManager.reverseOrder(); //todo use this
 			switchTurn();
 		else if (actionCard instanceof  SkipActionCard)
+//		    turnManager.skipNextTurn(); // todo use this
 			switchTurn();
         else if (actionCard instanceof Draw4xCard)
             drawPlus(4);
