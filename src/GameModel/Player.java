@@ -6,16 +6,19 @@ import CardModel.UnoCard;
 
 
 public class Player {
-	
+
+	private Game game;
 	private String name;
 	private boolean isMyTurn = false;
 	private boolean saidUNO = false;
 	private LinkedList<UnoCard> myCards = new LinkedList<>();
 	
 	private int playedCards = 0;
+	private int drawnCardsThisRound = 0;
 
-	public Player(String player){
+	public Player(String player, Game game){
 		name = player;
+		this.game = game;
 	}
 
 	public String getName(){
@@ -57,6 +60,7 @@ public class Player {
 	public void yourTurnStarted() {
 		isMyTurn = true;
 		System.out.println("A players turn started");
+		drawnCardsThisRound = 0;
 	}
 
 	/**
@@ -108,5 +112,25 @@ public class Player {
 			// throw down have card exception
 			return;
 		}
+	}
+
+	public void drawCard() {
+		game.drawCard();
+//		obtainCard(game.getCard());
+		drawnCardsThisRound++;
+		if (drawnCardsThisRound == 3 && !canPlay()) {
+			game.cantPlayGoNext();
+		}
+//		game.getCard();
+//		game.requestCard(); // Add cardsDrawn this round
+	}
+
+	private boolean canPlay() {
+		for (UnoCard card : myCards) {
+			if (game.isValidMove(card)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

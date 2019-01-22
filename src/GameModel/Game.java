@@ -59,8 +59,8 @@ public class Game {
 		if(gamemode== GameMode.vsPC)
 			pc = new PC(this);
 		
-		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
-		Player player2 = new Player(name2);
+		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name, this);
+		Player player2 = new Player(name2, this);
 
 
 //		player2.toggleTurn();				//Initially, player2's turn
@@ -114,6 +114,11 @@ public class Game {
 			}			
 		}
 	}
+
+	// Should be called when player has drawn 3 cards and still can't play.
+	public void cantPlayGoNext() {
+	    switchTurn();
+    }
 	
 	//give player a card
 	public void drawCard() {
@@ -124,6 +129,7 @@ public class Game {
         UnoCard newCard = getCard();
         currentPlayer.obtainCard(newCard);
         canPlay = canPlay(topCard, newCard);
+
 //		currentPlayer
 //		for (Player p : players) {
 //			if (p.isMyTurn()) {
@@ -133,8 +139,12 @@ public class Game {
 //			}
 //		}
 
-		if (!canPlay) // todo: come up with better way to switch turn
-			switchTurn();
+//		if (!canPlay) // todo: come up with better way to switch turn
+//			switchTurn();
+
+        for (GameListener gameListener : gameListeners) {
+            gameListener.cardDrawn();
+        }
 	}
 
 	public void switchTurn() {
@@ -420,14 +430,14 @@ public class Game {
 	public void requestCard() {
 		drawCard();
 
-		// This is so that the PC should play when it it's turn
-		if(gamemode==vsPC && canPlay()){ // todo: projectbot
-			if(pc.isMyTurn())
-				pc.playRound();
-		}
 
-		for (GameListener gameListener : gameListeners) {
-			gameListener.cardDrawn();
-		}
+
+//		// This is so that the PC should play when it it's turn
+//		if(gamemode==vsPC && canPlay()){ // todo: projectbot
+//			if(pc.isMyTurn())
+//				pc.playRound();
+//		}
+
+
 	}
 }

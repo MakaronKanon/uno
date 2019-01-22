@@ -13,7 +13,7 @@ public class PC extends Player {
     private Game game;
 
 	public PC(Game game) {
-		super("PC");
+		super("PC", game);
 		this.game = game;
 		super.setCards();
 	}
@@ -21,10 +21,18 @@ public class PC extends Player {
 	void playRound() {
         UnoCard topCard = game.getTopCard();
         if (isMyTurn()) {
-            boolean done = play(topCard);
-
-            if(!done)
-                game.drawCard();
+            for (int i = 0; i < 3; i++) {
+                boolean done = play(topCard);
+                if (!done) {
+                    game.drawCard();
+                } else {
+                    return;
+                }
+            }
+            boolean done = play(topCard); // Maybe we can play after we have drawn our third card.
+            if (!done) {
+                game.cantPlayGoNext();
+            }
         }
     }
 	

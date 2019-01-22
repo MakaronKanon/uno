@@ -49,7 +49,7 @@ public class Facade {
         // draw card
         if (player.isMyTurn()) {
             if (game.canPlay()) {
-                game.requestCard();
+                player.drawCard();
             }
             System.out.println("Draw button clicked");
         }
