@@ -60,10 +60,14 @@ public class Game {
 			pc = new PC(this);
 		
 		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
-		Player player2 = new Player(name2);		
-		player2.toggleTurn();				//Initially, player2's turn		
+		Player player2 = new Player(name2);
+
+
+//		player2.toggleTurn();				//Initially, player2's turn
 			
 		players = new Player[]{player1, player2};
+
+
 		turnManager.addPlayer(player2); // want player2 to start, so add it first.
 		turnManager.addPlayer(player1);
 
@@ -116,24 +120,37 @@ public class Game {
 		UnoCard topCard = getTopCard();
 		boolean canPlay = false;
 
-		for (Player p : players) {
-			if (p.isMyTurn()) {
-				UnoCard newCard = getCard();
-				p.obtainCard(newCard);
-				canPlay = canPlay(topCard, newCard);
-				break;
-			}
-		}
+        Player currentPlayer = turnManager.currentPlayer();
+        UnoCard newCard = getCard();
+        currentPlayer.obtainCard(newCard);
+        canPlay = canPlay(topCard, newCard);
+//		currentPlayer
+//		for (Player p : players) {
+//			if (p.isMyTurn()) {
+//				p.obtainCard(newCard);
+//				canPlay = canPlay(topCard, newCard);
+//				break;
+//			}
+//		}
 
-		if (!canPlay)
+		if (!canPlay) // todo: come up with better way to switch turn
 			switchTurn();
 	}
 
 	public void switchTurn() {
-		for (Player p : players) {
-			p.toggleTurn();
-		}
-		whoseTurn();
+
+
+	    turnManager.nextTurn();
+        Player currentPlayer = currentPlayer();
+        for (GameListener gameListener : gameListeners) {
+            gameListener.newTurn(currentPlayer.getName());
+        }
+
+
+//		for (Player p : players) {
+//			p.toggleTurn();
+//		}
+//		whoseTurn();
 	}
 	
 	//Draw cards x times
@@ -148,22 +165,20 @@ public class Game {
 
 	// Returns current player
 	private Player currentPlayer() {
-        Player currentPlayer = null;
-        for (Player p : players) {
-            if (p.isMyTurn()){
-                currentPlayer = p;
-                break;
-            }
-        }
-        return currentPlayer;
+	    return turnManager.currentPlayer();
+//        Player currentPlayer = null;
+//        for (Player p : players) {
+//            if (p.isMyTurn()){
+//                currentPlayer = p;
+//                break;
+//            }
+//        }
+//        return currentPlayer;
     }
 	
 	//response whose turn it is
 	public void whoseTurn() {
-	    Player currentPlayer = currentPlayer();
-        for (GameListener gameListener : gameListeners) {
-            gameListener.newTurn(currentPlayer.getName());
-        }
+
 	}
 	
 	//return if the game is over
