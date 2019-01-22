@@ -43,4 +43,7 @@ public class TurnManager {
         return currentPlayer().equals(player);
     }
 
+    public Player nextPlayer() {
+        return players.get((currentPlayerIndex + 1) % playersCount());
+    }
 }

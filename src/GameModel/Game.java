@@ -165,12 +165,16 @@ public class Game {
 	
 	//Draw cards x times
 	public void drawPlus(int times) {
-		for (Player p : players) {
-			if (!p.isMyTurn()) {
-				for (int i = 1; i <= times; i++)
-					p.obtainCard(getCard());
-			}
-		}
+	    Player nextPlayer = turnManager.nextPlayer();
+	    for (int i = 0; i < times; i++) {
+	        nextPlayer.obtainCard(getCard());
+        }
+//		for (Player p : players) {
+//			if (!p.isMyTurn()) {
+//				for (int i = 1; i <= times; i++)
+//					p.obtainCard(getCard());
+//			}
+//		}
 	}
 
 	// Returns current player
