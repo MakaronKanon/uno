@@ -11,7 +11,6 @@ import View.MainFrame;
 import java.awt.*;
 
 import static Interfaces.GameConstants.GameMode.vsPC;
-import static Interfaces.GameConstants.infoPanel;
 
 public class Main {
 

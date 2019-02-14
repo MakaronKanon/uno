@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import CardModel.UnoCard;
 import CardModel.WildCard;
 
-import static Interfaces.GameConstants.infoPanel;
 
 public class TablePanel extends JPanel {
 	
