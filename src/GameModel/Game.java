@@ -228,18 +228,17 @@ public class Game {
 
 	// SpecialCards
 	public void performAction(UnoCard actionCard) {
-
-		// Draw2PLUS
-		if (actionCard instanceof Draw2xCard)
-			drawPlus(2);
-		else if (actionCard instanceof ReverseActionCard)
-//		    turnManager.reverseOrder(); //todo use this
-			switchTurn();
-		else if (actionCard instanceof  SkipActionCard)
-//		    turnManager.skipNextTurn(); // todo use this
-			switchTurn();
-        else if (actionCard instanceof Draw4xCard)
+	    if (actionCard instanceof Draw2xCard) {
+            drawPlus(2);
+        } else if (actionCard instanceof ReverseActionCard) {
+		    // It is boring to reverse order in with 2 players so lets just skip other player here as well.
+            //turnManager.reverseOrder();
+            turnManager.skipNextTurn();
+        } else if (actionCard instanceof  SkipActionCard) {
+            turnManager.skipNextTurn();
+        } else if (actionCard instanceof Draw4xCard) {
             drawPlus(4);
+        }
 	}
 
 	//check player's turn, bad way of checking whose turn it is

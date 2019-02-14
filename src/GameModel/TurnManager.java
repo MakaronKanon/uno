@@ -9,6 +9,8 @@ public class TurnManager {
 
     private int currentPlayerIndex = 0;
 
+    private boolean skipNextTurn = false;
+
     public void addPlayer(Player player) {
         players.add(player);
     }
@@ -28,6 +30,10 @@ public class TurnManager {
 
     private void goToNextPlayer() {
         currentPlayerIndex++;
+        if (skipNextTurn) {
+            currentPlayerIndex++;
+            skipNextTurn = false;
+        }
         currentPlayerIndex = currentPlayerIndex % playersCount();
     }
 
@@ -43,7 +49,18 @@ public class TurnManager {
         return currentPlayer().equals(player);
     }
 
+    /**
+     * @return the player of nextPlayer.
+     * Even if we skip nextPlayer he will get returned.
+     */
     public Player nextPlayer() {
         return players.get((currentPlayerIndex + 1) % playersCount());
+    }
+
+    /**
+     * Enables a flag that indicates that the next players turn will be skipped
+     */
+    public void skipNextTurn() {
+        skipNextTurn = true;
     }
 }

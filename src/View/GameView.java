@@ -89,6 +89,7 @@ public class GameView extends JPanel {
 	 */
 	public void updateText(String gameOver) {
 		infoPanel.updateText(gameOver);
+		infoPanel.repaint();
 	}
 
 	/**
