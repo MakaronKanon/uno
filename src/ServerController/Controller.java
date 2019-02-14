@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static Interfaces.GameConstants.UNO_COLORS;
-import static Interfaces.GameConstants.infoPanel;
 
 /**
  * This is the main controller, it listens from Game for events, then delegates to a specific controller.
  */
 public class Controller implements GameListener {
 
-    private InfoPanel infoPanel;
+    // Todo: Remove direct reference to infoPanel.
+    //private InfoPanel infoPanel;
     private Facade facade;
     private GameView gameView;
 
-    public Controller(InfoPanel infoPanel, Facade facade) {
-        this.infoPanel = infoPanel;
+    public Controller(Facade facade) {
+        //this.infoPanel = infoPanel;
         this.facade = facade;
     }
 
@@ -46,12 +46,14 @@ public class Controller implements GameListener {
 
             wildCard.useWildColor(UNO_COLORS[Arrays.asList(colors).indexOf(chosenColor)]);
         }
+        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
 
         try {
             facade.playCard(player, unoCard);
 //            game.playThisCardIfPossible(unoCard);
         } catch (GameIsOverException e) {
 //            e.printStackTrace();
+
             infoPanel.setError("Game is over!");
         } catch (NotYourTurnException e) {
             infoPanel.setError("It's not your turn");
@@ -69,6 +71,8 @@ public class Controller implements GameListener {
 
     @Override
     public void gameOverCallback() {
+        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
+
         infoPanel.updateText("GAME OVER");
 
     }
@@ -85,6 +89,8 @@ public class Controller implements GameListener {
 
     @Override
     public void newTurn(String newPlayerName) {
+        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
+
         infoPanel.updateText(newPlayerName + "'s Turn");
 
         int remainingCards = facade.getRemainingCardsCount();
@@ -95,6 +101,8 @@ public class Controller implements GameListener {
 
     @Override
     public void forgotToSayUno(String name) {
+        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
+
         infoPanel.setError(name + " Forgot to say UNO");
     }
 

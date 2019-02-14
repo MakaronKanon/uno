@@ -20,17 +20,25 @@ public class GameView extends JPanel {
 	
 	private Controller controller;
 
+	private InfoPanel infoPanel; // Maybe it should be elsewhere? tablepanel?
+	public InfoPanel getInfoPanel() {
+		return infoPanel;
+	}
+
 	public GameView(UnoCard firstCard, Controller controller, Facade facade){
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
+		//InfoPanel infoPanel = new InfoPanel();
+
+		this.infoPanel = new InfoPanel();
 
 		this.controller = controller;
-		setPlayers(controller, facade);
+		setPlayers(controller, facade, infoPanel);
 
 	}
 	
-	private void setPlayers(Controller controller, Facade facade) {
+	private void setPlayers(Controller controller, Facade facade, InfoPanel infoPanel) {
 		List<Player> players = facade.getPlayers();
 		Player player1 = players.get(0);
 		Player player2 = players.get(1);
@@ -43,7 +51,7 @@ public class GameView extends JPanel {
 		playerPanelController2.setPlayerPanel(player2panel);
 
 
-		table = new TablePanel(facade.getLastPlayedCard());
+		table = new TablePanel(facade.getLastPlayedCard(), infoPanel);
 		player1panel.setOpaque(false);
 		player2panel.setOpaque(false);
 

@@ -5,6 +5,7 @@ import GameModel.Game;
 import Interfaces.GameConstants;
 import ServerController.Controller;
 import View.GameView;
+import View.InfoPanel;
 import View.MainFrame;
 
 import java.awt.*;
@@ -28,7 +29,8 @@ public class Main {
 
 				Game game = new Game(gameMode);
 				Facade facade = new Facade(game);
-				Controller controller = new Controller(infoPanel, facade);
+				//Todo: doesn't make sense to create infoPanel here
+				Controller controller = new Controller(facade);
 				GameView gameView = new GameView(game.getTopCard(), controller, facade);
 				controller.setGameView(gameView);
 

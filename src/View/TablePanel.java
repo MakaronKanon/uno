@@ -17,7 +17,7 @@ public class TablePanel extends JPanel {
 	private UnoCard topCard;
 	private JPanel table;
 	
-	public TablePanel(UnoCard firstCard){
+	public TablePanel(UnoCard firstCard, InfoPanel infoPanel){
 		setOpaque(false);
 		setLayout(new GridBagLayout());
 		
@@ -26,7 +26,7 @@ public class TablePanel extends JPanel {
 		table.setBackground(new Color(64,64,64));
 		
 		setTable();
-		setComponents();
+		setComponents(infoPanel);
 	}
 	
 	private void setTable(){
@@ -44,7 +44,7 @@ public class TablePanel extends JPanel {
 		table.add(cardView, c);
 	}
 	
-	private void setComponents() {
+	private void setComponents(InfoPanel infoPanel) {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
