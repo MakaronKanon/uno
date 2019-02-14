@@ -26,7 +26,8 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 
-				Game game = new Game(gameMode);
+				Game game = Game.transCreateGame(gameMode);
+
 				Facade facade = new Facade(game);
 				//Todo: doesn't make sense to create infoPanel here
 				Controller controller = new Controller(facade);

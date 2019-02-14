@@ -12,11 +12,18 @@ public class PC extends Player {
 
     private Game game;
 
-	public PC(Game game) {
-		super("PC", game);
-		this.game = game;
+	public PC() {
+		super("PC");
 		super.setCards();
 	}
+
+    // Sets game reference, we get it overriding this method
+    // but we cant forget to call super so it also gets a reference
+    @Override
+    public void setGame(Game game) {
+	    super.setGame(game);
+        this.game = game;
+    }
 
 	void playRound() {
         UnoCard topCard = game.getTopCard();

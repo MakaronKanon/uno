@@ -21,7 +21,6 @@ public class Game {
 
 	private Player[] players;
 	private boolean isOver;
-	private GameMode gamemode;
 
 	private TurnManager turnManager = new TurnManager();
 	
@@ -39,29 +38,42 @@ public class Game {
 		return playedCards.peek();
 	}
 
-//	public void setServer(Server server) {
-//		pc.setServer(server);
-//	}
+
+
+	//todo: we can only create games with two players, we want to be able to be mroe players!
+	// This forces someone else to create Players, but that's probably good
+	// maybe one can have a gameStarter class that does so. For now main handles it.
+	public static Game createGame2Players(Player player1, Player player2) {
+		return new Game(player1, player2);
+	}
+
+	// this is only here for a smooth transition
+	public static Game transCreateGame(GameMode mode) {
+		GameMode gamemode = mode; // useless line
+		PC pc = null; // Should not have access to PC.
+
+
+		//Create players //todo this needs to be move to view, can have factory methods for the different modes
+		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
+		String name2 = JOptionPane.showInputDialog("Player 2");
+
+		if(gamemode== GameMode.vsPC)
+			pc = new PC();
+
+		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
+		Player player2 = new Player(name2);
+		return createGame2Players(player1, player2);
+	}
 
 
     // this uses a bad way to setup pc
     // instead Pc should be just a player, this constructor should take two parameters for players.
-	public Game(GameMode mode){
+	private Game(Player player1, Player player2){
 		
-		gamemode = mode;
-        PC pc = null; // Should not have access to PC.
-
-		
-		//Create players //todo this needs to be move to view, can have factory methods for the different modes
-		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
-		String name2 = JOptionPane.showInputDialog("Player 2");
-		
-		if(gamemode== GameMode.vsPC)
-			pc = new PC(this);
-		
-		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name, this);
-		Player player2 = new Player(name2, this);
-
+		// todo: here we can call, player1.setGame()
+		// todo: here we can call, player2.setGame()
+		player1.setGame(this);
+		player2.setGame(this);
 
 //		player2.toggleTurn();				//Initially, player2's turn
 			
@@ -69,6 +81,7 @@ public class Game {
 
 
 		turnManager.addPlayer(player2); // want player2 to start, so add it first.
+		//todo: we should want player1 to start because that's more logical.
 		turnManager.addPlayer(player1);
 
 		//Create Dealer
@@ -85,7 +98,6 @@ public class Game {
 		isOver = false;
 		// Start the turn.
 		turnManager.startTurn();
-
 	}
 
 	public Player[] getPlayers() {

@@ -16,9 +16,8 @@ public class Player {
 	private int playedCards = 0;
 	private int drawnCardsThisRound = 0;
 
-	public Player(String player, Game game){
+	public Player(String player){
 		name = player;
-		this.game = game;
 	}
 
 	public String getName(){
@@ -27,6 +26,11 @@ public class Player {
 
 	public void obtainCard(UnoCard card){
 		myCards.add(card);
+	}
+
+	// Sets game reference
+	public void setGame(Game game) {
+		this.game = game;
 	}
 	
 	public LinkedList<UnoCard> getAllCards(){
