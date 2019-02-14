@@ -3,19 +3,13 @@ package GameModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
-
-import javax.swing.JOptionPane;
 
 import CardModel.*;
 import CardModel.SpecialCards.Draw2xCard;
 import CardModel.SpecialCards.Draw4xCard;
 import CardModel.SpecialCards.ReverseActionCard;
 import CardModel.SpecialCards.SkipActionCard;
-
-import static Interfaces.GameConstants.*;
-import static Interfaces.GameConstants.GameMode.vsPC;
 
 public class Game {
 
@@ -47,31 +41,10 @@ public class Game {
 		return new Game(player1, player2);
 	}
 
-	// this is only here for a smooth transition
-	public static Game transCreateGame(GameMode mode) {
-		GameMode gamemode = mode; // useless line
-		PC pc = null; // Should not have access to PC.
 
-
-		//Create players //todo this needs to be move to view, can have factory methods for the different modes
-		String name = (gamemode== GameMode.twoPlayer) ? JOptionPane.showInputDialog("Player 1") : "PC";
-		String name2 = JOptionPane.showInputDialog("Player 2");
-
-		if(gamemode== GameMode.vsPC)
-			pc = new PC();
-
-		Player player1 = (gamemode== GameMode.vsPC) ? pc : new Player(name);
-		Player player2 = new Player(name2);
-		return createGame2Players(player1, player2);
-	}
-
-
-    // this uses a bad way to setup pc
-    // instead Pc should be just a player, this constructor should take two parameters for players.
+	// We can pass list directly, but since we only support two players we take two separate players and then
+	// make a collection of them
 	private Game(Player player1, Player player2){
-		
-		// todo: here we can call, player1.setGame()
-		// todo: here we can call, player2.setGame()
 		player1.setGame(this);
 		player2.setGame(this);
 
