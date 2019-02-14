@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import ServerController.PlayerPanelController;
+import Controller.PlayerPanelController;
 
 public class PlayerPanel extends JPanel {
 

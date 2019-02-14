@@ -7,8 +7,8 @@ import java.awt.Insets;
 
 import javax.swing.JPanel;
 
-import CardModel.UnoCard;
-import CardModel.WildCard;
+import Model.CardModel.UnoCard;
+import Model.CardModel.WildCard;
 
 
 public class TablePanel extends JPanel {

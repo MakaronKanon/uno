@@ -7,11 +7,11 @@ import java.util.List;
 
 import javax.swing.*;
 
-import CardModel.UnoCard;
-import GameModel.Facade;
-import GameModel.Player;
-import ServerController.Controller;
-import ServerController.PlayerPanelController;
+import Model.CardModel.UnoCard;
+import Model.GameModel.Facade;
+import Model.GameModel.Player;
+import Controller.Controller;
+import Controller.PlayerPanelController;
 
 public class GameView extends JPanel {
 	private PlayerPanel player1panel;

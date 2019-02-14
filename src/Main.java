@@ -1,20 +1,19 @@
 import javax.swing.*;
 
-import GameModel.Facade;
-import GameModel.Game;
-import GameModel.PC;
-import GameModel.Player;
-import Interfaces.GameConstants;
-import ServerController.Controller;
+import Model.GameModel.Facade;
+import Model.GameModel.Game;
+import Model.GameModel.PC;
+import Model.GameModel.Player;
+import GameSettings.GameConstants;
+import Controller.Controller;
 import View.GameView;
-import View.InfoPanel;
 import View.MainFrame;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Interfaces.GameConstants.GameMode.vsPC;
+import static GameSettings.GameConstants.GameMode.vsPC;
 
 public class Main {
 

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-import static Interfaces.GameConstants.UNO_COLORS;
+import static GameSettings.GameConstants.UNO_COLORS;
 
 /**
  * This class will be called when the player needs to select the color of a WildCard.

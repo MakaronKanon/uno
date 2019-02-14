@@ -13,8 +13,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import CardModel.UnoCard;
-import ServerController.UNOCardController;
+import Model.CardModel.UnoCard;
+import Controller.UNOCardController;
 
 public class CardView extends JPanel {
 
