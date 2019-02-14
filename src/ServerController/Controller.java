@@ -2,28 +2,27 @@ package ServerController;
 
 import CardModel.UnoCard;
 import CardModel.WildCard;
-import GameModel.*;
+import GameModel.Facade;
+import GameModel.GameIsOverException;
+import GameModel.GameListener;
+import GameModel.InvalidMoveException;
+import GameModel.NotYourTurnException;
+import GameModel.Player;
 import View.GameView;
-import View.InfoPanel;
+import View.SelectWildCardView;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static Interfaces.GameConstants.UNO_COLORS;
+import java.awt.Color;
 
 /**
  * This is the main controller, it listens from Game for events, then delegates to a specific controller.
  */
 public class Controller implements GameListener {
 
-    // Todo: Remove direct reference to infoPanel.
-    //private InfoPanel infoPanel;
+
     private Facade facade;
     private GameView gameView;
 
     public Controller(Facade facade) {
-        //this.infoPanel = infoPanel;
         this.facade = facade;
     }
 
@@ -31,50 +30,37 @@ public class Controller implements GameListener {
         this.gameView = gameView;
     }
 
+    /**
+     * Method should be called when player attempts to play a card.
+     * It calls the Model's playCard, if it is invalid move this method
+     * displays error-messages to the player.
+     * @param player, the player who plays the card
+     * @param unoCard, the unoCard to play
+     */
     public void playCard(Player player, UnoCard unoCard) {
 
+        //todo: is there a way to design the card system to get rid of these instanceof checks?
         if (unoCard instanceof WildCard) {
             // Need to select color.
-
             WildCard wildCard = (WildCard) unoCard;
-
-            String[] colors = {"RED", "BLUE", "GREEN", "YELLOW"};
-
-            String chosenColor = (String) JOptionPane.showInputDialog(null,
-                    "Choose a color", "Wild Card Color",
-                    JOptionPane.DEFAULT_OPTION, null, colors, null);
-
-            wildCard.useWildColor(UNO_COLORS[Arrays.asList(colors).indexOf(chosenColor)]);
+            Color selectedColor = new SelectWildCardView().selectWildColor();
+            wildCard.useWildColor(selectedColor);
         }
-        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
 
         try {
             facade.playCard(player, unoCard);
-//            game.playThisCardIfPossible(unoCard);
         } catch (GameIsOverException e) {
-//            e.printStackTrace();
-
-            infoPanel.setError("Game is over!");
+            gameView.displayError("Game is over!");
         } catch (NotYourTurnException e) {
-            infoPanel.setError("It's not your turn");
-            infoPanel.repaint();
+            gameView.displayError("It's not your turn");
         } catch (InvalidMoveException e) {
-            infoPanel.setError("invalid move");
-            infoPanel.repaint();
+            gameView.displayError("Invalid move");
         }
-//        facade.playCard(player, unoCard);
-    }
-
-    public void drawCard(Player player) {
-//        facade.drawCard(player);
     }
 
     @Override
     public void gameOverCallback() {
-        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
-
-        infoPanel.updateText("GAME OVER");
-
+        gameView.updateText("GAME OVER");
     }
 
     @Override
@@ -89,22 +75,16 @@ public class Controller implements GameListener {
 
     @Override
     public void newTurn(String newPlayerName) {
-        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
-
-        infoPanel.updateText(newPlayerName + "'s Turn");
+        gameView.updateText(newPlayerName + "'s Turn");
 
         int remainingCards = facade.getRemainingCardsCount();
         int[] playedCards = facade.getPlayedCards();
-        infoPanel.setDetail(playedCards, remainingCards);
-        infoPanel.repaint();
+        gameView.updateDetail(playedCards, remainingCards);
     }
 
     @Override
     public void forgotToSayUno(String name) {
-        InfoPanel infoPanel = gameView.getInfoPanel(); // Breaks law of demeter
-
-        infoPanel.setError(name + " Forgot to say UNO");
+        gameView.displayError(name + " forgot to say UNO");
     }
-
 
 }

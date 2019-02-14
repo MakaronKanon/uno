@@ -2,7 +2,6 @@ package ServerController;
 
 import CardModel.UnoCard;
 import GameModel.Facade;
-import GameModel.Game;
 import GameModel.Player;
 import View.CardView;
 import View.PlayerPanel;
@@ -10,8 +9,13 @@ import View.PlayerPanel;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo: I made a decision that, sub-controllers should have direct reference to facade
-// so we can reduce coupling between controllers.
+
+/**
+ * Controller class for PlayerPanel
+ *
+ * I made a decision that sub-controllers like this should have a direct reference to facade
+ * instead of delegating everything to a 'main'-controller. This reduces coupling between controllers.
+ */
 public class PlayerPanelController {
 
     private PlayerPanel playerPanel;
@@ -38,9 +42,10 @@ public class PlayerPanelController {
         return player.getTotalCards();
     }
 
-
-
-    // In future we might want to convert model cards to unoviews. Or do that in the view.
+    /**
+     * @return list of the playerCards
+     * Converts from Model-Cards to View-Cards.
+     */
     public List<CardView> getPlayerCards() {
         List<CardView> cardViews = new ArrayList<>();
         for (UnoCard card : player.getAllCards()) {
@@ -53,15 +58,19 @@ public class PlayerPanelController {
         return cardViews;
     }
 
+    /**
+     * Should be called when player clicked the drawCard-button
+     */
     public void drawBtnClicked() {
-        // I made a decision that controller shouldn't have logic
-        // for checking if it's its turn. Instead just delegate to facade and
-        // todo: maybe catch exception.
+        // todo: maybe catch exception. such as notYourTurn / gameOver
         facade.drawCard(player);
     }
 
+    /**
+     * Should be called when player clicked the sayUno-button
+     */
     public void sayUnoBtnClicked() {
+        //todo: same todo as drawBtnClicked
         facade.sayUno(player);
-
     }
 }

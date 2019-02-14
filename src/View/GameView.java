@@ -72,6 +72,34 @@ public class GameView extends JPanel {
 
 		table.setPlayedCard(playedCard);
 		refreshPanel();
-	}	
+	}
 
+	/**
+	 * Displays an error to the screen, in InfoPanel.
+	 * @param errorMsg is a String with the error message.
+	 */
+	public void displayError(String errorMsg) {
+		infoPanel.setError(errorMsg);
+		infoPanel.repaint();
+	}
+
+	/**
+	 * Displays an text to the screen, in InfoPanel.
+	 * @param gameOver is the String to display.
+	 */
+	public void updateText(String gameOver) {
+		infoPanel.updateText(gameOver);
+	}
+
+	/**
+	 * Updates playedCards and remainingCards
+	 * @param playedCards array, first element is player1 played cards, etc
+	 * @param remainingCards how many cards remaining
+	 */
+	//todo: the structure of using this method is little bad, should it update automatically and
+	//todo: playedCards is really cryptic
+	public void updateDetail(int[] playedCards, int remainingCards) {
+		infoPanel.setDetail(playedCards, remainingCards);
+		infoPanel.repaint();
+	}
 }
