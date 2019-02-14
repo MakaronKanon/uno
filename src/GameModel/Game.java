@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import CardModel.*;
+import CardModel.ActionCard;
 import CardModel.SpecialCards.Draw2xCard;
 import CardModel.SpecialCards.Draw4xCard;
 import CardModel.SpecialCards.ReverseActionCard;
 import CardModel.SpecialCards.SkipActionCard;
+import CardModel.UnoCard;
+import CardModel.WildCard;
 
 public class Game {
 
@@ -19,10 +21,7 @@ public class Game {
 	private TurnManager turnManager = new TurnManager();
 	
 	private Dealer dealer;
-//	private Stack<UnoCard> cardStack;
 	private Stack<UnoCard> playedCards = new Stack<>();
-
-
 
 	public Stack<UnoCard> playedCards() {
 		return playedCards;
@@ -31,8 +30,6 @@ public class Game {
 	public UnoCard getTopCard() {
 		return playedCards.peek();
 	}
-
-
 
 	//todo: we can only create games with two players, we want to be able to be mroe players!
 	// This forces someone else to create Players, but that's probably good
@@ -48,10 +45,8 @@ public class Game {
 		player1.setGame(this);
 		player2.setGame(this);
 
-//		player2.toggleTurn();				//Initially, player2's turn
-			
+		//todo: We should be satisfied we only having turnManager not also Player array
 		players = new Player[]{player1, player2};
-
 
 		turnManager.addPlayer(player2); // want player2 to start, so add it first.
 		//todo: we should want player1 to start because that's more logical.
@@ -59,12 +54,10 @@ public class Game {
 
 		//Create Dealer
 		dealer = new Dealer();
-//		cardStack = dealer.shuffle();
 
 		// First Card
 		UnoCard firstCard = getCard();
 		playedCards().add(firstCard);
-
 
 		dealer.spreadOut(players);
 		
@@ -133,19 +126,11 @@ public class Game {
 	}
 
 	public void switchTurn() {
-
-
 	    turnManager.nextTurn();
         Player currentPlayer = currentPlayer();
         for (GameListener gameListener : gameListeners) {
             gameListener.newTurn(currentPlayer.getName());
         }
-
-
-//		for (Player p : players) {
-//			p.toggleTurn();
-//		}
-//		whoseTurn();
 	}
 	
 	//Draw cards x times
@@ -154,31 +139,12 @@ public class Game {
 	    for (int i = 0; i < times; i++) {
 	        nextPlayer.obtainCard(getCard());
         }
-//		for (Player p : players) {
-//			if (!p.isMyTurn()) {
-//				for (int i = 1; i <= times; i++)
-//					p.obtainCard(getCard());
-//			}
-//		}
 	}
 
 	// Returns current player
 	private Player currentPlayer() {
 	    return turnManager.currentPlayer();
-//        Player currentPlayer = null;
-//        for (Player p : players) {
-//            if (p.isMyTurn()){
-//                currentPlayer = p;
-//                break;
-//            }
-//        }
-//        return currentPlayer;
     }
-	
-	//response whose turn it is
-	public void whoseTurn() {
-
-	}
 	
 	//return if the game is over
 	public boolean isOver() {
@@ -200,7 +166,6 @@ public class Game {
 
 	public int remainingCards() {
 	    return dealer.cardsLeftCount();
-//		return cardStack.size();
 	}
 
 	public int[] playedCardsSize() {
@@ -232,32 +197,6 @@ public class Game {
 		return false;
 	}
 
-	public void setSaidUNO() {
-//		for (Player p : players) {
-//			if (p.isMyTurn()) {
-//				if (p.getTotalCards() == 2) {
-//					p.saysUNO();
-//					infoPanel.setError(p.getName() + " said UNO");
-//				}
-//			}
-//		}
-	}
-
-
-//	// A way to check if it's pc turn
-//	public boolean isPCsTurn(){ // todo: projectbot
-//		if(pc.isMyTurn()){
-//			return true;
-//		}
-//		return false;
-//	}
-
-//	//if it's PC's turn, play it for pc
-//    // the logic that plays for pc
-//	public void playPC() { // todo projectbot
-//
-//	}
-
 	//check if it is a valid card
 	public boolean isValidMove(UnoCard playedCard) {
 		UnoCard topCard = getTopCard();
@@ -276,21 +215,6 @@ public class Game {
 		}
 		return false;
 	}
-
-
-//	// all below is copy pasted from server
-//	public void performWild(WildCard functionCard) {
-//
-//		//System.out.println(game.whoseTurn());
-//        // The pc need to select a wildCard, should select before. UnSelected wildCard should not be able to be used.
-//        // as a UnoCard. Should have two different.
-////		if(gamemode==vsPC && pc.isMyTurn()){ // todo projectbot
-////			int random = new Random().nextInt() % 4;
-////			functionCard.useWildColor(UNO_COLORS[Math.abs(random)]);
-////		}
-
-
-//	}
 
 	public boolean canPlay() {
 		return !isOver();
@@ -320,7 +244,6 @@ public class Game {
 
 	//check player's turn, bad way of checking whose turn it is
 	public boolean isHisTurn(UnoCard clickedCard) {
-
 		for (Player p : getPlayers()) {
 			if (p.hasCard(clickedCard) && p.isMyTurn())
 				return true;
@@ -332,12 +255,6 @@ public class Game {
 	public void addGameListener(GameListener listener) {
 		gameListeners.add(listener);
 	}
-
-
-
-
-	//return if it's 2-Player's mode or PC-mode
-
 
 	public void playThisCardIfPossible(UnoCard unoCard) throws GameIsOverException, NotYourTurnException
 			, InvalidMoveException {
@@ -351,8 +268,6 @@ public class Game {
 
 	//request to play a card
 	private void playThisCard(UnoCard clickedCard) throws NotYourTurnException, InvalidMoveException {
-
-
 		// Check player's turn
 		if (!isHisTurn(clickedCard)) {
 			throw new NotYourTurnException();
@@ -361,8 +276,6 @@ public class Game {
 			// Card validation
 			if (isValidMove(clickedCard)) {
 
-//				clickedCard.removeMouseListener(CARDLISTENER);
-//				clickedCard.disableMouseListener();
 				playedCards().add(clickedCard);
 
 				removePlayedCard(clickedCard);
@@ -375,17 +288,10 @@ public class Game {
 
                 }
 
-//                if (clickedCard instanceof  WildCard) {
-//                    performWild((WildCard) clickedCard);
-//                }
-
-
-
 				for (GameListener listener : gameListeners) {
 					listener.cardPlayed(clickedCard);
 				}
 
-//				gameView.updatePanel(clickedCard);
 				checkResults();
 				if (!isOver()) {
 				    switchTurn();
@@ -395,45 +301,15 @@ public class Game {
 				throw new InvalidMoveException();
 
 			}
-
-//
-
-			// This is so the pc should play when it it's turn
-//			if(gamemode== vsPC && canPlay()){ //todo projectbot
-//				if(pc.isMyTurn()){
-//                    System.out.println("!!! Pc start round");
-//					pc.playRound();
-//				}
-//			}
 		}
-
-
-
-
 	}
 
 	//Check if the game is over
 	private void checkResults() {
-
 		if (isOver()) {
-//			canPlay = false;
 			for (GameListener gameListener : gameListeners) {
 				gameListener.gameOverCallback();
 			}
 		}
-	}
-
-	public void requestCard() {
-		drawCard();
-
-
-
-//		// This is so that the PC should play when it it's turn
-//		if(gamemode==vsPC && canPlay()){ // todo: projectbot
-//			if(pc.isMyTurn())
-//				pc.playRound();
-//		}
-
-
 	}
 }

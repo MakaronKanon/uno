@@ -29,7 +29,6 @@ public class GameView extends JPanel {
 		setPreferredSize(new Dimension(960,720));
 		setBackground(new Color(30,36,40));
 		setLayout(new BorderLayout());
-		//InfoPanel infoPanel = new InfoPanel();
 
 		this.infoPanel = new InfoPanel();
 
