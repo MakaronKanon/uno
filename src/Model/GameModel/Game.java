@@ -269,8 +269,6 @@ public class Game {
 
 				removePlayedCard(clickedCard);
 
-
-
 				// function cards ??
                 if (clickedCard instanceof ActionCard) {
                     performAction(clickedCard);
@@ -282,14 +280,20 @@ public class Game {
 				}
 
 				checkResults();
-				if (!isOver()) {
-				    switchTurn();
-                }
-//                switchTurn();
 			} else {
 				throw new InvalidMoveException();
 
 			}
+		}
+	}
+
+	/**
+	 * Called when player is finished playing and next turn should be called
+	 */
+	public void playerFinishedGoNext() {
+		// If game is over we don't want to switch turn.
+		if (!isOver()) {
+			switchTurn();
 		}
 	}
 

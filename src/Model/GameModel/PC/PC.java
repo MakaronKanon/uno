@@ -35,7 +35,6 @@ public class PC extends Player {
                     return; // When this is reached it has already played the card
                 } catch (PCCantPlayException e) {
                     game.currentPlayerDrawCard();
-                    e.printStackTrace();
                 }
             }
 
@@ -44,16 +43,8 @@ public class PC extends Player {
                  play();
             } catch (PCCantPlayException e) {
                 game.cantPlayGoNext();
-                return;
             }
         }
-
-        // After we have played card check if we need to say uno
-        System.out.println("After play round PC");
-        //todo: bug, this code does not run since we play the card it keeps going from there
-        // so this is just added to stack-frame, and it keeps growing
-        if(getTotalCards()==1 || getTotalCards()==2)
-            sayUno();
     }
 
     /**
@@ -97,6 +88,12 @@ public class PC extends Player {
 	private void playThisCard(UnoCard card) {
         try {
             game.playThisCardIfPossible(card);
+            
+            // After played card, before next round, check if PC needs to say UNO
+            if(getTotalCards()==1 || getTotalCards()==2)
+                sayUno();
+            game.playerFinishedGoNext();
+
         } catch (Exception e) {
             // Should not be called since we have checked for prerequisites
             e.printStackTrace();
@@ -108,15 +105,10 @@ public class PC extends Player {
 	    super.yourTurnStarted();
         System.out.println("!!!! PC turn started");
         playRound();
-
-//        playRound();
-    }
+	}
 
     @Override
     public void yourTurnEnded() {
 	    super.yourTurnEnded();
-
-
-        System.out.println("Pc turn ended");
-    }
+	}
 }

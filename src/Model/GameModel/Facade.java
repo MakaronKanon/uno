@@ -37,6 +37,7 @@ public class Facade {
             NotYourTurnException, InvalidMoveException {
         // For now simply delegate to game.
         game.playThisCardIfPossible(unoCard);
+        game.playerFinishedGoNext(); // Go next player
     }
 
 
