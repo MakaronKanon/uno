@@ -2,7 +2,7 @@ import javax.swing.*;
 
 import Model.GameModel.Facade;
 import Model.GameModel.Game;
-import Model.GameModel.PC;
+import Model.GameModel.PC.PC;
 import Model.GameModel.Player;
 import GameSettings.GameConstants;
 import Controller.Controller;

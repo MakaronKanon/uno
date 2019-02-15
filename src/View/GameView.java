@@ -42,6 +42,7 @@ public class GameView extends JPanel {
 		Player player1 = players.get(0);
 		Player player2 = players.get(1);
 
+		//todo: fix this maybe, do we have a double dependency?
 		PlayerPanelController playerPanelController = new PlayerPanelController(player1, controller, facade);
 		PlayerPanelController playerPanelController2 = new PlayerPanelController(player2, controller, facade);
 		player1panel = new PlayerPanel(playerPanelController);

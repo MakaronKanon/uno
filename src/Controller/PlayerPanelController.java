@@ -59,7 +59,7 @@ public class PlayerPanelController {
     }
 
     /**
-     * Should be called when player clicked the drawCard-button
+     * Should be called when player clicked the currentPlayerDrawCard-button
      */
     public void drawBtnClicked() {
         // todo: maybe catch exception. such as notYourTurn / gameOver

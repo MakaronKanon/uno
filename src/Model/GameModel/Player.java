@@ -119,13 +119,13 @@ public class Player {
 	}
 
 	public void drawCard() {
-		game.drawCard();
-//		obtainCard(game.getCard());
+		game.currentPlayerDrawCard();
+//		obtainCard(game.getNextCard());
 		drawnCardsThisRound++;
 		if (drawnCardsThisRound == 3 && !canPlay()) {
 			game.cantPlayGoNext();
 		}
-//		game.getCard();
+//		game.getNextCard();
 //		game.requestCard(); // Add cardsDrawn this round
 	}
 

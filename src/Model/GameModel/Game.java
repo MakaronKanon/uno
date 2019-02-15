@@ -56,7 +56,7 @@ public class Game {
 		dealer = new Dealer();
 
 		// First Card
-		UnoCard firstCard = getCard();
+		UnoCard firstCard = getNextCard();
 		playedCards().add(firstCard);
 
 		dealer.spreadOut(players);
@@ -70,7 +70,11 @@ public class Game {
 		return players;
 	}
 
-	public UnoCard getCard() {
+	/**
+	 *
+	 * @return the next card from the dealer.
+	 */
+	public UnoCard getNextCard() {
 		return dealer.getCard();
 	}
 	
@@ -84,8 +88,8 @@ public class Game {
 				    for (GameListener listener : gameListeners) {
 				        listener.forgotToSayUno(p.getName());
                     }
-					p.obtainCard(getCard());
-					p.obtainCard(getCard());
+					p.obtainCard(getNextCard());
+					p.obtainCard(getNextCard());
 				}else if(p.getTotalCards()>2){
 					p.setSaidUNOFalse();
 				}
@@ -97,28 +101,14 @@ public class Game {
 	public void cantPlayGoNext() {
 	    switchTurn();
     }
-	
-	//give player a card
-	public void drawCard() {
-		UnoCard topCard = getTopCard();
-		boolean canPlay = false;
 
+	/**
+	 * Gives the current player the next card from cardDeck.
+	 */
+	public void currentPlayerDrawCard() {
         Player currentPlayer = turnManager.currentPlayer();
-        UnoCard newCard = getCard();
+        UnoCard newCard = getNextCard();
         currentPlayer.obtainCard(newCard);
-        canPlay = canPlay(topCard, newCard);
-
-//		currentPlayer
-//		for (Player p : players) {
-//			if (p.isMyTurn()) {
-//				p.obtainCard(newCard);
-//				canPlay = canPlay(topCard, newCard);
-//				break;
-//			}
-//		}
-
-//		if (!canPlay) // todo: come up with better way to switch turn
-//			switchTurn();
 
         for (GameListener gameListener : gameListeners) {
             gameListener.cardDrawn();
@@ -137,7 +127,7 @@ public class Game {
 	public void drawPlus(int times) {
 	    Player nextPlayer = turnManager.nextPlayer();
 	    for (int i = 0; i < times; i++) {
-	        nextPlayer.obtainCard(getCard());
+	        nextPlayer.obtainCard(getNextCard());
         }
 	}
 
