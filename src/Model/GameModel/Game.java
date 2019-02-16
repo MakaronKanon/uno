@@ -12,6 +12,7 @@ import Model.CardModel.SpecialCards.ReverseActionCard;
 import Model.CardModel.SpecialCards.SkipActionCard;
 import Model.CardModel.UnoCard;
 import Model.CardModel.WildCard;
+import Model.Tuple.Tuple;
 
 public class Game {
 
@@ -158,14 +159,12 @@ public class Game {
 	    return dealer.cardsLeftCount();
 	}
 
-	public int[] playedCardsSize() {
-		int[] nr = new int[2];
-		int i = 0;
-		for (Player p : players) {
-			nr[i] = p.totalPlayedCards();
-			i++;
-		}
-		return nr;
+	public Tuple<Integer, Integer> getPlayersPlayedCardsCount() {
+	    // Todo: this is hardcoded for 2 players, think of how it would work for n players.
+	    int player1Count = players[0].totalPlayedCards();
+	    int player2Count = players[1].totalPlayedCards();
+
+		return new Tuple<>(player1Count, player2Count);
 	}
 
 	//Check if this card can be played

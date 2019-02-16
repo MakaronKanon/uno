@@ -1,6 +1,7 @@
 package Model.GameModel;
 
 import Model.CardModel.UnoCard;
+import Model.Tuple.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +74,8 @@ public class Facade {
      * @return a List of all the players.
      */
     public List<Player> getPlayers() {
-
-        //todo, we should make a defensive copy, but it probably should be in Game getPlayers as well.
-        // temporarily we convert from array to list
+        //todo: this is ugly, maybe return game.getPlayers() who returns an iterator from turnManager.
+        //todo: then we can remove players array in game.
         List<Player> players = new ArrayList<>();
         Player[] oldPlayers = game.getPlayers();
         players.add(oldPlayers[0]);
@@ -84,22 +84,24 @@ public class Facade {
     }
 
     /**
-     * @return the last placed card
+     * @return the last placed card (the card that is shown)
      */
-    //todo: this is mainly needed to feed the view its first card to display
-    // we should have a stream from a cardstack or something that updates the card on top.
-    // A stream that we can fetch last placed card.
     public UnoCard getLastPlayedCard() {
         return game.getTopCard();
     }
 
-    //todo: this is just copied from game, might want to rethink design
+
+    /**
+     * @return how many cards that are left in the deck.
+     */
     public int getRemainingCardsCount() {
         return game.remainingCards();
     }
 
-    //todo: this is just copied from game, might want to rethink design
-    public int[] getPlayedCards() {
-        return game.playedCardsSize();
+    /**
+     * @return the players played cards, left value is player1's cards right player2's.
+     */
+    public Tuple<Integer, Integer> getPlayersPlayedCardsCount() {
+        return game.getPlayersPlayedCardsCount();
     }
 }

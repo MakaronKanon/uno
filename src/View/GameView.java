@@ -12,6 +12,7 @@ import Model.GameModel.Facade;
 import Model.GameModel.Player;
 import Controller.Controller;
 import Controller.PlayerPanelController;
+import Model.Tuple.Tuple;
 
 public class GameView extends JPanel {
 	private PlayerPanel player1panel;
@@ -81,7 +82,6 @@ public class GameView extends JPanel {
 	 */
 	public void displayError(String errorMsg) {
 		infoPanel.setError(errorMsg);
-		infoPanel.repaint();
 	}
 
 	/**
@@ -90,7 +90,6 @@ public class GameView extends JPanel {
 	 */
 	public void updateText(String gameOver) {
 		infoPanel.updateText(gameOver);
-		infoPanel.repaint();
 	}
 
 	/**
@@ -100,8 +99,7 @@ public class GameView extends JPanel {
 	 */
 	//todo: the structure of using this method is little bad, should it update automatically and
 	//todo: playedCards is really cryptic
-	public void updateDetail(int[] playedCards, int remainingCards) {
+	public void updateDetail(Tuple<Integer, Integer> playedCards, int remainingCards) {
 		infoPanel.setDetail(playedCards, remainingCards);
-		infoPanel.repaint();
 	}
 }

@@ -1,4 +1,6 @@
 package View;
+import Model.Tuple.Tuple;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,8 +18,14 @@ public class InfoPanel extends JPanel {
 	private int you = 0;
 	private int pc = 0;
 	private int rest = 0;
-	
-	public InfoPanel(){
+
+	// Font to displays text
+    private Font adjustedFont = new Font("Calibri", Font.PLAIN,	25);
+    // FontMetrics to display text
+    private FontMetrics fm = this.getFontMetrics(adjustedFont);
+
+
+    public InfoPanel(){
 		setPreferredSize(new Dimension(275,200));
 		setOpaque(false);
 		error = "";
@@ -37,10 +45,8 @@ public class InfoPanel extends JPanel {
 
 	private void printError(Graphics g) {
 		if(!error.isEmpty()){
-			Font adjustedFont = new Font("Calibri", Font.PLAIN,	25);
-			
+
 			//Determine the width of the word to position
-			FontMetrics fm = this.getFontMetrics(adjustedFont);
 			int xPos = panelCenter - fm.stringWidth(error) / 2;
 			
 			g.setFont(adjustedFont);
@@ -52,10 +58,7 @@ public class InfoPanel extends JPanel {
 	}
 
 	private void printMessage(Graphics g) {
-		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);	
-		
 		//Determine the width of the word to position
-		FontMetrics fm = this.getFontMetrics(adjustedFont);
 		int xPos = panelCenter - fm.stringWidth(text) / 2;
 		
 		g.setFont(adjustedFont);
@@ -64,8 +67,6 @@ public class InfoPanel extends JPanel {
 	}
 	
 	private void printDetail(Graphics g){
-		Font adjustedFont = new Font("Calibri", Font.BOLD,	25);	
-		FontMetrics fm = this.getFontMetrics(adjustedFont);
 		g.setColor(new Color(127,127,127));
 		
 		//Determine the width of the word to position
@@ -80,30 +81,30 @@ public class InfoPanel extends JPanel {
 		g.drawString(text, xPos, 180);
 		
 		//Details
-		adjustedFont = new Font("Calibri", Font.PLAIN,	20);
-		g.setFont(adjustedFont);
-		fm = this.getFontMetrics(adjustedFont);
+        Font smallPlainFont = new Font("Calibri", Font.PLAIN,	20);
+
+		g.setFont(smallPlainFont);
+		fm = this.getFontMetrics(smallPlainFont);
 		
 		text = "You : "+you + "  PC : " + pc;
 		xPos = panelCenter - fm.stringWidth(text) / 2;
 		g.drawString(text, xPos, 140);
-		
-		text = String.valueOf(rest);
-		xPos = panelCenter - fm.stringWidth(text) / 2;
-		//g.drawString(text, xPos, 190);
 	}
 
 	public void updateText(String newText) {
 		text = newText;
+		repaint();
 	}
 	
 	public void setError(String errorMgs){
 		error = errorMgs;
+		repaint();
 	}
 	
-	public void setDetail(int[] playedCards, int remaining){
-		you = playedCards[1];
-		pc = playedCards[0];
-		rest = remaining;
+	public void setDetail(Tuple<Integer, Integer> playedCards, int remainingCards){
+		you = playedCards.getRight();
+		pc = playedCards.getLeft();
+		rest = remainingCards;
+		repaint();
 	}
 }

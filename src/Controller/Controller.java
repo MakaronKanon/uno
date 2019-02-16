@@ -8,6 +8,7 @@ import Model.GameModel.GameListener;
 import Model.GameModel.InvalidMoveException;
 import Model.GameModel.NotYourTurnException;
 import Model.GameModel.Player;
+import Model.Tuple.Tuple;
 import View.GameView;
 import View.SelectWildCardView;
 
@@ -78,7 +79,7 @@ public class Controller implements GameListener {
         gameView.updateText(newPlayerName + "'s Turn");
 
         int remainingCards = facade.getRemainingCardsCount();
-        int[] playedCards = facade.getPlayedCards();
+        Tuple<Integer, Integer> playedCards = facade.getPlayersPlayedCardsCount();
         gameView.updateDetail(playedCards, remainingCards);
     }
 
