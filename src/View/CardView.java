@@ -16,33 +16,23 @@ import javax.swing.border.Border;
 import Model.CardModel.UnoCard;
 import Controller.UNOCardController;
 
+/**
+ * CardView represents a UnoCard
+ * Draws using Swing's paintComponent
+ * It has a reference to a UnoCard to now what color to draw
+ */
 public class CardView extends JPanel {
 
 	private final static Dimension SIZE = new Dimension(100, 150);
 
-	private UnoCard unoCardModel;
-
-	public UnoCard getModelUnoCard() {
-		return unoCardModel;
-	}
+	private final UnoCard unoCardModel;
 
 	public CardView(UnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
-		this();
 		this.unoCardModel = unoCardModel;
-	}
-
-	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
-	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
-
-	private UNOCardController unoCardController;
-
-	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
-
-	public CardView(){
 
 		this.setPreferredSize(SIZE);
 		this.setBorder(defaultBorder);
-		
+
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e){
 				setBorder(focusedBorder);
@@ -60,16 +50,23 @@ public class CardView extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				System.out.println("Unocard clicked");
 				if (listenerEnabled)
-					unoCardController.cardClicked(e);
+					unoCardController.cardClicked(e, unoCardModel);
 			}
 		});
 	}
+
+	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
+	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
+
+	private UNOCardController unoCardController;
+
+	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
 
 	public void setUnoCardController(UNOCardController unoCardController) {
 		this.unoCardController = unoCardController;
 	}
 
-	public void disableMouseListener() {
+	void disableMouseListener() {
 		listenerEnabled = false;
 	}
 	
@@ -111,16 +108,10 @@ public class CardView extends JPanel {
 		//Value in the corner
 		defaultFont = new Font("Helvetica", Font.ITALIC, cardWidth/5);		
 		fm = this.getFontMetrics(defaultFont);
-		StringWidth = fm.stringWidth(value)/2;
-		FontHeight = defaultFont.getSize()*1/3;
 		
 		g2.setColor(Color.white);
 		g2.setFont(defaultFont);
 		g2.drawString(value, 2*margin,5*margin);		
-	}
-	
-	public void setCardSize(Dimension newSize){
-		this.setPreferredSize(newSize);
 	}
 
 	public Color getColor() {
@@ -128,7 +119,7 @@ public class CardView extends JPanel {
 	}
 
 
-	public String getValue() {
+	String getValue() {
 		return unoCardModel.getValue();
 	}
 

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CardModel.UnoCard;
 import Model.GameModel.Player;
 import View.CardView;
 
@@ -35,9 +36,9 @@ public class UNOCardController {
         cardView.setLocation(p);
     }
 
-    public void cardClicked(MouseEvent e) {
+    public void cardClicked(MouseEvent e, UnoCard cardClicked) {
 
-        controller.playCard(player, cardView.getModelUnoCard());
+        controller.playCard(player, cardClicked);
     }
 
 }
