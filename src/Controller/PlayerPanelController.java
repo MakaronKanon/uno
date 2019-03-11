@@ -49,10 +49,10 @@ public class PlayerPanelController {
     public List<CardView> getPlayerCards() {
         List<CardView> cardViews = new ArrayList<>();
         for (UnoCard card : player.getAllCards()) {
-            CardView cardView = new CardView(card);
             UNOCardController unoCardController = new UNOCardController(player, controller);
+            CardView cardView = new CardView(card, unoCardController);
             unoCardController.setCardView(cardView);
-            cardView.setUnoCardController(unoCardController);
+            //cardView.setUnoCardController(unoCardController);
             cardViews.add(cardView);
         }
         return cardViews;

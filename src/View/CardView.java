@@ -23,11 +23,25 @@ import Controller.UNOCardController;
  */
 public class CardView extends JPanel {
 
-	private final static Dimension SIZE = new Dimension(100, 150);
-
+	// The UNOCard-model this view represent
 	private final UnoCard unoCardModel;
 
-	public CardView(UnoCard unoCardModel) { // this is the future constructor for this viewUnoCard
+	// Cardsize in pixels
+	private final static Dimension SIZE = new Dimension(100, 150);
+	// Border that is set normally
+	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
+	// Border that it set when hovered
+	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
+
+
+	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
+
+	/**
+	 * Creates a CardView
+	 * @param unoCardModel the UnoCard that should be represented
+	 * @param unoCardController, the controller that handle mouse events etc.
+	 */
+	public CardView(UnoCard unoCardModel, UNOCardController unoCardController) { // this is the future constructor for this viewUnoCard
 		this.unoCardModel = unoCardModel;
 
 		this.setPreferredSize(SIZE);
@@ -55,17 +69,7 @@ public class CardView extends JPanel {
 		});
 	}
 
-	private Border defaultBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.white, Color.gray);
-	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
-
-	private UNOCardController unoCardController;
-
-	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
-
-	public void setUnoCardController(UNOCardController unoCardController) {
-		this.unoCardController = unoCardController;
-	}
-
+	// todo: bad to keep state in view
 	void disableMouseListener() {
 		listenerEnabled = false;
 	}
@@ -75,8 +79,8 @@ public class CardView extends JPanel {
 		// info needed to paint
 		int cardWidth = SIZE.width;
 		int cardHeight = SIZE.height;
-		Color cardColor = getColor();
-		String value = getValue();
+		Color cardColor = unoCardModel.getColor();
+		String value = unoCardModel.getValue();
 
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -90,16 +94,16 @@ public class CardView extends JPanel {
 		
 		g2.setColor(Color.white);
 		AffineTransform org = g2.getTransform();
-		g2.rotate(45,cardWidth*3/4,cardHeight*3/4);		
+		g2.rotate(45,cardWidth*3.0/4,cardHeight*3.0/4);
 
-		g2.fillOval(0,cardHeight*1/4,cardWidth*3/5, cardHeight);
+		g2.fillOval(0,cardHeight/4,cardWidth*3/5, cardHeight);
 		g2.setTransform(org);		
 		
 		//Value in the center		
 		Font defaultFont = new Font("Helvetica", Font.BOLD, cardWidth/2+5);		
 		FontMetrics fm = this.getFontMetrics(defaultFont);
 		int StringWidth = fm.stringWidth(value)/2;
-		int FontHeight = defaultFont.getSize()*1/3;
+		int FontHeight = defaultFont.getSize()/3;
 		
 		g2.setColor(cardColor);
 		g2.setFont(defaultFont);
@@ -107,22 +111,14 @@ public class CardView extends JPanel {
 		
 		//Value in the corner
 		defaultFont = new Font("Helvetica", Font.ITALIC, cardWidth/5);		
-		fm = this.getFontMetrics(defaultFont);
-		
+
 		g2.setColor(Color.white);
 		g2.setFont(defaultFont);
 		g2.drawString(value, 2*margin,5*margin);		
 	}
 
-	public Color getColor() {
-		return unoCardModel.getColor();
-	}
 
-
-	String getValue() {
-		return unoCardModel.getValue();
-	}
-
+	//todo: why is this needed?
 	public Dimension getSize() {
 		return SIZE;
 	}

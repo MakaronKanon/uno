@@ -38,7 +38,8 @@ public class TablePanel extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 
-		CardView cardView = new CardView(topCard);
+		// todo, passing null is bad
+		CardView cardView = new CardView(topCard, null);
 		cardView.disableMouseListener();
 		table.add(cardView, c);
 	}
