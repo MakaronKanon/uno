@@ -33,9 +33,6 @@ public class CardView extends JPanel {
 	// Border that it set when hovered
 	private Border focusedBorder = BorderFactory.createEtchedBorder(WHEN_FOCUSED, Color.black, Color.gray);
 
-
-	private boolean listenerEnabled = true; //todo this is temp, used for card on the board
-
 	/**
 	 * Creates a CardView
 	 * @param unoCardModel the UnoCard that should be represented
@@ -50,28 +47,19 @@ public class CardView extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e){
 				setBorder(focusedBorder);
-				if (listenerEnabled)
-					unoCardController.cardHovered(e);
+				unoCardController.cardHovered(e);
 			}
 
 			public void mouseExited(MouseEvent e){
 				setBorder(defaultBorder);
-				if (listenerEnabled)
-					unoCardController.cardStopHovered(e);
+				unoCardController.cardStopHovered(e);
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Unocard clicked");
-				if (listenerEnabled)
-					unoCardController.cardClicked(e, unoCardModel);
+				unoCardController.cardClicked(e, unoCardModel);
 			}
 		});
-	}
-
-	// todo: bad to keep state in view
-	void disableMouseListener() {
-		listenerEnabled = false;
 	}
 	
 	protected void paintComponent(Graphics g){
