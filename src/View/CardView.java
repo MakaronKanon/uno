@@ -38,7 +38,7 @@ public class CardView extends JPanel {
 	 * @param unoCardModel the UnoCard that should be represented
 	 * @param unoCardController, the controller that handle mouse events etc.
 	 */
-	public CardView(UnoCard unoCardModel, UNOCardController unoCardController) { // this is the future constructor for this viewUnoCard
+	public CardView(UnoCard unoCardModel, UNOCardController unoCardController) {
 		this.unoCardModel = unoCardModel;
 
 		this.setPreferredSize(SIZE);
@@ -61,7 +61,11 @@ public class CardView extends JPanel {
 			}
 		});
 	}
-	
+
+	/**
+	 * Renders the card, color, value etc.
+	 * @param g, Swing Graphics object
+	 */
 	protected void paintComponent(Graphics g){
 
 		// info needed to paint
@@ -106,7 +110,10 @@ public class CardView extends JPanel {
 	}
 
 
-	//todo: why is this needed?
+	/**
+	 * @return the dimension (size) of this card
+	 */
+	@Override
 	public Dimension getSize() {
 		return SIZE;
 	}
